@@ -6,17 +6,25 @@
     <meta name="description" content="SSAMC - African Medicine and Vocational Training Institute">
     <title>SSAMC | Education & Skills Development</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Add Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #2A5C3C;
+            --primary-light: #3a7c54;
+            --primary-dark: #1c3c28;
             --secondary: #D4A017;
+            --secondary-light: #e4b53c;
+            --secondary-dark: #b58a12;
+            --accent: #8E44AD;
             --dark: #1A2F1D;
             --light: #F4F5ED;
+            --white: #FFFFFF;
+            --gray: #6c757d;
+            --gray-light: #f8f9fa;
+            --text: #333333;
+            --text-light: #6c757d;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -26,11 +34,22 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: var(--light);
-            color: var(--dark);
+            color: var(--text);
             line-height: 1.6;
-            padding-top: 70px;
+            padding-top: 80px;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
         }
 
         /* Navigation */
@@ -38,10 +57,11 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255,255,255,0.95);
-            padding: 1rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
             z-index: 1000;
+            transition: var(--transition);
         }
 
         .nav-content {
@@ -53,9 +73,16 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
             font-weight: bold;
             color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--secondary);
         }
 
         .nav-links {
@@ -67,20 +94,44 @@
         .nav-links a {
             text-decoration: none;
             color: var(--dark);
-            transition: color 0.3s;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
         }
 
         .nav-links a:hover {
-            color: var(--secondary);
+            color: var(--primary);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
         }
 
         /* Admin Login Button */
         .admin-login {
             background: var(--primary);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
             text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .admin-login:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
         }
 
         /* Hero Section */
@@ -89,15 +140,31 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(rgba(42,92,60,0.9), rgba(42,92,60,0.8)), url('https://images.unsplash.com/photo-1604881991720-f91add269bed');
+            background: linear-gradient(rgba(42,92,60,0.85), rgba(42,92,60,0.8)), url('https://images.unsplash.com/photo-1604881991720-f91add269bed');
             background-size: cover;
+            background-position: center;
             color: white;
             text-align: center;
             padding: 2rem;
+            position: relative;
         }
 
         .hero-content {
+            max-width: 800px;
             animation: slideUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
         }
 
         @keyframes slideUp {
@@ -107,26 +174,62 @@
 
         .cta-button {
             display: inline-block;
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             margin-top: 2rem;
             background: var(--secondary);
             color: white;
-            border-radius: 30px;
+            border-radius: 50px;
             text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.3s;
-            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
             border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(212, 160, 23, 0.3);
         }
 
         .cta-button:hover {
-            transform: scale(1.05);
+            background: var(--secondary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(212, 160, 23, 0.4);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-heading h2 {
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-heading h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .section-heading p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         /* About Section */
         .about {
-            padding: 5rem 2rem;
-            background: white;
+            background: var(--white);
         }
 
         .about-content {
@@ -136,31 +239,36 @@
 
         .mission-section {
             display: grid;
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
             margin-top: 3rem;
         }
 
         .mission-card, .vision-box {
             background: var(--light);
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .mission-card:hover, .vision-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
 
         .icon {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .mission-item p {
-            margin-bottom: 1rem;
-            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            padding: 1rem;
+            background: rgba(42, 92, 60, 0.1);
+            border-radius: 50%;
         }
 
         /* Programs Section */
         .programs {
-            padding: 5rem 2rem;
             background: var(--light);
         }
 
@@ -172,66 +280,116 @@
         }
 
         .program-card {
-            background: white;
-            padding: 2rem;
+            background: var(--white);
+            padding: 2.5rem 2rem;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
             text-align: center;
+            border-top: 4px solid var(--primary);
         }
 
         .program-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
 
         .program-card i {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            padding: 1.5rem;
+            background: rgba(42, 92, 60, 0.1);
+            border-radius: 50%;
+        }
+
+        .program-card h3 {
+            font-size: 1.5rem;
             margin-bottom: 1rem;
         }
 
         /* Fees Section */
         .fees {
-            padding: 5rem 2rem;
-            background: white;
+            background: var(--white);
         }
 
         .fees-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
 
         .fee-card {
             background: var(--light);
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             text-align: center;
+            transition: var(--transition);
+            border-bottom: 4px solid var(--secondary);
+        }
+
+        .fee-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
 
         .fee-card i {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            padding: 1.5rem;
+            background: rgba(42, 92, 60, 0.1);
+            border-radius: 50%;
+        }
+
+        .fee-card h3 {
+            font-size: 1.5rem;
             margin-bottom: 1rem;
+        }
+
+        .fee-card p {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
         }
 
         /* Gallery Section */
         .gallery {
-            padding: 5rem 2rem;
             background: var(--light);
         }
 
-        .gallery h2 {
-            text-align: center;
-            margin-bottom: 2rem;
+        .gallery-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .gallery-categories button {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .gallery-categories button:hover,
+        .gallery-categories button.active {
+            background: var(--primary);
+            color: white;
         }
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
@@ -239,15 +397,16 @@
             position: relative;
             overflow: hidden;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             aspect-ratio: 1 / 1;
+            cursor: pointer;
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s;
+            transition: transform 0.5s ease;
         }
 
         .gallery-item:hover img {
@@ -259,11 +418,11 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(42, 92, 60, 0.8);
+            background: rgba(42, 92, 60, 0.9);
             color: white;
-            padding: 1rem;
+            padding: 1.2rem;
             transform: translateY(100%);
-            transition: transform 0.3s;
+            transition: var(--transition);
         }
 
         .gallery-item:hover .gallery-caption {
@@ -272,31 +431,49 @@
 
         /* Application Form */
         .application {
-            padding: 5rem 2rem;
-            background: white;
+            background: var(--white);
         }
 
         .application-form {
             max-width: 800px;
             margin: 0 auto;
+            background: var(--light);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
         }
 
         .form-row {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 1.5rem;
             margin-bottom: 1.5rem;
         }
 
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary);
         }
 
         input, select, textarea {
             width: 100%;
-            padding: 0.8rem;
-            border: 2px solid var(--light);
+            padding: 1rem;
+            border: 2px solid #e9ecef;
             border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(42, 92, 60, 0.2);
         }
 
         .program-select {
@@ -307,38 +484,56 @@
         }
 
         .program-option {
-            border: 2px solid var(--light);
-            padding: 1rem;
+            border: 2px solid #e9ecef;
+            padding: 1.5rem;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .program-option:hover {
+            border-color: var(--primary-light);
+            background: rgba(42, 92, 60, 0.05);
         }
 
         .program-option.selected {
             border-color: var(--primary);
-            background: rgba(42,92,60,0.05);
+            background: rgba(42, 92, 60, 0.1);
+        }
+
+        .program-option h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .program-option p {
+            color: var(--secondary);
+            font-weight: 600;
         }
 
         /* Form Enhancements */
         .form-section {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: rgba(42,92,60,0.05);
+            margin: 2.5rem 0;
+            padding: 2rem;
+            background: var(--white);
             border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
         }
 
         .form-section h3 {
             color: var(--primary);
             margin-bottom: 1.5rem;
-            border-bottom: 2px solid var(--secondary);
             padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
         }
 
         .banking-info {
-            background: white;
+            background: var(--white);
             padding: 1.5rem;
             border-radius: 10px;
             margin: 1rem 0;
+            border-left: 4px solid var(--secondary);
         }
 
         .banking-info p {
@@ -350,6 +545,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            margin: 1.5rem 0;
         }
 
         .terms label {
@@ -358,7 +554,6 @@
 
         /* Contact Section */
         .contact {
-            padding: 5rem 2rem;
             background: var(--light);
             text-align: center;
         }
@@ -366,24 +561,42 @@
         .contact-details {
             max-width: 600px;
             margin: 0 auto;
-            background: white;
-            padding: 2rem;
+            background: var(--white);
+            padding: 3rem;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
         }
 
         .contact-details i {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--primary);
             margin-bottom: 1rem;
+            display: inline-block;
+            padding: 1rem;
+            background: rgba(42, 92, 60, 0.1);
+            border-radius: 50%;
+        }
+
+        .contact-details h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-details p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
         }
 
         /* Footer */
         footer {
             background: var(--dark);
             color: white;
-            padding: 3rem 2rem;
+            padding: 4rem 2rem;
             text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .social-icons {
@@ -394,6 +607,17 @@
             color: white;
             margin: 0 1rem;
             font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         /* Admin Login Modal */
@@ -412,372 +636,265 @@
 
         .modal-content {
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
+            padding: 2.5rem;
+            border-radius: 15px;
             width: 90%;
             max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .modal h2 {
             margin-bottom: 1.5rem;
             color: var(--primary);
+            text-align: center;
         }
 
         .modal input {
             width: 100%;
-            padding: 0.8rem;
-            margin-bottom: 1rem;
-            border: 2px solid var(--light);
+            padding: 1rem;
+            margin-bottom: 1.2rem;
+            border: 2px solid #e9ecef;
             border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal input:focus {
+            outline: none;
+            border-color: var(--primary);
         }
 
         .modal button {
             width: 100%;
-            padding: 0.8rem;
+            padding: 1rem;
             background: var(--primary);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
         }
 
-        /* Admin Dashboard */
-        .admin-dashboard {
+        .modal button:hover {
+            background: var(--primary-light);
+        }
+
+        /* Admin Panel Styles */
+        .admin-panel {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 2000;
+            top: 80px;
+            right: 0;
+            width: 300px;
+            height: calc(100vh - 80px);
+            background: var(--white);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 999;
             overflow-y: auto;
+            padding: 1.5rem;
         }
 
-        .admin-header {
-            background: var(--primary);
-            color: white;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .admin-nav {
-            background: var(--dark);
-            padding: 1rem;
-        }
-
-        .admin-nav ul {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-        }
-
-        .admin-nav a {
-            color: white;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .admin-content {
-            padding: 2rem;
+        .admin-panel h3 {
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
         }
 
         .admin-section {
-            display: none;
             margin-bottom: 2rem;
         }
 
-        .admin-section.active {
-            display: block;
-        }
-
-        .edit-area {
-            margin-bottom: 1.5rem;
-        }
-
-        .edit-area textarea {
-            width: 100%;
-            min-height: 200px;
-            padding: 1rem;
-            border: 2px solid var(--light);
-            border-radius: 8px;
-        }
-
-        .gallery-manager {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .gallery-manager-item {
-            position: relative;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .gallery-manager-item img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-        }
-
-        .gallery-manager-item .actions {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: rgba(0,0,0,0.7);
-            padding: 0.5rem;
-        }
-
-        .gallery-manager-item .actions button {
-            background: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 0.3rem 0.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .add-image-form {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: var(--light);
-            border-radius: 8px;
-        }
-
-        /* Board Members Manager */
-        .board-members-manager {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .board-member-card {
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 1rem;
-            background: white;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        .board-member-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
+        .admin-section h4 {
             margin-bottom: 1rem;
-        }
-
-        .board-member-card h4 {
-            margin-bottom: 0.5rem;
             color: var(--primary);
+            font-size: 1.1rem;
         }
 
-        .board-member-card p {
-            color: var(--dark);
+        .color-picker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
             margin-bottom: 1rem;
         }
 
-        /* Enhanced Admin Features */
-        .admin-toolbar {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1001;
-            background: var(--primary);
-            color: white;
-            padding: 10px;
+        .color-option {
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #eee;
         }
 
-        .admin-toolbar i {
-            font-size: 24px;
+        .color-option.active {
+            box-shadow: 0 0 0 2px var(--primary);
         }
 
-        .admin-quick-menu {
+        .admin-toggle {
             position: fixed;
-            bottom: 80px;
+            top: 90px;
             right: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            padding: 10px;
-            display: none;
-            z-index: 1001;
-        }
-
-        .admin-quick-menu button {
-            display: block;
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
             background: var(--primary);
             color: white;
-            border: none;
-            border-radius: 5px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            z-index: 1001;
+            box-shadow: var(--shadow);
+        }
+
+        .edit-mode-indicator {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            z-index: 1001;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+            display: none;
         }
 
         .editable {
             position: relative;
-            border: 1px dashed transparent;
-            transition: border 0.3s;
+            min-height: 20px;
         }
 
         .editable:hover {
-            border-color: var(--secondary);
+            outline: 2px dashed rgba(212, 160, 23, 0.5);
         }
 
-        .editable::after {
-            content: '✏️';
+        .edit-tooltip {
             position: absolute;
-            top: 5px;
-            right: 5px;
-            font-size: 12px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .editable:hover::after {
-            opacity: 1;
-        }
-
-        .admin-edit-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: none;
+            top: -10px;
+            right: -10px;
+            background: var(--secondary);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 2001;
+            font-size: 12px;
+            cursor: pointer;
+            opacity: 0;
+            transition: var(--transition);
         }
 
-        .admin-edit-modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 600px;
-        }
-
-        .admin-edit-modal textarea {
-            width: 100%;
-            min-height: 200px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border: 2px solid var(--light);
-            border-radius: 8px;
-        }
-
-        .admin-edit-modal-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
-        }
-
-        .program-editor {
-            border: 1px solid #ddd;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 8px;
+        .editable:hover .edit-tooltip {
+            opacity: 1;
         }
 
         .image-upload-container {
-            border: 2px dashed #ccc;
-            padding: 2rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            cursor: pointer;
+            position: relative;
+            display: inline-block;
         }
 
-        .image-preview {
-            max-width: 100%;
-            max-height: 200px;
-            margin-top: 1rem;
-            display: none;
-        }
-
-        /* Success/Error Messages */
-        .alert {
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left: 4px solid var(--primary);
-            border-radius: 50%;
+        .image-upload-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
             width: 30px;
             height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-            display: none;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Enhanced Modal Styles */
-        .modal.show {
+            border-radius: 50%;
             display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            transform: translateY(-20px);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
             opacity: 0;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
-        .modal.show .modal-content {
-            transform: translateY(0);
+        .image-upload-container:hover .image-upload-btn {
             opacity: 1;
         }
 
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-heading h2 {
+                font-size: 2.2rem;
+            }
+        }
+
         @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
             .nav-links {
                 display: none;
             }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .section-heading h2 {
+                font-size: 2rem;
+            }
+            
             .programs-grid, .fees-grid, .gallery-grid {
                 grid-template-columns: 1fr;
             }
-            .admin-nav ul {
-                flex-direction: column;
-                gap: 0.5rem;
+            
+            .application-form {
+                padding: 1.5rem;
             }
-            .board-members-manager {
+            
+            .form-row {
                 grid-template-columns: 1fr;
+            }
+            
+            .mission-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-panel {
+                width: 250px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-button {
+                padding: 0.8rem 2rem;
+            }
+            
+            .section-heading h2 {
+                font-size: 1.8rem;
+            }
+            
+            .mission-card, .vision-box, .program-card, .fee-card {
+                padding: 1.5rem;
+            }
+            
+            .contact-details {
+                padding: 2rem 1.5rem;
             }
         }
     </style>
@@ -786,7 +903,7 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-content">
-            <div class="logo editable" data-content-type="text" data-target="logo">SSAMC</div>
+            <div class="logo">SSA<span>MC</span></div>
             <div class="nav-links">
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
@@ -800,479 +917,277 @@
         </div>
     </nav>
 
-    <!-- Admin Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <h2>Admin Login</h2>
-            <div id="loginMessage"></div>
-            <input type="text" id="adminUsername" placeholder="Username">
-            <input type="password" id="adminPassword" placeholder="Password">
-            <button id="loginSubmit">Login</button>
-            <div class="spinner" id="loginSpinner"></div>
-        </div>
-    </div>
-
-    <!-- Admin Dashboard -->
-    <div class="admin-dashboard" id="adminDashboard">
-        <div class="admin-header">
-            <h2>SSAMC Admin Dashboard</h2>
-            <button id="logoutBtn">Logout</button>
-        </div>
-        <div class="admin-nav">
-            <ul>
-                <li><a href="#" data-section="contentEditor">Edit Content</a></li>
-                <li><a href="#" data-section="programsEditor">Edit Programs</a></li>
-                <li><a href="#" data-section="feesEditor">Edit Fees</a></li>
-                <li><a href="#" data-section="galleryManager">Manage Gallery</a></li>
-                <li><a href="#" data-section="boardMembersManager">Manage Board Members</a></li>
-                <li><a href="#" data-section="applicationsView">View Applications</a></li>
-                <li><a href="#" data-section="settings">Settings</a></li>
-            </ul>
-        </div>
-        <div class="admin-content">
-            <!-- Content Editor Section -->
-            <div class="admin-section" id="contentEditor">
-                <h3>Edit Website Content</h3>
-                
-                <div class="edit-area">
-                    <h4>Hero Section</h4>
-                    <label>Main Heading</label>
-                    <input type="text" id="heroHeading" placeholder="Hero Heading">
-                    <label>Subheading</label>
-                    <input type="text" id="heroSubheading" placeholder="Hero Subheading">
-                    <label>Button Text</label>
-                    <input type="text" id="heroButtonText" placeholder="Button Text">
-                    <button class="cta-button" onclick="saveHeroContent()">Save Hero Content</button>
-                </div>
-                
-                <div class="edit-area">
-                    <h4>Mission Statement</h4>
-                    <textarea id="missionContent"></textarea>
-                    <button class="cta-button" onclick="saveContent('missionContent', 'mission-text')">Save Mission</button>
-                </div>
-                
-                <div class="edit-area">
-                    <h4>Vision Statement</h4>
-                    <textarea id="visionContent"></textarea>
-                    <button class="cta-button" onclick="saveContent('visionContent', 'vision-text')">Save Vision</button>
-                </div>
-                
-                <div class="edit-area">
-                    <h4>Contact Information</h4>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" id="contactEmail" placeholder="Contact Email">
-                        </div>
-                        <div class="form-group">
-                            <label>Phone (optional)</label>
-                            <input type="text" id="contactPhone" placeholder="Contact Phone">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Address (optional)</label>
-                            <textarea id="contactAddress" placeholder="Physical Address"></textarea>
-                        </div>
-                    </div>
-                    <button class="cta-button" onclick="saveContactInfo()">Save Contact Info</button>
-                </div>
-                
-                <div class="edit-area">
-                    <h4>Banking Information</h4>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Bank Name</label>
-                            <input type="text" id="bankName" placeholder="Bank Name">
-                        </div>
-                        <div class="form-group">
-                            <label>Account Holder</label>
-                            <input type="text" id="accountHolder" placeholder="Account Holder">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Account Number</label>
-                            <input type="text" id="accountNumber" placeholder="Account Number">
-                        </div>
-                        <div class="form-group">
-                            <label>Branch Code</label>
-                            <input type="text" id="branchCode" placeholder="Branch Code">
-                        </div>
-                    </div>
-                    <button class="cta-button" onclick="saveBankingInfo()">Save Banking Info</button>
-                </div>
-            </div>
-            
-            <!-- Programs Editor Section -->
-            <div class="admin-section" id="programsEditor">
-                <h3>Edit Programs</h3>
-                <div id="programsEditorContainer">
-                    <!-- Programs will be loaded here -->
-                </div>
-                <button class="cta-button" onclick="addNewProgram()">Add New Program</button>
-            </div>
-            
-            <!-- Fees Editor Section -->
-            <div class="admin-section" id="feesEditor">
-                <h3>Edit Program Fees</h3>
-                <div id="feesEditorContainer">
-                    <!-- Fees will be loaded here -->
-                </div>
-            </div>
-            
-            <!-- Gallery Manager Section -->
-            <div class="admin-section" id="galleryManager">
-                <h3>Manage Gallery Images</h3>
-                
-                <div class="gallery-manager" id="galleryManagerContainer">
-                    <!-- Gallery items will be loaded here -->
-                </div>
-                
-                <div class="add-image-form">
-                    <h4>Add New Image</h4>
-                    <div class="image-upload-container" id="imageUploadContainer">
-                        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #ccc;"></i>
-                        <p>Click to upload or drag and drop</p>
-                        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
-                        <img id="imagePreview" class="image-preview">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="newImageTitle" placeholder="Image Title">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="newImageCaption" placeholder="Image Caption">
-                    </div>
-                    <button class="cta-button" onclick="addGalleryImage()">Add Image</button>
-                </div>
-            </div>
-            
-            <!-- Board Members Manager Section -->
-            <div class="admin-section" id="boardMembersManager">
-                <h3>Manage Board Members</h3>
-                
-                <div class="board-members-manager" id="boardMembersManagerContainer">
-                    <!-- Board members will be loaded here -->
-                </div>
-                
-                <div class="add-image-form">
-                    <h4>Add New Board Member</h4>
-                    <div class="image-upload-container" id="boardMemberImageUploadContainer">
-                        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #ccc;"></i>
-                        <p>Click to upload board member photo</p>
-                        <input type="file" id="boardMemberImageUpload" accept="image/*" style="display: none;">
-                        <img id="boardMemberImagePreview" class="image-preview">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="text" id="newBoardMemberName" placeholder="Board Member Name">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="newBoardMemberPosition" placeholder="Position/Role">
-                        </div>
-                    </div>
-                    <button class="cta-button" onclick="addBoardMember()">Add Board Member</button>
-                </div>
-            </div>
-            
-            <!-- Applications View Section -->
-            <div class="admin-section" id="applicationsView">
-                <h3>Application Submissions</h3>
-                <div id="applicationsContainer">
-                    <!-- Applications will be listed here -->
-                </div>
-            </div>
-            
-            <!-- Settings Section -->
-            <div class="admin-section" id="settings">
-                <h3>Admin Settings</h3>
-                <div class="edit-area">
-                    <h4>Change Admin Password</h4>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="password" id="newPassword" placeholder="New Password">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" id="confirmPassword" placeholder="Confirm Password">
-                        </div>
-                    </div>
-                    <button class="cta-button" onclick="changePassword()">Change Password</button>
-                </div>
-                
-                <div class="edit-area">
-                    <h4>Export Data</h4>
-                    <button class="cta-button" onclick="exportData()">Export All Data as JSON</button>
-                    <button class="cta-button" onclick="exportApplications()">Export Applications as CSV</button>
-                </div>
-                
-                <div class="edit-area">
-                    <h4>Import Data</h4>
-                    <div class="form-group">
-                        <input type="file" id="importFile" accept=".json">
-                    </div>
-                    <button class="cta-button" onclick="importData()">Import Data</button>
-                </div>
-                
-                <div class="edit-area">
-                    <h4>Reset Website</h4>
-                    <p>This will reset all content to default settings. This action cannot be undone.</p>
-                    <button class="cta-button" style="background: #ff4d4d;" onclick="resetWebsite()">Reset Website</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Quick Edit Modal -->
-    <div class="admin-edit-modal" id="adminEditModal">
-        <div class="admin-edit-modal-content">
-            <h3 id="editModalTitle">Edit Content</h3>
-            <textarea id="editModalTextarea"></textarea>
-            <div class="admin-edit-modal-buttons">
-                <button class="cta-button" onclick="saveQuickEdit()">Save</button>
-                <button class="cta-button" style="background: #6c757d;" onclick="closeEditModal()">Cancel</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Toolbar -->
-    <div class="admin-toolbar" id="adminToolbar" style="display: none;">
+    <!-- Admin Toggle Button -->
+    <div class="admin-toggle" id="adminToggle">
         <i class="fas fa-cog"></i>
     </div>
-    
-    <div class="admin-quick-menu" id="adminQuickMenu">
-        <button onclick="openDashboard()">Full Dashboard</button>
-        <button onclick="enableEditMode()">Quick Edit Mode</button>
-        <button onclick="viewApplications()">View Applications</button>
-        <button onclick="logout()">Logout</button>
+
+    <!-- Edit Mode Indicator -->
+    <div class="edit-mode-indicator" id="editModeIndicator">
+        <i class="fas fa-edit"></i> Edit Mode Active
     </div>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1 class="editable" data-content-type="text" data-target="heroHeading">Empowering Communities Through Education</h1>
-            <p class="editable" data-content-type="text" data-target="heroSubheading">Traditional medicine and modern vocational training</p>
-            <a href="#apply" class="cta-button editable" data-content-type="text" data-target="heroButtonText">Enroll Now</a>
+            <h1 class="editable" data-content="hero-title">Empowering Communities Through Education
+                <span class="edit-tooltip" data-target="hero-title">✎</span>
+            </h1>
+            <p class="editable" data-content="hero-subtitle">Traditional medicine and modern vocational training for a brighter African future
+                <span class="edit-tooltip" data-target="hero-subtitle">✎</span>
+            </p>
+            <a href="#apply" class="cta-button">Enroll Now</a>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="about" id="about">
+    <section class="section about" id="about">
+        <div class="section-heading">
+            <h2 class="editable" data-content="about-title">About SSAMC
+                <span class="edit-tooltip" data-target="about-title">✎</span>
+            </h2>
+            <p class="editable" data-content="about-subtitle">Discover our mission, vision, and commitment to empowering African communities through education
+                <span class="edit-tooltip" data-target="about-subtitle">✎</span>
+            </p>
+        </div>
         <div class="about-content">
-            <h2 class="editable" data-content-type="text" data-target="aboutHeading">About SSAMC</h2>
             <div class="mission-section">
                 <div class="mission-card">
                     <i class="fas fa-bullseye icon"></i>
-                    <h3 class="editable" data-content-type="text" data-target="missionHeading">Our Mission</h3>
-                    <div class="mission-points">
-                        <div class="mission-item editable" id="mission-text" data-content-type="html" data-target="missionContent">
-                            <p>Sakhokuhle School of African Medicine and crafting Programs which are highly flexible and are geared towards 
-                                equipping and empowering African Health Practitioners who will change the world.</p>
-
-                            <p>All courses are ancestral and are available in print, disk downloaded digit format our courses are 
-                            available to everyone who meets our entrance requirements. Our entire course requires comprehensive study and self-discipline.</p>
-
-                            <p>Teaching and learning excellence are fundamental to the vision and mission of  
-                            SSAMC institution that is committed to provide high quality education as it strives towards the achievement of the provincial standards.</p>
-
-                            <p>The SSAMC's commitment to teaching and learning is innovative and responsive to society needs, 
-                            it is geared towards achieving the highest quality for student's development including curriculum review and quality assurance for scholarly excellence.</p>
-
-                            <p>The institution settled in the understanding that teaching and learning is a trans disciplinary issue, to a 
-                                large degree humanizing pedagogy and critical thinking in the context of the institution, humanizing pedagogy speaks to 
-                                both students and staff who should treat on another in a humane context.</p>
-
-                            <p>The institution aims to qualitatively and quantitatively grow its research outputs in niche 
-                                areas that will ensure that differentiates itself from other institutions, educators and innovators.</p>
-
-                            <p>SSAMC seeks to expand its current community engagement relationship and improve its community of practice by bringing more people together by 
-                                pooling wisdom and through integrating teaching, learning and research into indigenous knowledge system.
-                                The institution wishes to provide more supportive environment encompassing the entire student experience from academic intellectual 
-                                development to social aspects, including CRAFTING and cultural facilities to develop a well-balanced and rounded academic graduate.</p>
-
-                            <p>The institution promotes human resources as an ongoing strategy to train and equip all personnel, 
-                                thus promoting a service ethic of excellence and professionalism.</p>
-
-                            <p>A culture of lifelong inquiry and research is encouraged, as is the promotion of innovative teaching and 
-                                learning methodologies to spawn a new generation of thinkers. </p>
-
-                            <p>Ability to mentor motivates, train and inspire team players at all levels and facilitate comfortable interactions of the 
-                                    target audiences at local, national and international levels.</p>
-
-                            <p>Excellence in teaching and learning research and community engagement</p>
-                            the student experience ,
-                            Build a service culture ,
-                            Optimize the multi campus model ,
-                            Develop human resources ,
-                            Achieve financial viability and sustainability ,
-                            Institutional growth and development ,
-                            Infrastructure and assets management ,
-                            Resources management Short-term challenge
-                        </div>
-                    </div>
+                    <h3 class="editable" data-content="mission-title">Our Mission
+                        <span class="edit-tooltip" data-target="mission-title">✎</span>
+                    </h3>
+                    <p class="editable" data-content="mission-text-1">Sakhokuhle School of African Medicine and Crafting provides highly flexible programs geared towards equipping and empowering African Health Practitioners who will change the world.
+                        <span class="edit-tooltip" data-target="mission-text-1">✎</span>
+                    </p>
+                    <p class="editable" data-content="mission-text-2">All courses are rooted in ancestral knowledge and are available in various formats to everyone who meets our entrance requirements.
+                        <span class="edit-tooltip" data-target="mission-text-2">✎</span>
+                    </p>
                 </div>
                 <div class="vision-box">
                     <i class="fas fa-eye icon"></i>
-                    <h3 class="editable" data-content-type="text" data-target="visionHeading">Our Vision</h3>
-                    <div class="editable" id="vision-text" data-content-type="html" data-target="visionContent">
-                        <p>INTEGRITY: To respect and affirm the dignity,  equality, freedom and rich cultural diversity of all human beings as 
-                           the basis for peace and social justice the pursuit of truth, intellectual honesty and openness to ideas.</p>
-
-                        <p>EXCELLENCE: To be recognized as an international centre for excellence that is both rooted in its environment and 
-                        sensitive to the challenges of many human progress and to foster a culture of teaching and learning and research 
-                        excellence  in the institution as a basic minimum requirement for living up to the claim of being a site of knowledge generation.</p>
-
-                        <p>INNOVATION: To focus on the challenges presented by new information technologies, 
-                        information management systems and processes and opportunities for innovation and to do so in an 
-                        enterprising way that benefits the institution and humanity.</p>
-
-                        <p>ETHICS: The attainment of the highest professional  and ethical standards in 
-                        teaching learning and research community engagement and corporate governance</p>
-                    </div>
+                    <h3 class="editable" data-content="vision-title">Our Vision
+                        <span class="edit-tooltip" data-target="vision-title">✎</span>
+                    </h3>
+                    <p class="editable" data-content="vision-text-1">To be recognized as an international center for excellence that is both rooted in its environment and sensitive to the challenges of human progress.
+                        <span class="edit-tooltip" data-target="vision-text-1">✎</span>
+                    </p>
+                    <p class="editable" data-content="vision-text-2">To foster a culture of teaching, learning, and research excellence as a basic minimum requirement for being a site of knowledge generation.
+                        <span class="edit-tooltip" data-target="vision-text-2">✎</span>
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Programs Section -->
-    <section class="programs" id="programs">
-        <h2 class="editable" data-content-type="text" data-target="programsHeading">Our Programs</h2>
+    <section class="section programs" id="programs">
+        <div class="section-heading">
+            <h2 class="editable" data-content="programs-title">Our Programs
+                <span class="edit-tooltip" data-target="programs-title">✎</span>
+            </h2>
+            <p class="editable" data-content="programs-subtitle">Comprehensive training programs designed to empower you with practical skills and knowledge
+                <span class="edit-tooltip" data-target="programs-subtitle">✎</span>
+            </p>
+        </div>
         <div class="programs-grid">
             <div class="program-card">
                 <i class="fas fa-mortar-pestle"></i>
-                <h3 class="editable" data-content-type="text" data-target="program1Title">Traditional Medicine</h3>
-                <p class="editable" data-content-type="html" data-target="program1Desc">Comprehensive training in traditional African medicine, herbal remedies, and holistic healing practices.</p>
+                <h3 class="editable" data-content="program-1-title">Traditional Medicine
+                    <span class="edit-tooltip" data-target="program-1-title">✎</span>
+                </h3>
+                <p class="editable" data-content="program-1-desc">Comprehensive training in traditional African medicine, herbal remedies, and holistic healing practices.
+                    <span class="edit-tooltip" data-target="program-1-desc">✎</span>
+                </p>
             </div>
             <div class="program-card">
                 <i class="fas fa-seedling"></i>
-                <h3 class="editable" data-content-type="text" data-target="program2Title">Herbalism</h3>
-                <p class="editable" data-content-type="html" data-target="program2Desc">Learn to identify, cultivate, and prepare medicinal plants for health and wellness.</p>
+                <h3 class="editable" data-content="program-2-title">Herbalism
+                    <span class="edit-tooltip" data-target="program-2-title">✎</span>
+                </h3>
+                <p class="editable" data-content="program-2-desc">Learn to identify, cultivate, and prepare medicinal plants for health and wellness.
+                    <span class="edit-tooltip" data-target="program-2-desc">✎</span>
+                </p>
             </div>
             <div class="program-card">
                 <i class="fas fa-cut"></i>
-                <h3 class="editable" data-content-type="text" data-target="program3Title">Tailoring & Design</h3>
-                <p class="editable" data-content-type="html" data-target="program3Desc">Master the art of fashion design, pattern making, and garment construction.</p>
+                <h3 class="editable" data-content="program-3-title">Tailoring & Design
+                    <span class="edit-tooltip" data-target="program-3-title">✎</span>
+                </h3>
+                <p class="editable" data-content="program-3-desc">Master the art of fashion design, pattern making, and garment construction.
+                    <span class="edit-tooltip" data-target="program-3-desc">✎</span>
+                </p>
             </div>
             <div class="program-card">
                 <i class="fas fa-utensils"></i>
-                <h3 class="editable" data-content-type="text" data-target="program4Title">Culinary Arts</h3>
-                <p class="editable" data-content-type="html" data-target="program4Desc">Develop professional cooking skills and learn about traditional African cuisine.</p>
+                <h3 class="editable" data-content="program-4-title">Culinary Arts
+                    <span class="edit-tooltip" data-target="program-4-title">✎</span>
+                </h3>
+                <p class="editable" data-content="program-4-desc">Develop professional cooking skills and learn about traditional African cuisine.
+                    <span class="edit-tooltip" data-target="program-4-desc">✎</span>
+                </p>
             </div>
         </div>
     </section>
 
     <!-- Fees Section -->
-    <section class="fees" id="fees">
-        <h2 class="editable" data-content-type="text" data-target="feesHeading">Program Fees</h2>
+    <section class="section fees" id="fees">
+        <div class="section-heading">
+            <h2 class="editable" data-content="fees-title">Program Fees
+                <span class="edit-tooltip" data-target="fees-title">✎</span>
+            </h2>
+            <p class="editable" data-content="fees-subtitle">Affordable education options with flexible payment plans
+                <span class="edit-tooltip" data-target="fees-subtitle">✎</span>
+            </p>
+        </div>
         <div class="fees-grid">
             <div class="fee-card">
                 <i class="fas fa-mortar-pestle"></i>
-                <h3 class="editable" data-content-type="text" data-target="fee1Title">Traditional Medicine</h3>
-                <p class="editable" data-content-type="text" data-target="fee1Amount">R5,000 per semester</p>
+                <h3 class="editable" data-content="fee-1-title">Traditional Medicine
+                    <span class="edit-tooltip" data-target="fee-1-title">✎</span>
+                </h3>
+                <p class="editable" data-content="fee-1-price">R5,000 per semester
+                    <span class="edit-tooltip" data-target="fee-1-price">✎</span>
+                </p>
             </div>
             <div class="fee-card">
                 <i class="fas fa-seedling"></i>
-                <h3 class="editable" data-content-type="text" data-target="fee2Title">Herbalism</h3>
-                <p class="editable" data-content-type="text" data-target="fee2Amount">R4,500 per semester</p>
+                <h3 class="editable" data-content="fee-2-title">Herbalism
+                    <span class="edit-tooltip" data-target="fee-2-title">✎</span>
+                </h3>
+                <p class="editable" data-content="fee-2-price">R4,500 per semester
+                    <span class="edit-tooltip" data-target="fee-2-price">✎</span>
+                </p>
             </div>
             <div class="fee-card">
                 <i class="fas fa-cut"></i>
-                <h3 class="editable" data-content-type="text" data-target="fee3Title">Tailoring & Design</h3>
-                <p class="editable" data-content-type="text" data-target="fee3Amount">R4,000 per semester</p>
+                <h3 class="editable" data-content="fee-3-title">Tailoring & Design
+                    <span class="edit-tooltip" data-target="fee-3-title">✎</span>
+                </h3>
+                <p class="editable" data-content="fee-3-price">R4,000 per semester
+                    <span class="edit-tooltip" data-target="fee-3-price">✎</span>
+                </p>
             </div>
             <div class="fee-card">
                 <i class="fas fa-utensils"></i>
-                <h3 class="editable" data-content-type="text" data-target="fee4Title">Culinary Arts</h3>
-                <p class="editable" data-content-type="text" data-target="fee4Amount">R4,200 per semester</p>
+                <h3 class="editable" data-content="fee-4-title">Culinary Arts
+                    <span class="edit-tooltip" data-target="fee-4-title">✎</span>
+                </h3>
+                <p class="editable" data-content="fee-4-price">R4,200 per semester
+                    <span class="edit-tooltip" data-target="fee-4-price">✎</span>
+                </p>
             </div>
         </div>
     </section>
 
     <!-- Gallery Section -->
-    <section class="gallery" id="gallery">
-        <h2 class="editable" data-content-type="text" data-target="galleryHeading">Our Gallery</h2>
-        <div class="gallery-grid" id="galleryGrid">
-            <!-- Gallery items will be dynamically added here -->
+    <section class="section gallery" id="gallery">
+        <div class="section-heading">
+            <h2 class="editable" data-content="gallery-title">Our Gallery
+                <span class="edit-tooltip" data-target="gallery-title">✎</span>
+            </h2>
+            <p class="editable" data-content="gallery-subtitle">Explore our campus, students, and activities through our photo gallery
+                <span class="edit-tooltip" data-target="gallery-subtitle">✎</span>
+            </p>
+        </div>
+        
+        <div class="gallery-categories">
+            <button class="active">All</button>
+            <button>Board Members</button>
+            <button>NPO Gallery</button>
+            <button>Events</button>
+        </div>
+        
+        <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1584697964358-3e14ca57658b" alt="Students learning">
-                <div class="gallery-caption">Students in traditional medicine class</div>
+                <div class="image-upload-container">
+                    <img src="https://images.unsplash.com/photo-1584697964358-3e14ca57658b" alt="Students learning" data-image="gallery-img-1">
+                    <div class="image-upload-btn" data-target="gallery-img-1">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <div class="gallery-caption editable" data-content="gallery-caption-1">Students in traditional medicine class
+                    <span class="edit-tooltip" data-target="gallery-caption-1">✎</span>
+                </div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c" alt="Crafting class">
-                <div class="gallery-caption">Tailoring and design workshop</div>
+                <div class="image-upload-container">
+                    <img src="https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b" alt="Herbal garden" data-image="gallery-img-2">
+                    <div class="image-upload-btn" data-target="gallery-img-2">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <div class="gallery-caption editable" data-content="gallery-caption-2">Our medicinal herb garden
+                    <span class="edit-tooltip" data-target="gallery-caption-2">✎</span>
+                </div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf" alt="Teamwork">
-                <div class="gallery-caption">Students collaborating on a project</div>
+                <div class="image-upload-container">
+                    <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5" alt="Tailoring class" data-image="gallery-img-3">
+                    <div class="image-upload-btn" data-target="gallery-img-3">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <div class="gallery-caption editable" data-content="gallery-caption-3">Tailoring and design workshop
+                    <span class="edit-tooltip" data-target="gallery-caption-3">✎</span>
+                </div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3" alt="Graduation">
-                <div class="gallery-caption">Graduation ceremony celebration</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754" alt="Culinary class">
-                <div class="gallery-caption">Culinary arts training session</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b" alt="Herbal garden">
-                <div class="gallery-caption">Our medicinal herb garden</div>
+                <div class="image-upload-container">
+                    <img src="https://images.unsplash.com/photo-1555244162-803834f70033" alt="Cooking class" data-image="gallery-img-4">
+                    <div class="image-upload-btn" data-target="gallery-img-4">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <div class="gallery-caption editable" data-content="gallery-caption-4">Culinary arts training session
+                    <span class="edit-tooltip" data-target="gallery-caption-4">✎</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Application Form Section -->
-    <section class="application" id="apply">
-        <h2 class="editable" data-content-type="text" data-target="applyHeading">Application Form</h2>
+    <!-- Application Section -->
+    <section class="section application" id="apply">
+        <div class="section-heading">
+            <h2 class="editable" data-content="apply-title">Apply Now
+                <span class="edit-tooltip" data-target="apply-title">✎</span>
+            </h2>
+            <p class="editable" data-content="apply-subtitle">Begin your journey with SSAMC by completing our application form
+                <span class="edit-tooltip" data-target="apply-subtitle">✎</span>
+            </p>
+        </div>
+        
         <div class="application-form">
             <form id="enrollmentForm">
-                <div class="form-section">
-                    <h3 class="editable" data-content-type="text" data-target="personalInfoHeading">Personal Information</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" name="fullName" required>
-                        </div>
-                        <div class="form-group">
-                            <label>ID Number</label>
-                            <input type="text" name="idNumber" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Date of Birth</label>
-                            <input type="date" name="dob" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Gender</label>
-                            <select name="gender" required>
-                                <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h3 class="editable" data-content-type="text" data-target="contactInfoHeading">Contact Information</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="tel" name="phone" required>
-                        </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required>
                     </div>
                     <div class="form-group">
-                        <label>Physical Address</label>
-                        <textarea name="address" rows="3" required></textarea>
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" required>
                     </div>
                 </div>
-
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Residential Address</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                
                 <div class="form-section">
-                    <h3 class="editable" data-content-type="text" data-target="programInfoHeading">Program Selection</h3>
+                    <h3>Select Your Program</h3>
                     <div class="program-select">
                         <div class="program-option" data-program="traditional-medicine">
                             <h4>Traditional Medicine</h4>
@@ -1282,1293 +1197,312 @@
                             <h4>Herbalism</h4>
                             <p>R4,500 per semester</p>
                         </div>
-                        <div class="program-option" data-program="tailoring-design">
+                        <div class="program-option" data-program="tailoring">
                             <h4>Tailoring & Design</h4>
                             <p>R4,000 per semester</p>
                         </div>
-                        <div class="program-option" data-program="culinary-arts">
+                        <div class="program-option" data-program="culinary">
                             <h4>Culinary Arts</h4>
                             <p>R4,200 per semester</p>
                         </div>
                     </div>
-                    <input type="hidden" name="selectedProgram" id="selectedProgram" required>
+                    <input type="hidden" id="selectedProgram" name="selectedProgram" required>
                 </div>
-
+                
                 <div class="form-section">
-                    <h3 class="editable" data-content-type="text" data-target="educationInfoHeading">Educational Background</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Highest Qualification</label>
-                            <input type="text" name="qualification" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Year Completed</label>
-                            <input type="number" name="completionYear" min="1950" max="2023" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Previous Experience (if any)</label>
-                        <textarea name="experience" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h3 class="editable" data-content-type="text" data-target="paymentInfoHeading">Payment Information</h3>
+                    <h3>Payment Information</h3>
                     <div class="banking-info">
-                        <p><strong>Bank Name:</strong> <span id="bankNameDisplay">Standard Bank</span></p>
-                        <p><strong>Account Holder:</strong> <span id="accountHolderDisplay">Sakhokuhle School of African Medicine</span></p>
-                        <p><strong>Account Number:</strong> <span id="accountNumberDisplay">0123456789</span></p>
-                        <p><strong>Branch Code:</strong> <span id="branchCodeDisplay">051001</span></p>
-                        <p>Please use your ID Number as reference when making payment.</p>
+                        <p><strong>Bank Name:</strong> Standard Bank</p>
+                        <p><strong>Account Name:</strong> Sakhokuhle School of African Medicine and Crafting</p>
+                        <p><strong>Account Number:</strong> 0123456789</p>
+                        <p><strong>Branch Code:</strong> 123456</p>
+                        <p><strong>Reference:</strong> Your Full Name + Program</p>
                     </div>
+                    
                     <div class="form-group">
-                        <label>Payment Proof (Upload receipt)</label>
-                        <input type="file" name="paymentProof" accept="image/*,.pdf" required>
+                        <label for="paymentProof">Upload Proof of Payment (PDF or Image)</label>
+                        <input type="file" id="paymentProof" name="paymentProof" accept=".pdf,.jpg,.jpeg,.png" required>
                     </div>
                 </div>
-
-                <div class="form-section">
-                    <div class="terms">
-                        <input type="checkbox" id="termsAgree" name="termsAgree" required>
-                        <label for="termsAgree">I agree to the terms and conditions</label>
-                    </div>
+                
+                <div class="terms">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the terms and conditions and confirm that all information provided is accurate</label>
                 </div>
-
+                
                 <button type="submit" class="cta-button">Submit Application</button>
             </form>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <h2 class="editable" data-content-type="text" data-target="contactHeading">Contact Us</h2>
+    <section class="section contact" id="contact">
+        <div class="section-heading">
+            <h2 class="editable" data-content="contact-title">Contact Us
+                <span class="edit-tooltip" data-target="contact-title">✎</span>
+            </h2>
+            <p class="editable" data-content="contact-subtitle">Get in touch with us for more information or inquiries
+                <span class="edit-tooltip" data-target="contact-subtitle">✎</span>
+            </p>
+        </div>
+        
         <div class="contact-details">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3 class="editable" data-content="address-title">Our Address
+                <span class="edit-tooltip" data-target="address-title">✎</span>
+            </h3>
+            <p class="editable" data-content="address-text">123 Education Street, Knowledge City, South Africa
+                <span class="edit-tooltip" data-target="address-text">✎</span>
+            </p>
+            
+            <i class="fas fa-phone"></i>
+            <h3 class="editable" data-content="phone-title">Phone Number
+                <span class="edit-tooltip" data-target="phone-title">✎</span>
+            </h3>
+            <p class="editable" data-content="phone-text">+27 12 345 6789
+                <span class="edit-tooltip" data-target="phone-text">✎</span>
+            </p>
+            
             <i class="fas fa-envelope"></i>
-            <h3 class="editable" data-content-type="text" data-target="emailHeading">Email Us</h3>
-            <p class="editable" data-content-type="text" data-target="contactEmail">info@ssamc.edu.za</p>
-            
-            <i class="fas fa-phone" style="margin-top: 2rem;"></i>
-            <h3 class="editable" data-content-type="text" data-target="phoneHeading">Call Us</h3>
-            <p class="editable" data-content-type="text" data-target="contactPhone">+27 12 345 6789</p>
-            
-            <i class="fas fa-map-marker-alt" style="margin-top: 2rem;"></i>
-            <h3 class="editable" data-content-type="text" data-target="addressHeading">Visit Us</h3>
-            <p class="editable" data-content-type="text" data-target="contactAddress">123 Education Street, Knowledge City, South Africa</p>
+            <h3 class="editable" data-content="email-title">Email Address
+                <span class="edit-tooltip" data-target="email-title">✎</span>
+            </h3>
+            <p class="editable" data-content="email-text">info@ssamc.co.za
+                <span class="edit-tooltip" data-target="email-text">✎</span>
+            </p>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2023 Sakhokuhle School of African Medicine and Crafting. All rights reserved.</p>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
+        <div class="footer-content">
+            <div class="logo">SSA<span>MC</span></div>
+            <p class="editable" data-content="footer-text">Empowering communities through education and skills development
+                <span class="edit-tooltip" data-target="footer-text">✎</span>
+            </p>
+            
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            
+            <div class="copyright editable" data-content="copyright-text">© 2023 Sakhokuhle School of African Medicine and Crafting. All rights reserved.
+                <span class="edit-tooltip" data-target="copyright-text">✎</span>
+            </div>
         </div>
     </footer>
 
+    <!-- Admin Login Modal -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <h2>Admin Login</h2>
+            <form id="adminLoginForm">
+                <input type="text" placeholder="Username" id="adminUsername" required>
+                <input type="password" placeholder="Password" id="adminPassword" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <h3>Admin Controls</h3>
+        
+        <div class="admin-section">
+            <h4>Color Scheme</h4>
+            <div class="color-picker">
+                <div class="color-option active" style="background-color: #2A5C3C;" data-color="primary"></div>
+                <div class="color-option" style="background-color: #1A2F1D;" data-color="dark"></div>
+                <div class="color-option" style="background-color: #D4A017;" data-color="secondary"></div>
+                <div class="color-option" style="background-color: #8E44AD;" data-color="accent"></div>
+                <div class="color-option" style="background-color: #1c3c28;" data-color="primary-dark"></div>
+                <div class="color-option" style="background-color: #3a7c54;" data-color="primary-light"></div>
+            </div>
+        </div>
+        
+        <div class="admin-section">
+            <h4>Content Management</h4>
+            <p>Click on any text content on the page to edit it directly.</p>
+            <p>Hover over images to change them.</p>
+        </div>
+        
+        <div class="admin-section">
+            <h4>Save Changes</h4>
+            <button id="saveChanges" class="cta-button" style="width: 100%;">Save All Changes</button>
+            <button id="resetDefaults" class="cta-button" style="width: 100%; margin-top: 10px; background-color: #6c757d;">Reset to Default</button>
+        </div>
+    </div>
+
     <script>
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDxbu4aKsLmxLXNiSYErenOom8uBWesn4o",
-            authDomain: "sakhokuhle-8a6a4.firebaseapp.com",
-            projectId: "sakhokuhle-8a6a4",
-            storageBucket: "sakhokuhle-8a6a4.firebasestorage.app",
-            messagingSenderId: "686457877947",
-            appId: "1:686457877947:web:60d56b00006e28e03f409e",
-            measurementId: "G-SFLDPXTJYV"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        const storage = firebase.storage();
-
-        // DOM Elements
-        const loginModal = document.getElementById('loginModal');
-        const adminDashboard = document.getElementById('adminDashboard');
-        const adminLoginBtn = document.getElementById('adminLoginBtn');
-        const loginSubmit = document.getElementById('loginSubmit');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const adminToolbar = document.getElementById('adminToolbar');
-        const adminQuickMenu = document.getElementById('adminQuickMenu');
-        const enrollmentForm = document.getElementById('enrollmentForm');
-        const programOptions = document.querySelectorAll('.program-option');
-        const selectedProgramInput = document.getElementById('selectedProgram');
-        const adminSections = document.querySelectorAll('.admin-section');
-        const adminNavLinks = document.querySelectorAll('.admin-nav a');
-        const loginMessage = document.getElementById('loginMessage');
-        const loginSpinner = document.getElementById('loginSpinner');
-
-        // Admin credentials
-        const ADMIN_USERNAME = "Admin";
-        const ADMIN_PASSWORD = "Admin@123";
-
-        // State variables
-        let isAdminLoggedIn = false;
-        let currentEditElement = null;
-        let currentEditType = null;
-        let currentEditTarget = null;
-
-        // Initialize the application
-        function init() {
+        // Admin Panel Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Admin Login Modal
+            const adminLoginBtn = document.getElementById('adminLoginBtn');
+            const adminLoginModal = document.getElementById('adminLoginModal');
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            const adminPanel = document.getElementById('adminPanel');
+            const adminToggle = document.getElementById('adminToggle');
+            const editModeIndicator = document.getElementById('editModeIndicator');
+            const saveChangesBtn = document.getElementById('saveChanges');
+            const resetDefaultsBtn = document.getElementById('resetDefaults');
+            
+            // Default admin credentials (in a real application, these would be verified server-side)
+            const adminUsername = 'admin';
+            const adminPassword = 'password123';
+            
             // Check if admin is already logged in
-            if (localStorage.getItem('isAdminLoggedIn') === 'true') {
-                isAdminLoggedIn = true;
-                adminToolbar.style.display = 'block';
-                showAlert('Welcome back!', 'success');
+            if (localStorage.getItem('adminLoggedIn') === 'true') {
+                enableEditMode();
             }
-
-            // Load content from Firebase
-            loadContent();
-            loadGalleryImages();
-            loadBoardMembers();
-            loadApplications();
-            loadPrograms();
-            loadFees();
-
-            // Set up event listeners
-            setupEventListeners();
-        }
-
-        // Set up event listeners
-        function setupEventListeners() {
-            // Admin login
-            adminLoginBtn.addEventListener('click', (e) => {
+            
+            // Open admin login modal
+            adminLoginBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                showModal(loginModal);
+                adminLoginModal.style.display = 'flex';
             });
-
-            // Login submit
-            loginSubmit.addEventListener('click', handleLogin);
-
-            // Allow Enter key to submit login
-            document.getElementById('adminPassword').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    handleLogin();
-                }
-            });
-
-            // Logout
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', logout);
-            }
-
-            // Admin toolbar
-            adminToolbar.addEventListener('click', () => {
-                adminQuickMenu.style.display = adminQuickMenu.style.display === 'block' ? 'none' : 'block';
-            });
-
-            // Admin navigation
-            adminNavLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const sectionId = link.getAttribute('data-section');
-                    showAdminSection(sectionId);
-                });
-            });
-
-            // Program selection
-            programOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    programOptions.forEach(op => op.classList.remove('selected'));
-                    option.classList.add('selected');
-                    selectedProgramInput.value = option.getAttribute('data-program');
-                });
-            });
-
-            // Form submission
-            if (enrollmentForm) {
-                enrollmentForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    submitApplication();
-                });
-            }
-
-            // Image upload preview
-            const imageUploadContainer = document.getElementById('imageUploadContainer');
-            if (imageUploadContainer) {
-                imageUploadContainer.addEventListener('click', () => {
-                    document.getElementById('imageUpload').click();
-                });
-
-                document.getElementById('imageUpload').addEventListener('change', (e) => {
-                    if (e.target.files && e.target.files[0]) {
-                        const reader = new FileReader();
-                        reader.onload = (event) => {
-                            document.getElementById('imagePreview').src = event.target.result;
-                            document.getElementById('imagePreview').style.display = 'block';
-                        };
-                        reader.readAsDataURL(e.target.files[0]);
-                    }
-                });
-            }
-
-            // Board member image upload preview
-            const boardMemberImageUploadContainer = document.getElementById('boardMemberImageUploadContainer');
-            if (boardMemberImageUploadContainer) {
-                boardMemberImageUploadContainer.addEventListener('click', () => {
-                    document.getElementById('boardMemberImageUpload').click();
-                });
-
-                document.getElementById('boardMemberImageUpload').addEventListener('change', (e) => {
-                    if (e.target.files && e.target.files[0]) {
-                        const reader = new FileReader();
-                        reader.onload = (event) => {
-                            document.getElementById('boardMemberImagePreview').src = event.target.result;
-                            document.getElementById('boardMemberImagePreview').style.display = 'block';
-                        };
-                        reader.readAsDataURL(e.target.files[0]);
-                    }
-                });
-            }
-
+            
             // Close modal when clicking outside
-            window.addEventListener('click', (e) => {
-                if (e.target === loginModal) {
-                    hideModal(loginModal);
-                }
-                if (e.target === document.getElementById('adminEditModal')) {
-                    closeEditModal();
+            window.addEventListener('click', function(e) {
+                if (e.target === adminLoginModal) {
+                    adminLoginModal.style.display = 'none';
                 }
             });
-        }
-
-        // Handle login
-        function handleLogin() {
-            const username = document.getElementById('adminUsername').value;
-            const password = document.getElementById('adminPassword').value;
             
-            if (!username || !password) {
-                showAlert('Please enter both username and password', 'error');
-                return;
+            // Admin login form submission
+            adminLoginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('adminUsername').value;
+                const password = document.getElementById('adminPassword').value;
+                
+                if (username === adminUsername && password === adminPassword) {
+                    localStorage.setItem('adminLoggedIn', 'true');
+                    adminLoginModal.style.display = 'none';
+                    enableEditMode();
+                    alert('Admin login successful! Edit mode is now active.');
+                } else {
+                    alert('Invalid credentials. Please try again.');
+                }
+            });
+            
+            // Toggle admin panel
+            adminToggle.addEventListener('click', function() {
+                if (adminPanel.style.display === 'block') {
+                    adminPanel.style.display = 'none';
+                } else {
+                    adminPanel.style.display = 'block';
+                }
+            });
+            
+            // Enable edit mode function
+            function enableEditMode() {
+                document.querySelectorAll('.editable').forEach(el => {
+                    el.setAttribute('contenteditable', 'true');
+                });
+                
+                editModeIndicator.style.display = 'block';
+                adminToggle.style.display = 'flex';
             }
             
-            showSpinner(loginSpinner);
-            
-            // Simple authentication (in production, use Firebase Authentication)
-            setTimeout(() => {
-                if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-                    isAdminLoggedIn = true;
-                    localStorage.setItem('isAdminLoggedIn', 'true');
-                    hideModal(loginModal);
-                    adminToolbar.style.display = 'block';
-                    hideSpinner(loginSpinner);
-                    showAlert('Login successful!', 'success');
-                } else {
-                    hideSpinner(loginSpinner);
-                    showAlert('Invalid credentials. Please try again.', 'error');
-                }
-            }, 1000);
-        }
-
-        // Show modal with animation
-        function showModal(modal) {
-            modal.style.display = 'flex';
-            setTimeout(() => {
-                modal.classList.add('show');
-            }, 10);
-        }
-
-        // Hide modal with animation
-        function hideModal(modal) {
-            modal.classList.remove('show');
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 300);
-        }
-
-        // Show alert message
-        function showAlert(message, type) {
-            loginMessage.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
-            setTimeout(() => {
-                loginMessage.innerHTML = '';
-            }, 3000);
-        }
-
-        // Show spinner
-        function showSpinner(spinner) {
-            spinner.style.display = 'block';
-        }
-
-        // Hide spinner
-        function hideSpinner(spinner) {
-            spinner.style.display = 'none';
-        }
-
-        // Load content from Firebase
-        async function loadContent() {
-            try {
-                // Load text content
-                const contentElements = document.querySelectorAll('[data-target]');
-                for (const element of contentElements) {
-                    const target = element.getAttribute('data-target');
-                    const doc = await db.collection('content').doc(target).get();
+            // Color scheme changer
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.color-option').forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    this.classList.add('active');
                     
-                    if (doc.exists) {
-                        const data = doc.data();
-                        if (element.getAttribute('data-content-type') === 'html') {
-                            element.innerHTML = data.value;
-                        } else {
-                            element.textContent = data.value;
+                    const color = this.getAttribute('data-color');
+                    const colorValue = this.style.backgroundColor;
+                    
+                    document.documentElement.style.setProperty(`--${color}`, colorValue);
+                    
+                    // Store color changes
+                    let colorSettings = JSON.parse(localStorage.getItem('colorSettings')) || {};
+                    colorSettings[color] = colorValue;
+                    localStorage.setItem('colorSettings', JSON.stringify(colorSettings));
+                });
+            });
+            
+            // Apply saved color settings
+            const savedColorSettings = JSON.parse(localStorage.getItem('colorSettings'));
+            if (savedColorSettings) {
+                for (const [color, value] of Object.entries(savedColorSettings)) {
+                    document.documentElement.style.setProperty(`--${color}`, value);
+                    
+                    // Activate the corresponding color option
+                    document.querySelectorAll('.color-option').forEach(option => {
+                        if (option.style.backgroundColor === value) {
+                            option.classList.add('active');
                         }
+                    });
+                }
+            }
+            
+            // Save all changes
+            saveChangesBtn.addEventListener('click', function() {
+                // Save content edits
+                const contentEdits = {};
+                document.querySelectorAll('.editable').forEach(el => {
+                    const key = el.getAttribute('data-content');
+                    contentEdits[key] = el.innerHTML;
+                });
+                localStorage.setItem('contentEdits', JSON.stringify(contentEdits));
+                
+                alert('All changes have been saved successfully!');
+            });
+            
+            // Reset to defaults
+            resetDefaultsBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to reset all changes to default?')) {
+                    localStorage.removeItem('contentEdits');
+                    localStorage.removeItem('colorSettings');
+                    location.reload();
+                }
+            });
+            
+            // Apply saved content edits
+            const savedEdits = JSON.parse(localStorage.getItem('contentEdits'));
+            if (savedEdits) {
+                for (const [key, value] of Object.entries(savedEdits)) {
+                    const element = document.querySelector(`[data-content="${key}"]`);
+                    if (element) {
+                        element.innerHTML = value;
                     }
                 }
-
-                // Load banking info
-                const bankingDoc = await db.collection('content').doc('bankingInfo').get();
-                if (bankingDoc.exists) {
-                    const data = bankingDoc.data();
-                    document.getElementById('bankNameDisplay').textContent = data.bankName || 'Standard Bank';
-                    document.getElementById('accountHolderDisplay').textContent = data.accountHolder || 'Sakhokuhle School of African Medicine';
-                    document.getElementById('accountNumberDisplay').textContent = data.accountNumber || '0123456789';
-                    document.getElementById('branchCodeDisplay').textContent = data.branchCode || '051001';
-                }
-
-                // Pre-fill admin editor fields
-                if (isAdminLoggedIn) {
-                    const heroHeadingElem = document.querySelector('[data-target="heroHeading"]');
-                    if (heroHeadingElem) document.getElementById('heroHeading').value = heroHeadingElem.textContent;
-                    
-                    const heroSubheadingElem = document.querySelector('[data-target="heroSubheading"]');
-                    if (heroSubheadingElem) document.getElementById('heroSubheading').value = heroSubheadingElem.textContent;
-                    
-                    const heroButtonElem = document.querySelector('[data-target="heroButtonText"]');
-                    if (heroButtonElem) document.getElementById('heroButtonText').value = heroButtonElem.textContent;
-                    
-                    const missionElem = document.getElementById('mission-text');
-                    if (missionElem) document.getElementById('missionContent').value = missionElem.innerHTML;
-                    
-                    const visionElem = document.getElementById('vision-text');
-                    if (visionElem) document.getElementById('visionContent').value = visionElem.innerHTML;
-                    
-                    const contactEmailElem = document.querySelector('[data-target="contactEmail"]');
-                    if (contactEmailElem) document.getElementById('contactEmail').value = contactEmailElem.textContent;
-                    
-                    const contactPhoneElem = document.querySelector('[data-target="contactPhone"]');
-                    if (contactPhoneElem) document.getElementById('contactPhone').value = contactPhoneElem.textContent;
-                    
-                    const contactAddressElem = document.querySelector('[data-target="contactAddress"]');
-                    if (contactAddressElem) document.getElementById('contactAddress').value = contactAddressElem.textContent;
-                }
-            } catch (error) {
-                console.log("Error loading content:", error);
-            }
-        }
-
-        // Load programs from Firebase
-        async function loadPrograms() {
-            try {
-                const programsContainer = document.getElementById('programsEditorContainer');
-                if (!programsContainer) return;
-                
-                programsContainer.innerHTML = '';
-                
-                const snapshot = await db.collection('programs').orderBy('order').get();
-                
-                if (snapshot.empty) {
-                    // Add default programs if none exist
-                    await addDefaultPrograms();
-                    return;
-                }
-                
-                snapshot.forEach(doc => {
-                    const program = doc.data();
-                    addProgramToEditor(program, doc.id);
-                });
-            } catch (error) {
-                console.log("Error loading programs:", error);
-            }
-        }
-
-        // Add default programs
-        async function addDefaultPrograms() {
-            const defaultPrograms = [
-                {
-                    title: "Traditional Medicine",
-                    description: "Comprehensive training in traditional African medicine, herbal remedies, and holistic healing practices.",
-                    icon: "fas fa-mortar-pestle",
-                    order: 1
-                },
-                {
-                    title: "Herbalism",
-                    description: "Learn to identify, cultivate, and prepare medicinal plants for health and wellness.",
-                    icon: "fas fa-seedling",
-                    order: 2
-                },
-                {
-                    title: "Tailoring & Design",
-                    description: "Master the art of fashion design, pattern making, and garment construction.",
-                    icon: "fas fa-cut",
-                    order: 3
-                },
-                {
-                    title: "Culinary Arts",
-                    description: "Develop professional cooking skills and learn about traditional African cuisine.",
-                    icon: "fas fa-utensils",
-                    order: 4
-                }
-            ];
-            
-            for (const program of defaultPrograms) {
-                try {
-                    const docRef = await db.collection('programs').add(program);
-                    addProgramToEditor(program, docRef.id);
-                } catch (error) {
-                    console.log("Error adding default program:", error);
-                }
-            }
-        }
-
-        // Add program to editor
-        function addProgramToEditor(program, id) {
-            const programsContainer = document.getElementById('programsEditorContainer');
-            const programEditor = document.createElement('div');
-            programEditor.className = 'program-editor';
-            programEditor.innerHTML = `
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Program Title</label>
-                        <input type="text" value="${program.title}" id="programTitle-${id}">
-                    </div>
-                    <div class="form-group">
-                        <label>Icon Class (Font Awesome)</label>
-                        <input type="text" value="${program.icon}" id="programIcon-${id}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Description</label>
-                    <textarea id="programDesc-${id}" rows="3">${program.description}</textarea>
-                </div>
-                <button class="cta-button" onclick="saveProgram('${id}')">Save Program</button>
-                <button class="cta-button" style="background: #ff4d4d;" onclick="deleteProgram('${id}')">Delete Program</button>
-                <hr>
-            `;
-            programsContainer.appendChild(programEditor);
-        }
-
-        // Save program
-        async function saveProgram(id) {
-            try {
-                const title = document.getElementById(`programTitle-${id}`).value;
-                const icon = document.getElementById(`programIcon-${id}`).value;
-                const description = document.getElementById(`programDesc-${id}`).value;
-                
-                await db.collection('programs').doc(id).update({
-                    title: title,
-                    icon: icon,
-                    description: description,
-                    updatedAt: new Date()
-                });
-                
-                // Update the frontend display
-                const programCard = document.querySelector(`[data-target="program${id}Title"]`);
-                if (programCard) {
-                    programCard.textContent = title;
-                    programCard.nextElementSibling.innerHTML = description;
-                    programCard.previousElementSibling.className = icon;
-                }
-                
-                showAlert('Program saved successfully!', 'success');
-            } catch (error) {
-                console.log("Error saving program:", error);
-                showAlert('Error saving program. Please try again.', 'error');
-            }
-        }
-
-        // Delete program
-        async function deleteProgram(id) {
-            if (confirm('Are you sure you want to delete this program?')) {
-                try {
-                    await db.collection('programs').doc(id).delete();
-                    document.querySelector(`#programsEditorContainer .program-editor:last-child`).remove();
-                    showAlert('Program deleted successfully!', 'success');
-                } catch (error) {
-                    console.log("Error deleting program:", error);
-                    showAlert('Error deleting program. Please try again.', 'error');
-                }
-            }
-        }
-
-        // Add new program
-        async function addNewProgram() {
-            try {
-                const docRef = await db.collection('programs').add({
-                    title: "New Program",
-                    description: "Program description",
-                    icon: "fas fa-star",
-                    order: 99,
-                    createdAt: new Date()
-                });
-                
-                addProgramToEditor({
-                    title: "New Program",
-                    description: "Program description",
-                    icon: "fas fa-star"
-                }, docRef.id);
-                
-                showAlert('New program added!', 'success');
-            } catch (error) {
-                console.log("Error adding new program:", error);
-                showAlert('Error adding new program. Please try again.', 'error');
-            }
-        }
-
-        // Load fees from Firebase
-        async function loadFees() {
-            try {
-                const feesContainer = document.getElementById('feesEditorContainer');
-                if (!feesContainer) return;
-                
-                feesContainer.innerHTML = '';
-                
-                const snapshot = await db.collection('fees').orderBy('program').get();
-                
-                if (snapshot.empty) {
-                    // Add default fees if none exist
-                    await addDefaultFees();
-                    return;
-                }
-                
-                snapshot.forEach(doc => {
-                    const fee = doc.data();
-                    addFeeToEditor(fee, doc.id);
-                });
-            } catch (error) {
-                console.log("Error loading fees:", error);
-            }
-        }
-
-        // Add default fees
-        async function addDefaultFees() {
-            const defaultFees = [
-                {
-                    program: "Traditional Medicine",
-                    amount: "R5,000 per semester",
-                    icon: "fas fa-mortar-pestle"
-                },
-                {
-                    program: "Herbalism",
-                    amount: "R4,500 per semester",
-                    icon: "fas fa-seedling"
-                },
-                {
-                    program: "Tailoring & Design",
-                    amount: "R4,000 per semester",
-                    icon: "fas fa-cut"
-                },
-                {
-                    program: "Culinary Arts",
-                    amount: "R4,200 per semester",
-                    icon: "fas fa-utensils"
-                }
-            ];
-            
-            for (const fee of defaultFees) {
-                try {
-                    const docRef = await db.collection('fees').add(fee);
-                    addFeeToEditor(fee, docRef.id);
-                } catch (error) {
-                    console.log("Error adding default fee:", error);
-                }
-            }
-        }
-
-        // Add fee to editor
-        function addFeeToEditor(fee, id) {
-            const feesContainer = document.getElementById('feesEditorContainer');
-            const feeEditor = document.createElement('div');
-            feeEditor.className = 'fee-editor';
-            feeEditor.innerHTML = `
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Program Name</label>
-                        <input type="text" value="${fee.program}" id="feeProgram-${id}">
-                    </div>
-                    <div class="form-group">
-                        <label>Icon Class (Font Awesome)</label>
-                        <input type="text" value="${fee.icon}" id="feeIcon-${id}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Fee Amount</label>
-                    <input type="text" value="${fee.amount}" id="feeAmount-${id}">
-                </div>
-                <button class="cta-button" onclick="saveFee('${id}')">Save Fee</button>
-                <button class="cta-button" style="background: #ff4d4d;" onclick="deleteFee('${id}')">Delete Fee</button>
-                <hr>
-            `;
-            feesContainer.appendChild(feeEditor);
-        }
-
-        // Save fee
-        async function saveFee(id) {
-            try {
-                const program = document.getElementById(`feeProgram-${id}`).value;
-                const icon = document.getElementById(`feeIcon-${id}`).value;
-                const amount = document.getElementById(`feeAmount-${id}`).value;
-                
-                await db.collection('fees').doc(id).update({
-                    program: program,
-                    icon: icon,
-                    amount: amount,
-                    updatedAt: new Date()
-                });
-                
-                // Update the frontend display
-                const feeElement = document.querySelector(`[data-target="fee${id}Amount"]`);
-                if (feeElement) {
-                    feeElement.textContent = amount;
-                    feeElement.previousElementSibling.textContent = program;
-                    feeElement.previousElementSibling.previousElementSibling.className = icon;
-                }
-                
-                showAlert('Fee saved successfully!', 'success');
-            } catch (error) {
-                console.log("Error saving fee:", error);
-                showAlert('Error saving fee. Please try again.', 'error');
-            }
-        }
-
-        // Delete fee
-        async function deleteFee(id) {
-            if (confirm('Are you sure you want to delete this fee entry?')) {
-                try {
-                    await db.collection('fees').doc(id).delete();
-                    document.querySelector(`#feesEditorContainer .fee-editor:last-child`).remove();
-                    showAlert('Fee deleted successfully!', 'success');
-                } catch (error) {
-                    console.log("Error deleting fee:", error);
-                    showAlert('Error deleting fee. Please try again.', 'error');
-                }
-            }
-        }
-
-        // Load gallery images from Firebase
-        async function loadGalleryImages() {
-            try {
-                const galleryGrid = document.getElementById('galleryGrid');
-                const galleryManagerContainer = document.getElementById('galleryManagerContainer');
-                
-                if (!galleryGrid || !galleryManagerContainer) return;
-                
-                // Clear existing content
-                galleryGrid.innerHTML = '';
-                galleryManagerContainer.innerHTML = '';
-                
-                const snapshot = await db.collection('gallery').orderBy('createdAt', 'desc').get();
-                
-                if (snapshot.empty) {
-                    // Add default images if no images in database
-                    await addDefaultGalleryImages();
-                    return;
-                }
-                
-                snapshot.forEach(doc => {
-                    const image = doc.data();
-                    addGalleryImageToDOM(image, doc.id);
-                });
-            } catch (error) {
-                console.log("Error loading gallery images:", error);
-            }
-        }
-
-        // Add default gallery images if none exist
-        async function addDefaultGalleryImages() {
-            const defaultImages = [
-                {
-                    url: 'https://images.unsplash.com/photo-1584697964358-3e14ca57658b',
-                    title: 'Students learning',
-                    caption: 'Students in traditional medicine class',
-                    createdAt: new Date()
-                },
-                {
-                    url: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c',
-                    title: 'Crafting class',
-                    caption: 'Tailoring and design workshop',
-                    createdAt: new Date()
-                },
-                {
-                    url: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf',
-                    title: 'Teamwork',
-                    caption: 'Students collaborating on a project',
-                    createdAt: new Date()
-                },
-                {
-                    url: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3',
-                    title: 'Graduation',
-                    caption: 'Graduation ceremony celebration',
-                    createdAt: new Date()
-                },
-                {
-                    url: 'https://images.unsplash.com/photo-1577896851231-70ef18881754',
-                    title: 'Culinary class',
-                    caption: 'Culinary arts training session',
-                    createdAt: new Date()
-                },
-                {
-                    url: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b',
-                    title: 'Herbal garden',
-                    caption: 'Our medicinal herb garden',
-                    createdAt: new Date()
-                }
-            ];
-            
-            for (const image of defaultImages) {
-                try {
-                    const docRef = await db.collection('gallery').add(image);
-                    addGalleryImageToDOM({...image, id: docRef.id}, docRef.id);
-                } catch (error) {
-                    console.log("Error adding default image:", error);
-                }
-            }
-        }
-
-        // Add gallery image to DOM
-        function addGalleryImageToDOM(image, id) {
-            // Add to main gallery
-            const galleryGrid = document.getElementById('galleryGrid');
-            if (galleryGrid) {
-                const galleryItem = document.createElement('div');
-                galleryItem.className = 'gallery-item';
-                galleryItem.innerHTML = `
-                    <img src="${image.url}" alt="${image.title}" loading="lazy">
-                    <div class="gallery-caption">${image.caption}</div>
-                `;
-                galleryGrid.appendChild(galleryItem);
             }
             
-            // Add to admin gallery manager
-            const galleryManagerContainer = document.getElementById('galleryManagerContainer');
-            if (galleryManagerContainer) {
-                const managerItem = document.createElement('div');
-                managerItem.className = 'gallery-manager-item';
-                managerItem.innerHTML = `
-                    <img src="${image.url}" alt="${image.title}" loading="lazy">
-                    <div class="actions">
-                        <button onclick="deleteGalleryImage('${id}')">Delete</button>
-                    </div>
-                    <p>${image.caption}</p>
-                `;
-                galleryManagerContainer.appendChild(managerItem);
-            }
-        }
-
-        // Add new gallery image
-        async function addGalleryImage() {
-            try {
-                const fileInput = document.getElementById('imageUpload');
-                const titleInput = document.getElementById('newImageTitle');
-                const captionInput = document.getElementById('newImageCaption');
-                
-                if (!fileInput.files[0]) {
-                    showAlert('Please select an image to upload.', 'error');
-                    return;
-                }
-                
-                const file = fileInput.files[0];
-                const storageRef = storage.ref('gallery/' + Date.now() + '_' + file.name);
-                
-                // Upload file to Firebase Storage
-                const snapshot = await storageRef.put(file);
-                const url = await snapshot.ref.getDownloadURL();
-                
-                // Add to Firestore
-                await db.collection('gallery').add({
-                    url: url,
-                    title: titleInput.value,
-                    caption: captionInput.value,
-                    createdAt: new Date()
-                });
-                
-                // Reset form
-                fileInput.value = '';
-                titleInput.value = '';
-                captionInput.value = '';
-                document.getElementById('imagePreview').style.display = 'none';
-                
-                // Reload gallery
-                loadGalleryImages();
-                
-                showAlert('Image added successfully!', 'success');
-            } catch (error) {
-                console.log("Error adding gallery image:", error);
-                showAlert('Error adding image. Please try again.', 'error');
-            }
-        }
-
-        // Delete gallery image
-        async function deleteGalleryImage(id) {
-            if (confirm('Are you sure you want to delete this image?')) {
-                try {
-                    await db.collection('gallery').doc(id).delete();
-                    loadGalleryImages();
-                    showAlert('Image deleted successfully!', 'success');
-                } catch (error) {
-                    console.log("Error deleting gallery image:", error);
-                    showAlert('Error deleting image. Please try again.', 'error');
-                }
-            }
-        }
-
-        // Load board members from Firebase
-        async function loadBoardMembers() {
-            try {
-                const boardMembersContainer = document.getElementById('boardMembersManagerContainer');
-                if (!boardMembersContainer) return;
-                
-                // Clear existing content
-                boardMembersContainer.innerHTML = '';
-                
-                const snapshot = await db.collection('boardMembers').orderBy('name').get();
-                
-                snapshot.forEach(doc => {
-                    const member = doc.data();
-                    addBoardMemberToDOM(member, doc.id);
-                });
-            } catch (error) {
-                console.log("Error loading board members:", error);
-            }
-        }
-
-        // Add board member to DOM
-        function addBoardMemberToDOM(member, id) {
-            const boardMembersContainer = document.getElementById('boardMembersManagerContainer');
-            if (boardMembersContainer) {
-                const memberCard = document.createElement('div');
-                memberCard.className = 'board-member-card';
-                memberCard.innerHTML = `
-                    <img src="${member.photoUrl}" alt="${member.name}" loading="lazy">
-                    <h4>${member.name}</h4>
-                    <p>${member.position}</p>
-                    <button onclick="deleteBoardMember('${id}')">Delete</button>
-                `;
-                boardMembersContainer.appendChild(memberCard);
-            }
-        }
-
-        // Add new board member
-        async function addBoardMember() {
-            try {
-                const fileInput = document.getElementById('boardMemberImageUpload');
-                const nameInput = document.getElementById('newBoardMemberName');
-                const positionInput = document.getElementById('newBoardMemberPosition');
-                
-                if (!fileInput.files[0]) {
-                    showAlert('Please select a photo for the board member.', 'error');
-                    return;
-                }
-                
-                if (!nameInput.value || !positionInput.value) {
-                    showAlert('Please enter the board member name and position.', 'error');
-                    return;
-                }
-                
-                const file = fileInput.files[0];
-                const storageRef = storage.ref('boardMembers/' + Date.now() + '_' + file.name);
-                
-                // Upload file to Firebase Storage
-                const snapshot = await storageRef.put(file);
-                const url = await snapshot.ref.getDownloadURL();
-                
-                // Add to Firestore
-                await db.collection('boardMembers').add({
-                    photoUrl: url,
-                    name: nameInput.value,
-                    position: positionInput.value,
-                    createdAt: new Date()
-                });
-                
-                // Reset form
-                fileInput.value = '';
-                nameInput.value = '';
-                positionInput.value = '';
-                document.getElementById('boardMemberImagePreview').style.display = 'none';
-                
-                // Reload board members
-                loadBoardMembers();
-                
-                showAlert('Board member added successfully!', 'success');
-            } catch (error) {
-                console.log("Error adding board member:", error);
-                showAlert('Error adding board member. Please try again.', 'error');
-            }
-        }
-
-        // Delete board member
-        async function deleteBoardMember(id) {
-            if (confirm('Are you sure you want to delete this board member?')) {
-                try {
-                    await db.collection('boardMembers').doc(id).delete();
-                    loadBoardMembers();
-                    showAlert('Board member deleted successfully!', 'success');
-                } catch (error) {
-                    console.log("Error deleting board member:", error);
-                    showAlert('Error deleting board member. Please try again.', 'error');
-                }
-            }
-        }
-
-        // Load applications from Firebase
-        async function loadApplications() {
-            try {
-                const applicationsContainer = document.getElementById('applicationsContainer');
-                if (!applicationsContainer) return;
-                
-                // Clear existing content
-                applicationsContainer.innerHTML = '';
-                
-                const snapshot = await db.collection('applications').orderBy('submittedAt', 'desc').get();
-                
-                if (snapshot.empty) {
-                    applicationsContainer.innerHTML = '<p>No applications found.</p>';
-                    return;
-                }
-                
-                snapshot.forEach(doc => {
-                    const application = doc.data();
-                    addApplicationToDOM(application, doc.id);
-                });
-            } catch (error) {
-                console.log("Error loading applications:", error);
-            }
-        }
-
-        // Add application to DOM
-        function addApplicationToDOM(application, id) {
-            const applicationsContainer = document.getElementById('applicationsContainer');
-            const appCard = document.createElement('div');
-            appCard.className = 'application-card';
-            appCard.innerHTML = `
-                <h4>${application.fullName}</h4>
-                <p><strong>Program:</strong> ${application.selectedProgram}</p>
-                <p><strong>Email:</strong> ${application.email}</p>
-                <p><strong>Phone:</strong> ${application.phone}</p>
-                <p><strong>Submitted:</strong> ${application.submittedAt.toDate().toLocaleDateString()}</p>
-                <div class="actions">
-                    <button onclick="viewApplicationDetails('${id}')">View Details</button>
-                    <button onclick="deleteApplication('${id}')">Delete</button>
-                </div>
-            `;
-            applicationsContainer.appendChild(appCard);
-        }
-
-        // View application details
-        async function viewApplicationDetails(id) {
-            try {
-                const doc = await db.collection('applications').doc(id).get();
-                if (doc.exists) {
-                    const application = doc.data();
-                    alert(`
-                        Application Details:
-                        Name: ${application.fullName}
-                        ID: ${application.idNumber}
-                        Email: ${application.email}
-                        Phone: ${application.phone}
-                        Program: ${application.selectedProgram}
-                        Address: ${application.address}
-                        Qualification: ${application.qualification}
-                        Experience: ${application.experience || 'None'}
-                        Submitted: ${application.submittedAt.toDate().toLocaleString()}
-                    `);
-                }
-            } catch (error) {
-                console.log("Error viewing application details:", error);
-                showAlert('Error loading application details.', 'error');
-            }
-        }
-
-        // Delete application
-        async function deleteApplication(id) {
-            if (confirm('Are you sure you want to delete this application?')) {
-                try {
-                    await db.collection('applications').doc(id).delete();
-                    loadApplications();
-                    showAlert('Application deleted successfully!', 'success');
-                } catch (error) {
-                    console.log("Error deleting application:", error);
-                    showAlert('Error deleting application. Please try again.', 'error');
-                }
-            }
-        }
-
-        // Submit application
-        async function submitApplication() {
-            try {
-                const formData = new FormData(enrollmentForm);
-                const application = {
-                    fullName: formData.get('fullName'),
-                    idNumber: formData.get('idNumber'),
-                    dob: formData.get('dob'),
-                    gender: formData.get('gender'),
-                    email: formData.get('email'),
-                    phone: formData.get('phone'),
-                    address: formData.get('address'),
-                    selectedProgram: formData.get('selectedProgram'),
-                    qualification: formData.get('qualification'),
-                    completionYear: formData.get('completionYear'),
-                    experience: formData.get('experience'),
-                    submittedAt: new Date()
-                };
-                
-                // Save to Firestore
-                await db.collection('applications').add(application);
-                
-                // Reset form
-                enrollmentForm.reset();
-                programOptions.forEach(op => op.classList.remove('selected'));
-                
-                showAlert('Application submitted successfully! We will contact you soon.', 'success');
-            } catch (error) {
-                console.log("Error submitting application:", error);
-                showAlert('Error submitting application. Please try again.', 'error');
-            }
-        }
-
-        // Save content
-        async function saveContent(inputId, targetId) {
-            try {
-                const content = document.getElementById(inputId).value;
-                
-                await db.collection('content').doc(targetId).set({
-                    value: content,
-                    updatedAt: new Date()
-                });
-                
-                // Update the display immediately
-                const element = document.getElementById(targetId);
-                if (element) {
-                    element.innerHTML = content;
-                }
-                
-                showAlert('Content saved successfully!', 'success');
-            } catch (error) {
-                console.log("Error saving content:", error);
-                showAlert('Error saving content. Please try again.', 'error');
-            }
-        }
-
-        // Save hero content
-        async function saveHeroContent() {
-            try {
-                const heading = document.getElementById('heroHeading').value;
-                const subheading = document.getElementById('heroSubheading').value;
-                const buttonText = document.getElementById('heroButtonText').value;
-                
-                const updates = {};
-                if (heading) updates['heroHeading'] = { value: heading, updatedAt: new Date() };
-                if (subheading) updates['heroSubheading'] = { value: subheading, updatedAt: new Date() };
-                if (buttonText) updates['heroButtonText'] = { value: buttonText, updatedAt: new Date() };
-                
-                const batch = db.batch();
-                Object.keys(updates).forEach(key => {
-                    const ref = db.collection('content').doc(key);
-                    batch.set(ref, updates[key]);
-                });
-                
-                await batch.commit();
-                
-                // Update the display immediately
-                if (heading) document.querySelector('[data-target="heroHeading"]').textContent = heading;
-                if (subheading) document.querySelector('[data-target="heroSubheading"]').textContent = subheading;
-                if (buttonText) document.querySelector('[data-target="heroButtonText"]').textContent = buttonText;
-                
-                showAlert('Hero content saved successfully!', 'success');
-            } catch (error) {
-                console.log("Error saving hero content:", error);
-                showAlert('Error saving hero content. Please try again.', 'error');
-            }
-        }
-
-        // Save contact info
-        async function saveContactInfo() {
-            try {
-                const email = document.getElementById('contactEmail').value;
-                const phone = document.getElementById('contactPhone').value;
-                const address = document.getElementById('contactAddress').value;
-                
-                const updates = {};
-                if (email) updates['contactEmail'] = { value: email, updatedAt: new Date() };
-                if (phone) updates['contactPhone'] = { value: phone, updatedAt: new Date() };
-                if (address) updates['contactAddress'] = { value: address, updatedAt: new Date() };
-                
-                const batch = db.batch();
-                Object.keys(updates).forEach(key => {
-                    const ref = db.collection('content').doc(key);
-                    batch.set(ref, updates[key]);
-                });
-                
-                await batch.commit();
-                
-                // Update the display immediately
-                if (email) document.querySelector('[data-target="contactEmail"]').textContent = email;
-                if (phone) document.querySelector('[data-target="contactPhone"]').textContent = phone;
-                if (address) document.querySelector('[data-target="contactAddress"]').textContent = address;
-                
-                showAlert('Contact information saved successfully!', 'success');
-            } catch (error) {
-                console.log("Error saving contact information:", error);
-                showAlert('Error saving contact information. Please try again.', 'error');
-            }
-        }
-
-        // Save banking info
-        async function saveBankingInfo() {
-            try {
-                const bankName = document.getElementById('bankName').value;
-                const accountHolder = document.getElementById('accountHolder').value;
-                const accountNumber = document.getElementById('accountNumber').value;
-                const branchCode = document.getElementById('branchCode').value;
-                
-                await db.collection('content').doc('bankingInfo').set({
-                    bankName: bankName,
-                    accountHolder: accountHolder,
-                    accountNumber: accountNumber,
-                    branchCode: branchCode,
-                    updatedAt: new Date()
-                });
-                
-                // Update the display immediately
-                document.getElementById('bankNameDisplay').textContent = bankName;
-                document.getElementById('accountHolderDisplay').textContent = accountHolder;
-                document.getElementById('accountNumberDisplay').textContent = accountNumber;
-                document.getElementById('branchCodeDisplay').textContent = branchCode;
-                
-                showAlert('Banking information saved successfully!', 'success');
-            } catch (error) {
-                console.log("Error saving banking information:", error);
-                showAlert('Error saving banking information. Please try again.', 'error');
-            }
-        }
-
-        // Show admin section
-        function showAdminSection(sectionId) {
-            adminSections.forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-        }
-
-        // Open dashboard
-        function openDashboard() {
-            adminDashboard.style.display = 'block';
-            adminQuickMenu.style.display = 'none';
-        }
-
-        // Enable edit mode
-        function enableEditMode() {
-            const editables = document.querySelectorAll('.editable');
-            editables.forEach(editable => {
-                editable.addEventListener('click', (e) => {
-                    if (isAdminLoggedIn) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        
-                        currentEditElement = editable;
-                        currentEditType = editable.getAttribute('data-content-type');
-                        currentEditTarget = editable.getAttribute('data-target');
-                        
-                        const modal = document.getElementById('adminEditModal');
-                        const textarea = document.getElementById('editModalTextarea');
-                        const title = document.getElementById('editModalTitle');
-                        
-                        title.textContent = 'Edit ' + currentEditTarget;
-                        
-                        if (currentEditType === 'html') {
-                            textarea.value = editable.innerHTML;
-                        } else {
-                            textarea.value = editable.textContent;
-                        }
-                        
-                        modal.style.display = 'flex';
-                    }
+            // Program selection in application form
+            document.querySelectorAll('.program-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.program-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    document.getElementById('selectedProgram').value = this.getAttribute('data-program');
                 });
             });
             
-            showAlert('Quick edit mode enabled. Click on any editable content to modify it.', 'success');
-            adminQuickMenu.style.display = 'none';
-        }
-
-        // Save quick edit
-        async function saveQuickEdit() {
-            try {
-                const textarea = document.getElementById('editModalTextarea');
-                const newValue = textarea.value;
-                
-                if (currentEditType === 'html') {
-                    currentEditElement.innerHTML = newValue;
-                } else {
-                    currentEditElement.textContent = newValue;
-                }
-                
-                // Save to Firebase
-                await db.collection('content').doc(currentEditTarget).set({
-                    value: newValue,
-                    updatedAt: new Date()
+            // Form submission
+            document.getElementById('enrollmentForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Application submitted successfully! We will contact you shortly.');
+                this.reset();
+                document.querySelectorAll('.program-option').forEach(opt => {
+                    opt.classList.remove('selected');
                 });
-                
-                closeEditModal();
-                showAlert('Content saved successfully!', 'success');
-            } catch (error) {
-                console.log("Error saving content:", error);
-                showAlert('Error saving content. Please try again.', 'error');
-            }
-        }
-
-        // Close edit modal
-        function closeEditModal() {
-            document.getElementById('adminEditModal').style.display = 'none';
-        }
-
-        // View applications
-        function viewApplications() {
-            openDashboard();
-            showAdminSection('applicationsView');
-            adminQuickMenu.style.display = 'none';
-        }
-
-        // Logout
-        function logout() {
-            isAdminLoggedIn = false;
-            localStorage.removeItem('isAdminLoggedIn');
-            adminDashboard.style.display = 'none';
-            adminToolbar.style.display = 'none';
-            adminQuickMenu.style.display = 'none';
-            showAlert('Logged out successfully.', 'success');
-        }
-
-        // Change password
-        function changePassword() {
-            // This is a simplified implementation
-            // In a real application, you would use Firebase Authentication
-            showAlert('Password change functionality would be implemented with Firebase Authentication in a production environment.', 'success');
-        }
-
-        // Export data
-        function exportData() {
-            showAlert('Data export functionality would be implemented in a production environment.', 'success');
-        }
-
-        // Export applications
-        function exportApplications() {
-            showAlert('Applications export functionality would be implemented in a production environment.', 'success');
-        }
-
-        // Import data
-        function importData() {
-            showAlert('Data import functionality would be implemented in a production environment.', 'success');
-        }
-
-        // Reset website
-        function resetWebsite() {
-            if (confirm('Are you sure you want to reset all website content? This cannot be undone.')) {
-                showAlert('Website reset functionality would be implemented in a production environment.', 'success');
-            }
-        }
-
-        // Initialize the application when the page loads
-        document.addEventListener('DOMContentLoaded', init);
+            });
+            
+            // Image upload functionality (simulated)
+            document.querySelectorAll('.image-upload-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const target = this.getAttribute('data-target');
+                    // In a real application, this would open a file dialog and upload the image
+                    alert(`Image upload functionality for ${target} would be implemented here.`);
+                });
+            });
+        });
     </script>
 </body>
 </html>
