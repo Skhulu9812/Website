@@ -579,11 +579,13 @@
 
         .contact-details h3 {
             margin-bottom: 0.5rem;
+            color: var(--primary);
         }
 
         .contact-details p {
             font-size: 1.1rem;
             margin-bottom: 2rem;
+            color: var(--text);
         }
 
         /* Footer */
@@ -679,44 +681,190 @@
             background: var(--primary-light);
         }
 
-        /* Admin Panel Styles */
+        /* Image Upload Modal */
+        .image-upload-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-upload-modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .image-upload-modal-content h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .image-preview {
+            width: 100%;
+            max-height: 300px;
+            margin: 1rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin: 1rem 0;
+            width: 100%;
+        }
+
+        .upload-btn-wrapper .btn {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background-color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .upload-btn-wrapper .btn:hover {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        .upload-btn-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .modal-buttons .confirm-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .modal-buttons .confirm-btn:hover {
+            background: var(--primary-light);
+        }
+
+        .modal-buttons .cancel-btn {
+            background: #f8f9fa;
+            color: var(--text);
+            border: 1px solid #dee2e6;
+        }
+
+        .modal-buttons .cancel-btn:hover {
+            background: #e9ecef;
+        }
+
+        /* Enhanced Admin Panel Styles */
         .admin-panel {
             display: none;
             position: fixed;
             top: 80px;
             right: 0;
-            width: 300px;
+            width: 350px;
             height: calc(100vh - 80px);
             background: var(--white);
             box-shadow: -5px 0 15px rgba(0,0,0,0.1);
             z-index: 999;
             overflow-y: auto;
             padding: 1.5rem;
+            transition: var(--transition);
+            transform: translateX(100%);
         }
-
+        
+        .admin-panel.active {
+            transform: translateX(0);
+        }
+        
         .admin-panel h3 {
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-
+        
+        .close-admin {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        
+        .close-admin:hover {
+            color: var(--primary);
+        }
+        
         .admin-section {
             margin-bottom: 2rem;
+            padding: 1.2rem;
+            background: var(--gray-light);
+            border-radius: 10px;
         }
-
+        
         .admin-section h4 {
             margin-bottom: 1rem;
             color: var(--primary);
             font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-
+        
+        .admin-section h4 i {
+            font-size: 1rem;
+        }
+        
         .color-picker {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-bottom: 1rem;
         }
-
+        
         .color-option {
             width: 30px;
             height: 30px;
@@ -724,12 +872,17 @@
             cursor: pointer;
             border: 2px solid white;
             box-shadow: 0 0 0 2px #eee;
+            transition: var(--transition);
         }
-
+        
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        
         .color-option.active {
             box-shadow: 0 0 0 2px var(--primary);
         }
-
+        
         .admin-toggle {
             position: fixed;
             top: 90px;
@@ -745,8 +898,14 @@
             cursor: pointer;
             z-index: 1001;
             box-shadow: var(--shadow);
+            transition: var(--transition);
         }
-
+        
+        .admin-toggle.active {
+            right: 370px;
+            background: var(--secondary);
+        }
+        
         .edit-mode-indicator {
             position: fixed;
             top: 10px;
@@ -760,17 +919,24 @@
             font-weight: 500;
             box-shadow: var(--shadow);
             display: none;
+            animation: pulse 2s infinite;
         }
-
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 160, 23, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(212, 160, 23, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 160, 23, 0); }
+        }
+        
         .editable {
             position: relative;
             min-height: 20px;
         }
-
+        
         .editable:hover {
             outline: 2px dashed rgba(212, 160, 23, 0.5);
         }
-
+        
         .edit-tooltip {
             position: absolute;
             top: -10px;
@@ -787,17 +953,19 @@
             cursor: pointer;
             opacity: 0;
             transition: var(--transition);
+            z-index: 100;
         }
-
+        
         .editable:hover .edit-tooltip {
             opacity: 1;
         }
-
+        
         .image-upload-container {
             position: relative;
             display: inline-block;
+            width: 100%;
         }
-
+        
         .image-upload-btn {
             position: absolute;
             bottom: 10px;
@@ -813,12 +981,394 @@
             cursor: pointer;
             opacity: 0;
             transition: var(--transition);
+            z-index: 10;
         }
-
+        
         .image-upload-container:hover .image-upload-btn {
             opacity: 1;
         }
+        
+        /* Enhanced Edit Modal */
+        .edit-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .edit-modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .edit-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        
+        .edit-modal-close:hover {
+            color: var(--primary);
+        }
+        
+        .edit-modal h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .edit-modal textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 1rem;
+            margin-bottom: 1.2rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            resize: vertical;
+        }
+        
+        .edit-modal textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .edit-modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+        
+        .edit-modal-buttons button {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .edit-modal-buttons .save-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .edit-modal-buttons .save-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        .edit-modal-buttons .cancel-btn {
+            background: #f8f9fa;
+            color: var(--text);
+            border: 1px solid #dee2e6;
+        }
+        
+        .edit-modal-buttons .cancel-btn:hover {
+            background: #e9ecef;
+        }
+        
+        /* Change Tracking */
+        .change-tracker {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .change-tracker h4 {
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+        }
+        
+        .change-list {
+            list-style: none;
+        }
+        
+        .change-item {
+            padding: 0.5rem;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .change-item:last-child {
+            border-bottom: none;
+        }
+        
+        .change-revert {
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .change-revert:hover {
+            text-decoration: underline;
+        }
+        
+        /* Save Controls */
+        .save-controls {
+            position: sticky;
+            bottom: 0;
+            background: var(--white);
+            padding: 1rem 0;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+        
+        .save-controls button {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .save-controls .save-all-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .save-controls .save-all-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        .save-controls .discard-btn {
+            background: #f8f9fa;
+            color: var(--text);
+            border: 1px solid #dee2e6;
+        }
+        
+        .save-controls .discard-btn:hover {
+            background: #e9ecef;
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .toast.success {
+            background: var(--primary);
+        }
+        
+        .toast.error {
+            background: #e74c3c;
+        }
 
+        /* New Admin Features Styles */
+        .admin-section .add-new-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .admin-section .add-new-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        .content-manager {
+            margin-top: 1rem;
+        }
+        
+        .content-item {
+            background: white;
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .content-item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .content-item-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .content-item-btn:hover {
+            color: var(--primary);
+        }
+        
+        .add-content-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .add-content-modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .add-content-modal h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .add-content-modal select,
+        .add-content-modal input,
+        .add-content-modal textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .add-content-modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+        
+        .add-content-modal-buttons button {
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .add-content-modal-buttons .confirm-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .add-content-modal-buttons .confirm-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        .add-content-modal-buttons .cancel-btn {
+            background: #f8f9fa;
+            color: var(--text);
+            border: 1px solid #dee2e6;
+        }
+        
+        .add-content-modal-buttons .cancel-btn:hover {
+            background: #e9ecef;
+        }
+        
+        .gallery-manager {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.5rem;
+            margin-top: 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .gallery-item-admin {
+            position: relative;
+            border-radius: 5px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+        }
+        
+        .gallery-item-admin img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-item-admin-actions {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            padding: 0.2rem;
+            display: flex;
+            gap: 0.2rem;
+        }
+        
+        .gallery-item-admin-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 0.7rem;
+            padding: 0.2rem;
+        }
+        
+        .gallery-item-admin-btn:hover {
+            color: var(--secondary);
+        }
+        
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero h1 {
@@ -872,7 +1422,45 @@
             }
             
             .admin-panel {
-                width: 250px;
+                width: 100%;
+                transform: translateX(100%);
+            }
+            
+            .admin-panel.active {
+                transform: translateX(0);
+            }
+            
+            .admin-toggle.active {
+                right: 20px;
+                background: var(--secondary);
+            }
+            
+            .edit-modal-content {
+                padding: 1.5rem;
+            }
+            
+            .edit-modal-buttons {
+                flex-direction: column;
+            }
+            
+            .save-controls {
+                flex-direction: column;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+            
+            .add-content-modal-content {
+                padding: 1.5rem;
+            }
+            
+            .add-content-modal-buttons {
+                flex-direction: column;
+            }
+            
+            .gallery-manager {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
             }
         }
 
@@ -917,6 +1505,430 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="editable" data-id="hero-title">African Medicine & Vocational Training Institute</h1>
+            <p class="editable" data-id="hero-subtitle">Empowering communities through traditional medicine and modern vocational skills for sustainable development.</p>
+            <a href="#apply" class="cta-button">Apply Now</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="section-heading">
+            <h2>About Us</h2>
+            <p>Learn about our mission, vision, and the values that drive our institution</p>
+        </div>
+        <div class="about-content">
+            <div class="mission-section">
+                <div class="mission-card">
+                    <i class="fas fa-bullseye icon"></i>
+                    <h3 class="editable" data-id="mission-title">Our Mission</h3>
+                    <p class="editable" data-id="mission-text">To preserve and promote African traditional medicine while providing vocational training that empowers individuals with practical skills for economic self-sufficiency and community development.</p>
+                </div>
+                <div class="mission-card">
+                    <i class="fas fa-eye icon"></i>
+                    <h3 class="editable" data-id="vision-title">Our Vision</h3>
+                    <p class="editable" data-id="vision-text">To become a leading institution in Africa that bridges traditional healing practices with contemporary vocational skills, fostering holistic community development and cultural preservation.</p>
+                </div>
+                <div class="vision-box">
+                    <i class="fas fa-history icon"></i>
+                    <h3 class="editable" data-id="history-title">Our History</h3>
+                    <p class="editable" data-id="history-text">Founded in 2010, SSA Medical Center has evolved from a traditional healing practice to a comprehensive institution offering both traditional medicine and vocational training programs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="section programs" id="programs">
+        <div class="section-heading">
+            <h2>Our Programs</h2>
+            <p>Explore our diverse range of vocational training programs</p>
+        </div>
+        <div class="programs-grid">
+            <div class="program-card">
+                <i class="fas fa-seedling"></i>
+                <h3 class="editable" data-id="program1-title">Organic Farming</h3>
+                <p class="editable" data-id="program1-desc">Learn sustainable agricultural practices and organic farming techniques for food security and income generation.</p>
+            </div>
+            <div class="program-card">
+                <i class="fas fa-mortar-pestle"></i>
+                <h3 class="editable" data-id="program2-title">Herbal Medicine Production</h3>
+                <p class="editable" data-id="program2-desc">Master the art of preparing traditional medicines, tinctures, and herbal products for health and wellness.</p>
+            </div>
+            <div class="program-card">
+                <i class="fas fa-cookie-bite"></i>
+                <h3 class="editable" data-id="program3-title">Food Processing & Preservation</h3>
+                <p class="editable" data-id="program3-desc">Acquire skills in food processing, packaging, and preservation to reduce post-harvest losses and create value-added products.</p>
+            </div>
+            <div class="program-card">
+                <i class="fas fa-soap"></i>
+                <h3 class="editable" data-id="program4-title">Soap & Cosmetics Production</h3>
+                <p class="editable" data-id="program4-desc">Learn to produce natural soaps, cosmetics, and personal care products using local ingredients and traditional recipes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fees Section -->
+    <section class="section fees" id="fees">
+        <div class="section-heading">
+            <h2>Program Fees</h2>
+            <p>Affordable training programs with flexible payment options</p>
+        </div>
+        <div class="fees-grid">
+            <div class="fee-card">
+                <i class="fas fa-seedling"></i>
+                <h3>Organic Farming</h3>
+                <p class="editable" data-id="fee1-amount">₦25,000</p>
+                <p class="editable" data-id="fee1-duration">3 months</p>
+            </div>
+            <div class="fee-card">
+                <i class="fas fa-mortar-pestle"></i>
+                <h3>Herbal Medicine</h3>
+                <p class="editable" data-id="fee2-amount">₦35,000</p>
+                <p class="editable" data-id="fee2-duration">4 months</p>
+            </div>
+            <div class="fee-card">
+                <i class="fas fa-cookie-bite"></i>
+                <h3>Food Processing</h3>
+                <p class="editable" data-id="fee3-amount">₦30,000</p>
+                <p class="editable" data-id="fee3-duration">3 months</p>
+            </div>
+            <div class="fee-card">
+                <i class="fas fa-soap"></i>
+                <h3>Soap & Cosmetics</h3>
+                <p class="editable" data-id="fee4-amount">₦40,000</p>
+                <p class="editable" data-id="fee4-duration">4 months</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section gallery" id="gallery">
+        <div class="section-heading">
+            <h2>Our Gallery</h2>
+            <p>Take a visual journey through our campus, programs, and student activities</p>
+        </div>
+        <div class="gallery-categories">
+            <button class="active" data-category="all">All</button>
+            <button data-category="campus">Campus</button>
+            <button data-category="training">Training</button>
+            <button data-category="students">Students</button>
+            <button data-category="events">Events</button>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-category="campus" data-id="gallery1">
+                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f" alt="SSAMC Campus">
+                <div class="gallery-caption editable" data-id="gallery1-caption">Main Campus Building</div>
+            </div>
+            <div class="gallery-item" data-category="training" data-id="gallery2">
+                <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074" alt="Organic Farming Training">
+                <div class="gallery-caption editable" data-id="gallery2-caption">Organic Farming Practical Session</div>
+            </div>
+            <div class="gallery-item" data-category="students" data-id="gallery3">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1" alt="Graduating Students">
+                <div class="gallery-caption editable" data-id="gallery3-caption">2023 Graduation Ceremony</div>
+            </div>
+            <div class="gallery-item" data-category="training" data-id="gallery4">
+                <img src="https://images.unsplash.com/photo-1591955506264-3f5a6834570a" alt="Herbal Medicine Class">
+                <div class="gallery-caption editable" data-id="gallery4-caption">Herbal Medicine Preparation</div>
+            </div>
+            <div class="gallery-item" data-category="events" data-id="gallery5">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87" alt="Open Day Event">
+                <div class="gallery-caption editable" data-id="gallery5-caption">Annual Open Day Exhibition</div>
+            </div>
+            <div class="gallery-item" data-category="campus" data-id="gallery6">
+                <img src="https://images.unsplash.com/photo-1560472355-536de3962603" alt="Library">
+                <div class="gallery-caption editable" data-id="gallery6-caption">Campus Library</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form -->
+    <section class="section application" id="apply">
+        <div class="section-heading">
+            <h2>Application Form</h2>
+            <p>Begin your journey with us by completing the application form</p>
+        </div>
+        <div class="application-form">
+            <form id="admissionForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Residential Address</label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="education">Highest Education</label>
+                        <select id="education" name="education" required>
+                            <option value="">Select Education Level</option>
+                            <option value="primary">Primary School</option>
+                            <option value="secondary">Secondary School</option>
+                            <option value="diploma">Diploma</option>
+                            <option value="bachelor">Bachelor's Degree</option>
+                            <option value="master">Master's Degree</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" min="16" max="65" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Select Program</h3>
+                    <div class="program-select">
+                        <div class="program-option" data-program="organic-farming">
+                            <h4>Organic Farming</h4>
+                            <p>₦25,000 - 3 months</p>
+                        </div>
+                        <div class="program-option" data-program="herbal-medicine">
+                            <h4>Herbal Medicine Production</h4>
+                            <p>₦35,000 - 4 months</p>
+                        </div>
+                        <div class="program-option" data-program="food-processing">
+                            <h4>Food Processing & Preservation</h4>
+                            <p>₦30,000 - 3 months</p>
+                        </div>
+                        <div class="program-option" data-program="soap-cosmetics">
+                            <h4>Soap & Cosmetics Production</h4>
+                            <p>₦40,000 - 4 months</p>
+                        </div>
+                    </div>
+                    <input type="hidden" id="selectedProgram" name="selectedProgram" required>
+                </div>
+
+                <div class="form-section">
+                    <h3>Payment Information</h3>
+                    <div class="banking-info">
+                        <p><strong>Bank Name:</strong> Zenith Bank</p>
+                        <p><strong>Account Name:</strong> SSA Medical Center</p>
+                        <p><strong>Account Number:</strong> 1234567890</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentProof">Upload Payment Proof (Scan or Photo of Bank Teller)</label>
+                        <input type="file" id="paymentProof" name="paymentProof" accept="image/*" required>
+                    </div>
+                </div>
+
+                <div class="terms">
+                    <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                    <label for="agreeTerms">I agree to the terms and conditions and confirm that the information provided is accurate.</label>
+                </div>
+
+                <button type="submit" class="cta-button">Submit Application</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="section-heading">
+            <h2>Contact Us</h2>
+            <p>Get in touch with us for more information or inquiries</p>
+        </div>
+        <div class="contact-details">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3 class="editable" data-id="address-title">Our Address</h3>
+            <p class="editable" data-id="address-text">123 Education Drive, Knowledge City, Lagos State, Nigeria</p>
+
+            <i class="fas fa-phone"></i>
+            <h3 class="editable" data-id="phone-title">Phone Number</h3>
+            <p class="editable" data-id="phone-text">+234 803 123 4567 | +234 805 765 4321</p>
+
+            <i class="fas fa-envelope"></i>
+            <h3 class="editable" data-id="email-title">Email Address</h3>
+            <p class="editable" data-id="email-text">info@ssamc.edu.ng | admissions@ssamc.edu.ng</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo">SSA<span>MC</span></div>
+            <p class="editable" data-id="footer-text">Preserving tradition, empowering futures through African medicine and vocational training.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="copyright editable" data-id="copyright-text">© 2023 SSA Medical Center. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Admin Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <h2>Admin Login</h2>
+            <form id="loginForm">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Image Upload Modal -->
+    <div class="image-upload-modal" id="imageUploadModal">
+        <div class="image-upload-modal-content">
+            <h2>Upload Image</h2>
+            <div class="image-preview" id="imagePreview"></div>
+            <div class="upload-btn-wrapper">
+                <button class="btn">Choose Image</button>
+                <input type="file" id="imageUpload" accept="image/*" />
+            </div>
+            <div class="modal-buttons">
+                <button class="confirm-btn" id="confirmUpload">Upload</button>
+                <button class="cancel-btn" id="cancelUpload">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Content Modal -->
+    <div class="edit-modal" id="editModal">
+        <div class="edit-modal-content">
+            <button class="edit-modal-close" id="closeEditModal">&times;</button>
+            <h2>Edit Content</h2>
+            <textarea id="editContent" placeholder="Enter content here..."></textarea>
+            <div class="edit-modal-buttons">
+                <button class="save-btn" id="saveContent">Save Changes</button>
+                <button class="cancel-btn" id="cancelEdit">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Content Modal -->
+    <div class="add-content-modal" id="addContentModal">
+        <div class="add-content-modal-content">
+            <h2 id="addContentModalTitle">Add New Content</h2>
+            
+            <div id="contentForm">
+                <select id="contentType" required>
+                    <option value="">Select Content Type</option>
+                    <option value="text">Text Content</option>
+                    <option value="program">Program</option>
+                    <option value="gallery">Gallery Image</option>
+                </select>
+                
+                <input type="text" id="contentTitle" placeholder="Content Title" required>
+                <textarea id="contentText" placeholder="Content Text" rows="4"></textarea>
+                
+                <div id="galleryFields" style="display: none;">
+                    <input type="text" id="imageAlt" placeholder="Image Description">
+                    <select id="imageCategory">
+                        <option value="campus">Campus</option>
+                        <option value="training">Training</option>
+                        <option value="students">Students</option>
+                        <option value="events">Events</option>
+                    </select>
+                </div>
+                
+                <div id="programFields" style="display: none;">
+                    <input type="text" id="programFee" placeholder="Program Fee">
+                    <input type="text" id="programDuration" placeholder="Program Duration">
+                    <select id="programIcon">
+                        <option value="fas fa-seedling">Organic Farming</option>
+                        <option value="fas fa-mortar-pestle">Herbal Medicine</option>
+                        <option value="fas fa-cookie-bite">Food Processing</option>
+                        <option value="fas fa-soap">Soap & Cosmetics</option>
+                        <option value="fas fa-notes-medical">Health Science</option>
+                        <option value="fas fa-tools">Technical Skills</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="add-content-modal-buttons">
+                <button class="cancel-btn" id="cancelAddContent">Cancel</button>
+                <button class="confirm-btn" id="confirmAddContent">Add Content</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <h3>Admin Panel <button class="close-admin" id="closeAdmin">&times;</button></h3>
+        
+        <div class="admin-section">
+            <h4><i class="fas fa-paint-brush"></i> Theme Colors</h4>
+            <div class="color-picker">
+                <div class="color-option active" style="background-color: #2A5C3C;" data-color="primary"></div>
+                <div class="color-option" style="background-color: #3a7c54;" data-color="primary-light"></div>
+                <div class="color-option" style="background-color: #1c3c28;" data-color="primary-dark"></div>
+                <div class="color-option" style="background-color: #D4A017;" data-color="secondary"></div>
+                <div class="color-option" style="background-color: #e4b53c;" data-color="secondary-light"></div>
+                <div class="color-option" style="background-color: #b58a12;" data-color="secondary-dark"></div>
+            </div>
+        </div>
+        
+        <div class="admin-section">
+            <h4><i class="fas fa-image"></i> Image Management</h4>
+            <p>Click on the image upload icon on any image to replace it.</p>
+            <button class="add-new-btn" id="addGalleryImage">
+                <i class="fas fa-plus"></i> Add New Gallery Image
+            </button>
+            
+            <div class="gallery-manager" id="galleryManager">
+                <!-- Gallery images will be dynamically added here -->
+            </div>
+        </div>
+        
+        <div class="admin-section">
+            <h4><i class="fas fa-file-alt"></i> Content Management</h4>
+            <button class="add-new-btn" id="addNewContent">
+                <i class="fas fa-plus"></i> Add New Content Section
+            </button>
+            
+            <div class="content-manager" id="contentManager">
+                <!-- Content items will be dynamically added here -->
+            </div>
+        </div>
+        
+        <div class="admin-section">
+            <h4><i class="fas fa-graduation-cap"></i> Program Management</h4>
+            <button class="add-new-btn" id="addNewProgram">
+                <i class="fas fa-plus"></i> Add New Program
+            </button>
+            
+            <div class="content-manager" id="programManager">
+                <!-- Program items will be dynamically added here -->
+            </div>
+        </div>
+        
+        <div class="admin-section">
+            <h4><i class="fas fa-history"></i> Recent Changes</h4>
+            <div class="change-tracker">
+                <ul class="change-list" id="changeList">
+                    <!-- Changes will be listed here -->
+                </ul>
+            </div>
+        </div>
+        
+        <div class="save-controls">
+            <button class="discard-btn" id="discardChanges">Discard Changes</button>
+            <button class="save-all-btn" id="saveAllChanges">Save All Changes</button>
+        </div>
+    </div>
+
     <!-- Admin Toggle Button -->
     <div class="admin-toggle" id="adminToggle">
         <i class="fas fa-cog"></i>
@@ -927,553 +1939,190 @@
         <i class="fas fa-edit"></i> Edit Mode Active
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1 class="editable" data-content="hero-title">Empowering Communities Through Education
-                <span class="edit-tooltip" data-target="hero-title">✎</span>
-            </h1>
-            <p class="editable" data-content="hero-subtitle">Traditional medicine and modern vocational training for a brighter African future
-                <span class="edit-tooltip" data-target="hero-subtitle">✎</span>
-            </p>
-            <a href="#apply" class="cta-button">Enroll Now</a>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="section about" id="about">
-        <div class="section-heading">
-            <h2 class="editable" data-content="about-title">About SSAMC
-                <span class="edit-tooltip" data-target="about-title">✎</span>
-            </h2>
-            <p class="editable" data-content="about-subtitle">Discover our mission, vision, and commitment to empowering African communities through education
-                <span class="edit-tooltip" data-target="about-subtitle">✎</span>
-            </p>
-        </div>
-        <div class="about-content">
-            <div class="mission-section">
-                <div class="mission-card">
-                    <i class="fas fa-bullseye icon"></i>
-                    <h3 class="editable" data-content="mission-title">Our Mission
-                        <span class="edit-tooltip" data-target="mission-title">✎</span>
-                    </h3>
-                    <p class="editable" data-content="mission-text-1">Sakhokuhle School of African Medicine and Crafting provides highly flexible programs geared towards equipping and empowering African Health Practitioners who will change the world.
-                        <span class="edit-tooltip" data-target="mission-text-1">✎</span>
-                    </p>
-                    <p class="editable" data-content="mission-text-2">All courses are rooted in ancestral knowledge and are available in various formats to everyone who meets our entrance requirements.
-                        <span class="edit-tooltip" data-target="mission-text-2">✎</span>
-                    </p>
-                </div>
-                <div class="vision-box">
-                    <i class="fas fa-eye icon"></i>
-                    <h3 class="editable" data-content="vision-title">Our Vision
-                        <span class="edit-tooltip" data-target="vision-title">✎</span>
-                    </h3>
-                    <p class="editable" data-content="vision-text-1">To be recognized as an international center for excellence that is both rooted in its environment and sensitive to the challenges of human progress.
-                        <span class="edit-tooltip" data-target="vision-text-1">✎</span>
-                    </p>
-                    <p class="editable" data-content="vision-text-2">To foster a culture of teaching, learning, and research excellence as a basic minimum requirement for being a site of knowledge generation.
-                        <span class="edit-tooltip" data-target="vision-text-2">✎</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Programs Section -->
-    <section class="section programs" id="programs">
-        <div class="section-heading">
-            <h2 class="editable" data-content="programs-title">Our Programs
-                <span class="edit-tooltip" data-target="programs-title">✎</span>
-            </h2>
-            <p class="editable" data-content="programs-subtitle">Comprehensive training programs designed to empower you with practical skills and knowledge
-                <span class="edit-tooltip" data-target="programs-subtitle">✎</span>
-            </p>
-        </div>
-        <div class="programs-grid">
-            <div class="program-card">
-                <i class="fas fa-mortar-pestle"></i>
-                <h3 class="editable" data-content="program-1-title">Traditional Medicine
-                    <span class="edit-tooltip" data-target="program-1-title">✎</span>
-                </h3>
-                <p class="editable" data-content="program-1-desc">Comprehensive training in traditional African medicine, herbal remedies, and holistic healing practices.
-                    <span class="edit-tooltip" data-target="program-1-desc">✎</span>
-                </p>
-            </div>
-            <div class="program-card">
-                <i class="fas fa-seedling"></i>
-                <h3 class="editable" data-content="program-2-title">Herbalism
-                    <span class="edit-tooltip" data-target="program-2-title">✎</span>
-                </h3>
-                <p class="editable" data-content="program-2-desc">Learn to identify, cultivate, and prepare medicinal plants for health and wellness.
-                    <span class="edit-tooltip" data-target="program-2-desc">✎</span>
-                </p>
-            </div>
-            <div class="program-card">
-                <i class="fas fa-cut"></i>
-                <h3 class="editable" data-content="program-3-title">Tailoring & Design
-                    <span class="edit-tooltip" data-target="program-3-title">✎</span>
-                </h3>
-                <p class="editable" data-content="program-3-desc">Master the art of fashion design, pattern making, and garment construction.
-                    <span class="edit-tooltip" data-target="program-3-desc">✎</span>
-                </p>
-            </div>
-            <div class="program-card">
-                <i class="fas fa-utensils"></i>
-                <h3 class="editable" data-content="program-4-title">Culinary Arts
-                    <span class="edit-tooltip" data-target="program-4-title">✎</span>
-                </h3>
-                <p class="editable" data-content="program-4-desc">Develop professional cooking skills and learn about traditional African cuisine.
-                    <span class="edit-tooltip" data-target="program-4-desc">✎</span>
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Fees Section -->
-    <section class="section fees" id="fees">
-        <div class="section-heading">
-            <h2 class="editable" data-content="fees-title">Program Fees
-                <span class="edit-tooltip" data-target="fees-title">✎</span>
-            </h2>
-            <p class="editable" data-content="fees-subtitle">Affordable education options with flexible payment plans
-                <span class="edit-tooltip" data-target="fees-subtitle">✎</span>
-            </p>
-        </div>
-        <div class="fees-grid">
-            <div class="fee-card">
-                <i class="fas fa-mortar-pestle"></i>
-                <h3 class="editable" data-content="fee-1-title">Traditional Medicine
-                    <span class="edit-tooltip" data-target="fee-1-title">✎</span>
-                </h3>
-                <p class="editable" data-content="fee-1-price">R5,000 per semester
-                    <span class="edit-tooltip" data-target="fee-1-price">✎</span>
-                </p>
-            </div>
-            <div class="fee-card">
-                <i class="fas fa-seedling"></i>
-                <h3 class="editable" data-content="fee-2-title">Herbalism
-                    <span class="edit-tooltip" data-target="fee-2-title">✎</span>
-                </h3>
-                <p class="editable" data-content="fee-2-price">R4,500 per semester
-                    <span class="edit-tooltip" data-target="fee-2-price">✎</span>
-                </p>
-            </div>
-            <div class="fee-card">
-                <i class="fas fa-cut"></i>
-                <h3 class="editable" data-content="fee-3-title">Tailoring & Design
-                    <span class="edit-tooltip" data-target="fee-3-title">✎</span>
-                </h3>
-                <p class="editable" data-content="fee-3-price">R4,000 per semester
-                    <span class="edit-tooltip" data-target="fee-3-price">✎</span>
-                </p>
-            </div>
-            <div class="fee-card">
-                <i class="fas fa-utensils"></i>
-                <h3 class="editable" data-content="fee-4-title">Culinary Arts
-                    <span class="edit-tooltip" data-target="fee-4-title">✎</span>
-                </h3>
-                <p class="editable" data-content="fee-4-price">R4,200 per semester
-                    <span class="edit-tooltip" data-target="fee-4-price">✎</span>
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="section gallery" id="gallery">
-        <div class="section-heading">
-            <h2 class="editable" data-content="gallery-title">Our Gallery
-                <span class="edit-tooltip" data-target="gallery-title">✎</span>
-            </h2>
-            <p class="editable" data-content="gallery-subtitle">Explore our campus, students, and activities through our photo gallery
-                <span class="edit-tooltip" data-target="gallery-subtitle">✎</span>
-            </p>
-        </div>
-        
-        <div class="gallery-categories">
-            <button class="active">All</button>
-            <button>Board Members</button>
-            <button>NPO Gallery</button>
-            <button>Events</button>
-        </div>
-        
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <div class="image-upload-container">
-                    <img src="https://images.unsplash.com/photo-1584697964358-3e14ca57658b" alt="Students learning" data-image="gallery-img-1">
-                    <div class="image-upload-btn" data-target="gallery-img-1">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                </div>
-                <div class="gallery-caption editable" data-content="gallery-caption-1">Students in traditional medicine class
-                    <span class="edit-tooltip" data-target="gallery-caption-1">✎</span>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="image-upload-container">
-                    <img src="https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b" alt="Herbal garden" data-image="gallery-img-2">
-                    <div class="image-upload-btn" data-target="gallery-img-2">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                </div>
-                <div class="gallery-caption editable" data-content="gallery-caption-2">Our medicinal herb garden
-                    <span class="edit-tooltip" data-target="gallery-caption-2">✎</span>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="image-upload-container">
-                    <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5" alt="Tailoring class" data-image="gallery-img-3">
-                    <div class="image-upload-btn" data-target="gallery-img-3">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                </div>
-                <div class="gallery-caption editable" data-content="gallery-caption-3">Tailoring and design workshop
-                    <span class="edit-tooltip" data-target="gallery-caption-3">✎</span>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="image-upload-container">
-                    <img src="https://images.unsplash.com/photo-1555244162-803834f70033" alt="Cooking class" data-image="gallery-img-4">
-                    <div class="image-upload-btn" data-target="gallery-img-4">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                </div>
-                <div class="gallery-caption editable" data-content="gallery-caption-4">Culinary arts training session
-                    <span class="edit-tooltip" data-target="gallery-caption-4">✎</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Application Section -->
-    <section class="section application" id="apply">
-        <div class="section-heading">
-            <h2 class="editable" data-content="apply-title">Apply Now
-                <span class="edit-tooltip" data-target="apply-title">✎</span>
-            </h2>
-            <p class="editable" data-content="apply-subtitle">Begin your journey with SSAMC by completing our application form
-                <span class="edit-tooltip" data-target="apply-subtitle">✎</span>
-            </p>
-        </div>
-        
-        <div class="application-form">
-            <form id="enrollmentForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="firstName">First Name</label>
-                        <input type="text" id="firstName" name="firstName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" name="lastName" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="address">Residential Address</label>
-                    <input type="text" id="address" name="address" required>
-                </div>
-                
-                <div class="form-section">
-                    <h3>Select Your Program</h3>
-                    <div class="program-select">
-                        <div class="program-option" data-program="traditional-medicine">
-                            <h4>Traditional Medicine</h4>
-                            <p>R5,000 per semester</p>
-                        </div>
-                        <div class="program-option" data-program="herbalism">
-                            <h4>Herbalism</h4>
-                            <p>R4,500 per semester</p>
-                        </div>
-                        <div class="program-option" data-program="tailoring">
-                            <h4>Tailoring & Design</h4>
-                            <p>R4,000 per semester</p>
-                        </div>
-                        <div class="program-option" data-program="culinary">
-                            <h4>Culinary Arts</h4>
-                            <p>R4,200 per semester</p>
-                        </div>
-                    </div>
-                    <input type="hidden" id="selectedProgram" name="selectedProgram" required>
-                </div>
-                
-                <div class="form-section">
-                    <h3>Payment Information</h3>
-                    <div class="banking-info">
-                        <p><strong>Bank Name:</strong> Standard Bank</p>
-                        <p><strong>Account Name:</strong> Sakhokuhle School of African Medicine and Crafting</p>
-                        <p><strong>Account Number:</strong> 0123456789</p>
-                        <p><strong>Branch Code:</strong> 123456</p>
-                        <p><strong>Reference:</strong> Your Full Name + Program</p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="paymentProof">Upload Proof of Payment (PDF or Image)</label>
-                        <input type="file" id="paymentProof" name="paymentProof" accept=".pdf,.jpg,.jpeg,.png" required>
-                    </div>
-                </div>
-                
-                <div class="terms">
-                    <input type="checkbox" id="terms" name="terms" required>
-                    <label for="terms">I agree to the terms and conditions and confirm that all information provided is accurate</label>
-                </div>
-                
-                <button type="submit" class="cta-button">Submit Application</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="section contact" id="contact">
-        <div class="section-heading">
-            <h2 class="editable" data-content="contact-title">Contact Us
-                <span class="edit-tooltip" data-target="contact-title">✎</span>
-            </h2>
-            <p class="editable" data-content="contact-subtitle">Get in touch with us for more information or inquiries
-                <span class="edit-tooltip" data-target="contact-subtitle">✎</span>
-            </p>
-        </div>
-        
-        <div class="contact-details">
-            <i class="fas fa-map-marker-alt"></i>
-            <h3 class="editable" data-content="address-title">Our Address
-                <span class="edit-tooltip" data-target="address-title">✎</span>
-            </h3>
-            <p class="editable" data-content="address-text">123 Education Street, Knowledge City, South Africa
-                <span class="edit-tooltip" data-target="address-text">✎</span>
-            </p>
-            
-            <i class="fas fa-phone"></i>
-            <h3 class="editable" data-content="phone-title">Phone Number
-                <span class="edit-tooltip" data-target="phone-title">✎</span>
-            </h3>
-            <p class="editable" data-content="phone-text">+27 12 345 6789
-                <span class="edit-tooltip" data-target="phone-text">✎</span>
-            </p>
-            
-            <i class="fas fa-envelope"></i>
-            <h3 class="editable" data-content="email-title">Email Address
-                <span class="edit-tooltip" data-target="email-title">✎</span>
-            </h3>
-            <p class="editable" data-content="email-text">info@ssamc.co.za
-                <span class="edit-tooltip" data-target="email-text">✎</span>
-            </p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="logo">SSA<span>MC</span></div>
-            <p class="editable" data-content="footer-text">Empowering communities through education and skills development
-                <span class="edit-tooltip" data-target="footer-text">✎</span>
-            </p>
-            
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            
-            <div class="copyright editable" data-content="copyright-text">© 2023 Sakhokuhle School of African Medicine and Crafting. All rights reserved.
-                <span class="edit-tooltip" data-target="copyright-text">✎</span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Admin Login Modal -->
-    <div class="modal" id="adminLoginModal">
-        <div class="modal-content">
-            <h2>Admin Login</h2>
-            <form id="adminLoginForm">
-                <input type="text" placeholder="Username" id="adminUsername" required>
-                <input type="password" placeholder="Password" id="adminPassword" required>
-                <button type="submit">Login</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Admin Panel -->
-    <div class="admin-panel" id="adminPanel">
-        <h3>Admin Controls</h3>
-        
-        <div class="admin-section">
-            <h4>Color Scheme</h4>
-            <div class="color-picker">
-                <div class="color-option active" style="background-color: #2A5C3C;" data-color="primary"></div>
-                <div class="color-option" style="background-color: #1A2F1D;" data-color="dark"></div>
-                <div class="color-option" style="background-color: #D4A017;" data-color="secondary"></div>
-                <div class="color-option" style="background-color: #8E44AD;" data-color="accent"></div>
-                <div class="color-option" style="background-color: #1c3c28;" data-color="primary-dark"></div>
-                <div class="color-option" style="background-color: #3a7c54;" data-color="primary-light"></div>
-            </div>
-        </div>
-        
-        <div class="admin-section">
-            <h4>Content Management</h4>
-            <p>Click on any text content on the page to edit it directly.</p>
-            <p>Hover over images to change them.</p>
-        </div>
-        
-        <div class="admin-section">
-            <h4>Save Changes</h4>
-            <button id="saveChanges" class="cta-button" style="width: 100%;">Save All Changes</button>
-            <button id="resetDefaults" class="cta-button" style="width: 100%; margin-top: 10px; background-color: #6c757d;">Reset to Default</button>
-        </div>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Changes saved successfully!</span>
     </div>
 
     <script>
-        // Admin Panel Functionality
+        // Admin Authentication
+        const ADMIN_USERNAME = "admin";
+        const ADMIN_PASSWORD = "ssamc2023";
+        const AUTH_KEY = "ssamc_admin_auth";
+        const CONTENT_KEY = "ssamc_content";
+        
+        // Check if user is authenticated
+        function isAuthenticated() {
+            return localStorage.getItem(AUTH_KEY) === "true";
+        }
+        
+        // Authenticate user
+        function authenticate(username, password) {
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                localStorage.setItem(AUTH_KEY, "true");
+                return true;
+            }
+            return false;
+        }
+        
+        // Logout admin
+        function logout() {
+            localStorage.removeItem(AUTH_KEY);
+            location.reload();
+        }
+        
+        // Show toast notification
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.className = isError ? 'toast error' : 'toast success';
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Initialize the application with enhanced admin features
         document.addEventListener('DOMContentLoaded', function() {
-            // Admin Login Modal
-            const adminLoginBtn = document.getElementById('adminLoginBtn');
-            const adminLoginModal = document.getElementById('adminLoginModal');
-            const adminLoginForm = document.getElementById('adminLoginForm');
-            const adminPanel = document.getElementById('adminPanel');
-            const adminToggle = document.getElementById('adminToggle');
-            const editModeIndicator = document.getElementById('editModeIndicator');
-            const saveChangesBtn = document.getElementById('saveChanges');
-            const resetDefaultsBtn = document.getElementById('resetDefaults');
-            
-            // Default admin credentials (in a real application, these would be verified server-side)
-            const adminUsername = 'admin';
-            const adminPassword = 'password123';
-            
-            // Check if admin is already logged in
-            if (localStorage.getItem('adminLoggedIn') === 'true') {
-                enableEditMode();
+            // Check if admin is logged in
+            if (isAuthenticated()) {
+                enableAdminFeatures();
+                showToast('Welcome back, Admin!', false);
             }
             
-            // Open admin login modal
-            adminLoginBtn.addEventListener('click', function(e) {
+            // Login form submission
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                adminLoginModal.style.display = 'flex';
-            });
-            
-            // Close modal when clicking outside
-            window.addEventListener('click', function(e) {
-                if (e.target === adminLoginModal) {
-                    adminLoginModal.style.display = 'none';
-                }
-            });
-            
-            // Admin login form submission
-            adminLoginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const username = document.getElementById('adminUsername').value;
-                const password = document.getElementById('adminPassword').value;
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
                 
-                if (username === adminUsername && password === adminPassword) {
-                    localStorage.setItem('adminLoggedIn', 'true');
-                    adminLoginModal.style.display = 'none';
-                    enableEditMode();
-                    alert('Admin login successful! Edit mode is now active.');
+                if (authenticate(username, password)) {
+                    document.getElementById('loginModal').style.display = 'none';
+                    enableAdminFeatures();
+                    showToast('Login successful!', false);
                 } else {
-                    alert('Invalid credentials. Please try again.');
+                    showToast('Invalid credentials!', true);
                 }
+            });
+            
+            // Admin login button click
+            document.getElementById('adminLoginBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('loginModal').style.display = 'flex';
             });
             
             // Toggle admin panel
-            adminToggle.addEventListener('click', function() {
-                if (adminPanel.style.display === 'block') {
-                    adminPanel.style.display = 'none';
+            document.getElementById('adminToggle').addEventListener('click', function() {
+                const adminPanel = document.getElementById('adminPanel');
+                const adminToggle = document.getElementById('adminToggle');
+                
+                if (isAuthenticated()) {
+                    adminPanel.classList.toggle('active');
+                    adminToggle.classList.toggle('active');
                 } else {
-                    adminPanel.style.display = 'block';
+                    document.getElementById('loginModal').style.display = 'flex';
                 }
             });
             
-            // Enable edit mode function
-            function enableEditMode() {
-                document.querySelectorAll('.editable').forEach(el => {
-                    el.setAttribute('contenteditable', 'true');
-                });
+            // Close admin panel
+            document.getElementById('closeAdmin').addEventListener('click', function() {
+                document.getElementById('adminPanel').classList.remove('active');
+                document.getElementById('adminToggle').classList.remove('active');
+            });
+            
+            // Load saved content
+            loadSavedContent();
+            
+            // Load gallery manager
+            loadGalleryManager();
+            
+            // Load content manager
+            loadContentManager();
+            
+            // Load program manager
+            loadProgramManager();
+            
+            // Add new gallery image button
+            document.getElementById('addGalleryImage').addEventListener('click', function() {
+                openAddContentModal('gallery');
+            });
+            
+            // Add new content button
+            document.getElementById('addNewContent').addEventListener('click', function() {
+                openAddContentModal('text');
+            });
+            
+            // Add new program button
+            document.getElementById('addNewProgram').addEventListener('click', function() {
+                openAddContentModal('program');
+            });
+            
+            // Content type change handler
+            document.getElementById('contentType').addEventListener('change', function() {
+                const type = this.value;
+                document.getElementById('galleryFields').style.display = type === 'gallery' ? 'block' : 'none';
+                document.getElementById('programFields').style.display = type === 'program' ? 'block' : 'none';
+            });
+            
+            // Confirm add content
+            document.getElementById('confirmAddContent').addEventListener('click', function() {
+                const type = document.getElementById('contentType').value;
+                const title = document.getElementById('contentTitle').value;
+                const text = document.getElementById('contentText').value;
                 
-                editModeIndicator.style.display = 'block';
-                adminToggle.style.display = 'flex';
-            }
-            
-            // Color scheme changer
-            document.querySelectorAll('.color-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    document.querySelectorAll('.color-option').forEach(opt => {
-                        opt.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                    
-                    const color = this.getAttribute('data-color');
-                    const colorValue = this.style.backgroundColor;
-                    
-                    document.documentElement.style.setProperty(`--${color}`, colorValue);
-                    
-                    // Store color changes
-                    let colorSettings = JSON.parse(localStorage.getItem('colorSettings')) || {};
-                    colorSettings[color] = colorValue;
-                    localStorage.setItem('colorSettings', JSON.stringify(colorSettings));
-                });
-            });
-            
-            // Apply saved color settings
-            const savedColorSettings = JSON.parse(localStorage.getItem('colorSettings'));
-            if (savedColorSettings) {
-                for (const [color, value] of Object.entries(savedColorSettings)) {
-                    document.documentElement.style.setProperty(`--${color}`, value);
-                    
-                    // Activate the corresponding color option
-                    document.querySelectorAll('.color-option').forEach(option => {
-                        if (option.style.backgroundColor === value) {
-                            option.classList.add('active');
-                        }
-                    });
+                if (!type || !title) {
+                    showToast('Please fill all required fields', true);
+                    return;
                 }
-            }
-            
-            // Save all changes
-            saveChangesBtn.addEventListener('click', function() {
-                // Save content edits
-                const contentEdits = {};
-                document.querySelectorAll('.editable').forEach(el => {
-                    const key = el.getAttribute('data-content');
-                    contentEdits[key] = el.innerHTML;
-                });
-                localStorage.setItem('contentEdits', JSON.stringify(contentEdits));
                 
-                alert('All changes have been saved successfully!');
+                if (type === 'text') {
+                    addNewContentSection(title, text);
+                } else if (type === 'program') {
+                    const fee = document.getElementById('programFee').value;
+                    const duration = document.getElementById('programDuration').value;
+                    const icon = document.getElementById('programIcon').value;
+                    addNewProgram(title, text, fee, duration, icon);
+                } else if (type === 'gallery') {
+                    // For gallery, we need to trigger image upload
+                    document.getElementById('imageUpload').click();
+                    // Store the gallery data temporarily
+                    window.tempGalleryData = {
+                        title: title,
+                        alt: document.getElementById('imageAlt').value,
+                        category: document.getElementById('imageCategory').value
+                    };
+                }
+                
+                document.getElementById('addContentModal').style.display = 'none';
+                resetAddContentForm();
             });
             
-            // Reset to defaults
-            resetDefaultsBtn.addEventListener('click', function() {
-                if (confirm('Are you sure you want to reset all changes to default?')) {
-                    localStorage.removeItem('contentEdits');
-                    localStorage.removeItem('colorSettings');
-                    location.reload();
+            // Cancel add content
+            document.getElementById('cancelAddContent').addEventListener('click', function() {
+                document.getElementById('addContentModal').style.display = 'none';
+                resetAddContentForm();
+            });
+            
+            // Handle image upload for new gallery items
+            document.getElementById('imageUpload').addEventListener('change', function() {
+                if (this.files.length > 0 && window.tempGalleryData) {
+                    const file = this.files[0];
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        addNewGalleryImage(e.target.result, window.tempGalleryData);
+                        window.tempGalleryData = null;
+                    };
+                    
+                    reader.readAsDataURL(file);
                 }
             });
             
-            // Apply saved content edits
-            const savedEdits = JSON.parse(localStorage.getItem('contentEdits'));
-            if (savedEdits) {
-                for (const [key, value] of Object.entries(savedEdits)) {
-                    const element = document.querySelector(`[data-content="${key}"]`);
-                    if (element) {
-                        element.innerHTML = value;
-                    }
-                }
-            }
-            
-            // Program selection in application form
+            // Program selection
             document.querySelectorAll('.program-option').forEach(option => {
                 option.addEventListener('click', function() {
                     document.querySelectorAll('.program-option').forEach(opt => {
@@ -1485,24 +2134,726 @@
             });
             
             // Form submission
-            document.getElementById('enrollmentForm').addEventListener('submit', function(e) {
+            document.getElementById('admissionForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 alert('Application submitted successfully! We will contact you shortly.');
                 this.reset();
-                document.querySelectorAll('.program-option').forEach(opt => {
-                    opt.classList.remove('selected');
+            });
+            
+            // Gallery filtering
+            document.querySelectorAll('.gallery-categories button').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.gallery-categories button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    const galleryItems = document.querySelectorAll('.gallery-item');
+                    
+                    galleryItems.forEach(item => {
+                        if (category === 'all' || item.getAttribute('data-category') === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
                 });
             });
             
-            // Image upload functionality (simulated)
-            document.querySelectorAll('.image-upload-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const target = this.getAttribute('data-target');
-                    // In a real application, this would open a file dialog and upload the image
-                    alert(`Image upload functionality for ${target} would be implemented here.`);
+            // Theme color change
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.color-option').forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    const color = this.getAttribute('data-color');
+                    const colorValue = this.style.backgroundColor;
+                    
+                    document.documentElement.style.setProperty(`--${color}`, colorValue);
+                    addToChangeLog(`Changed ${color} color`);
                 });
             });
         });
+        
+        // Enable admin features
+        function enableAdminFeatures() {
+            // Show admin toggle and edit mode indicator
+            document.getElementById('adminToggle').style.display = 'flex';
+            document.getElementById('editModeIndicator').style.display = 'block';
+            
+            // Make all editable elements interactive
+            document.querySelectorAll('.editable').forEach(element => {
+                element.style.cursor = 'pointer';
+                element.setAttribute('contenteditable', 'false');
+                
+                // Add edit tooltip
+                const tooltip = document.createElement('span');
+                tooltip.className = 'edit-tooltip';
+                tooltip.innerHTML = '<i class="fas fa-edit"></i>';
+                element.appendChild(tooltip);
+                
+                // Add click event for editing
+                element.addEventListener('click', function(e) {
+                    if (e.target !== tooltip) {
+                        openEditModal(element);
+                    }
+                });
+                
+                // Tooltip click for quick edit
+                tooltip.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    openEditModal(element);
+                });
+            });
+            
+            // Add image upload buttons to all images
+            document.querySelectorAll('img').forEach(img => {
+                const container = document.createElement('div');
+                container.className = 'image-upload-container';
+                
+                const uploadBtn = document.createElement('div');
+                uploadBtn.className = 'image-upload-btn';
+                uploadBtn.innerHTML = '<i class="fas fa-camera"></i>';
+                
+                img.parentNode.insertBefore(container, img);
+                container.appendChild(img);
+                container.appendChild(uploadBtn);
+                
+                uploadBtn.addEventListener('click', function() {
+                    openImageUploadModal(img);
+                });
+            });
+            
+            // Add logout functionality to admin login button
+            const adminLoginBtn = document.getElementById('adminLoginBtn');
+            adminLoginBtn.textContent = 'Admin Logout';
+            adminLoginBtn.removeEventListener('click', null);
+            adminLoginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                logout();
+                showToast('Logged out successfully', false);
+            });
+        }
+        
+        // Open edit modal
+        function openEditModal(element) {
+            if (!isAuthenticated()) return;
+            
+            const modal = document.getElementById('editModal');
+            const textarea = document.getElementById('editContent');
+            const elementId = element.getAttribute('data-id');
+            
+            textarea.value = element.textContent;
+            modal.style.display = 'flex';
+            
+            // Save button event
+            document.getElementById('saveContent').onclick = function() {
+                element.textContent = textarea.value;
+                saveContent(elementId, textarea.value);
+                modal.style.display = 'none';
+                addToChangeLog(`Updated content: ${elementId}`);
+                showToast('Content updated successfully!', false);
+            };
+            
+            // Cancel button event
+            document.getElementById('cancelEdit').onclick = function() {
+                modal.style.display = 'none';
+            };
+            
+            // Close button event
+            document.getElementById('closeEditModal').onclick = function() {
+                modal.style.display = 'none';
+            };
+        }
+        
+        // Open image upload modal
+        function openImageUploadModal(imgElement) {
+            if (!isAuthenticated()) return;
+            
+            const modal = document.getElementById('imageUploadModal');
+            const preview = document.getElementById('imagePreview');
+            const uploadInput = document.getElementById('imageUpload');
+            
+            modal.style.display = 'flex';
+            preview.style.display = 'none';
+            
+            // Handle file selection
+            uploadInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                        preview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Confirm upload
+            document.getElementById('confirmUpload').onclick = function() {
+                if (uploadInput.files.length > 0) {
+                    const file = uploadInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imgElement.src = e.target.result;
+                        saveImage(imgElement.src, imgElement.alt);
+                        modal.style.display = 'none';
+                        addToChangeLog(`Updated image: ${imgElement.alt}`);
+                        showToast('Image updated successfully!', false);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    showToast('Please select an image first!', true);
+                }
+            };
+            
+            // Cancel upload
+            document.getElementById('cancelUpload').onclick = function() {
+                modal.style.display = 'none';
+            };
+        }
+        
+        // Save content to localStorage
+        function saveContent(elementId, content) {
+            if (!isAuthenticated()) return;
+            
+            const savedContent = JSON.parse(localStorage.getItem(CONTENT_KEY) || '{}');
+            savedContent[elementId] = content;
+            localStorage.setItem(CONTENT_KEY, JSON.stringify(savedContent));
+        }
+        
+        // Save image to localStorage
+        function saveImage(src, alt) {
+            if (!isAuthenticated()) return;
+            
+            const savedImages = JSON.parse(localStorage.getItem('ssamc_images') || '{}');
+            savedImages[alt] = src;
+            localStorage.setItem('ssamc_images', JSON.stringify(savedImages));
+        }
+        
+        // Load saved content
+        function loadSavedContent() {
+            const savedContent = JSON.parse(localStorage.getItem(CONTENT_KEY) || '{}');
+            
+            for (const [id, content] of Object.entries(savedContent)) {
+                const element = document.querySelector(`[data-id="${id}"]`);
+                if (element) {
+                    element.textContent = content;
+                }
+            }
+            
+            // Load saved images
+            const savedImages = JSON.parse(localStorage.getItem('ssamc_images') || '{}');
+            for (const [alt, src] of Object.entries(savedImages)) {
+                const img = Array.from(document.querySelectorAll('img')).find(
+                    img => img.alt === alt
+                );
+                if (img) {
+                    img.src = src;
+                }
+            }
+        }
+        
+        // Add entry to change log
+        function addToChangeLog(message) {
+            if (!isAuthenticated()) return;
+            
+            const changeList = document.getElementById('changeList');
+            const listItem = document.createElement('li');
+            listItem.className = 'change-item';
+            
+            const now = new Date();
+            const timestamp = now.toLocaleTimeString();
+            
+            listItem.innerHTML = `
+                <span>${message}</span>
+                <span class="change-time">${timestamp}</span>
+            `;
+            
+            changeList.appendChild(listItem);
+        }
+        
+        // Save all changes
+        document.getElementById('saveAllChanges').addEventListener('click', function() {
+            showToast('All changes saved successfully!', false);
+            addToChangeLog('Saved all changes');
+        });
+        
+        // Discard changes
+        document.getElementById('discardChanges').addEventListener('click', function() {
+            if (confirm('Are you sure you want to discard all changes?')) {
+                localStorage.removeItem(CONTENT_KEY);
+                localStorage.removeItem('ssamc_images');
+                location.reload();
+            }
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            const loginModal = document.getElementById('loginModal');
+            const imageModal = document.getElementById('imageUploadModal');
+            const editModal = document.getElementById('editModal');
+            const addContentModal = document.getElementById('addContentModal');
+            
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === imageModal) {
+                imageModal.style.display = 'none';
+            }
+            if (e.target === editModal) {
+                editModal.style.display = 'none';
+            }
+            if (e.target === addContentModal) {
+                addContentModal.style.display = 'none';
+            }
+        });
+        
+        // Open add content modal
+        function openAddContentModal(type = '') {
+            if (!isAuthenticated()) return;
+            
+            const modal = document.getElementById('addContentModal');
+            const title = document.getElementById('addContentModalTitle');
+            const contentType = document.getElementById('contentType');
+            
+            modal.style.display = 'flex';
+            
+            if (type) {
+                contentType.value = type;
+                // Trigger change event to show appropriate fields
+                const event = new Event('change');
+                contentType.dispatchEvent(event);
+            }
+            
+            if (type === 'gallery') {
+                title.textContent = 'Add New Gallery Image';
+            } else if (type === 'program') {
+                title.textContent = 'Add New Program';
+            } else {
+                title.textContent = 'Add New Content';
+            }
+        }
+        
+        // Reset add content form
+        function resetAddContentForm() {
+            document.getElementById('contentType').value = '';
+            document.getElementById('contentTitle').value = '';
+            document.getElementById('contentText').value = '';
+            document.getElementById('imageAlt').value = '';
+            document.getElementById('imageCategory').value = 'campus';
+            document.getElementById('programFee').value = '';
+            document.getElementById('programDuration').value = '';
+            document.getElementById('programIcon').value = 'fas fa-seedling';
+            document.getElementById('galleryFields').style.display = 'none';
+            document.getElementById('programFields').style.display = 'none';
+        }
+        
+        // Add new content section
+        function addNewContentSection(title, content) {
+            if (!isAuthenticated()) return;
+            
+            // Generate a unique ID for the new content
+            const contentId = 'custom-content-' + Date.now();
+            
+            // Create a new content element
+            const newContent = document.createElement('div');
+            newContent.className = 'mission-card editable';
+            newContent.setAttribute('data-id', contentId);
+            newContent.innerHTML = `
+                <i class="fas fa-file-alt icon"></i>
+                <h3>${title}</h3>
+                <p>${content}</p>
+            `;
+            
+            // Add to the about section
+            document.querySelector('.mission-section').appendChild(newContent);
+            
+            // Make it editable
+            setupEditableElement(newContent);
+            
+            // Save to localStorage
+            saveContent(contentId + '-title', title);
+            saveContent(contentId + '-content', content);
+            
+            // Add to content manager
+            addToContentManager(contentId, title, 'text');
+            
+            addToChangeLog(`Added new content: ${title}`);
+            showToast('Content added successfully!', false);
+        }
+        
+        // Add new program
+        function addNewProgram(title, description, fee, duration, icon) {
+            if (!isAuthenticated()) return;
+            
+            // Generate a unique ID for the new program
+            const programId = 'custom-program-' + Date.now();
+            
+            // Create a new program element
+            const newProgram = document.createElement('div');
+            newProgram.className = 'program-card editable';
+            newProgram.setAttribute('data-id', programId);
+            newProgram.innerHTML = `
+                <i class="${icon}"></i>
+                <h3>${title}</h3>
+                <p>${description}</p>
+            `;
+            
+            // Add to the programs grid
+            document.querySelector('.programs-grid').appendChild(newProgram);
+            
+            // Create a corresponding fee card
+            const newFee = document.createElement('div');
+            newFee.className = 'fee-card editable';
+            newFee.setAttribute('data-id', programId + '-fee');
+            newFee.innerHTML = `
+                <i class="${icon}"></i>
+                <h3>${title}</h3>
+                <p>${fee}</p>
+                <p>${duration}</p>
+            `;
+            
+            // Add to the fees grid
+            document.querySelector('.fees-grid').appendChild(newFee);
+            
+            // Make them editable
+            setupEditableElement(newProgram);
+            setupEditableElement(newFee);
+            
+            // Save to localStorage
+            saveContent(programId + '-title', title);
+            saveContent(programId + '-desc', description);
+            saveContent(programId + '-fee-amount', fee);
+            saveContent(programId + '-fee-duration', duration);
+            
+            // Add to program manager
+            addToProgramManager(programId, title);
+            
+            addToChangeLog(`Added new program: ${title}`);
+            showToast('Program added successfully!', false);
+        }
+        
+        // Add new gallery image
+        function addNewGalleryImage(src, data) {
+            if (!isAuthenticated()) return;
+            
+            // Generate a unique ID for the new gallery item
+            const galleryId = 'custom-gallery-' + Date.now();
+            
+            // Create a new gallery item
+            const newGalleryItem = document.createElement('div');
+            newGalleryItem.className = 'gallery-item';
+            newGalleryItem.setAttribute('data-category', data.category);
+            newGalleryItem.setAttribute('data-id', galleryId);
+            newGalleryItem.innerHTML = `
+                <img src="${src}" alt="${data.alt}">
+                <div class="gallery-caption editable" data-id="${galleryId}-caption">${data.title}</div>
+            `;
+            
+            // Add to the gallery grid
+            document.querySelector('.gallery-grid').appendChild(newGalleryItem);
+            
+            // Make it editable
+            const container = document.createElement('div');
+            container.className = 'image-upload-container';
+            
+            const uploadBtn = document.createElement('div');
+            uploadBtn.className = 'image-upload-btn';
+            uploadBtn.innerHTML = '<i class="fas fa-camera"></i>';
+            
+            newGalleryItem.parentNode.insertBefore(container, newGalleryItem);
+            container.appendChild(newGalleryItem);
+            container.appendChild(uploadBtn);
+            
+            uploadBtn.addEventListener('click', function() {
+                openImageUploadModal(newGalleryItem.querySelector('img'));
+            });
+            
+            // Make caption editable
+            const caption = newGalleryItem.querySelector('.gallery-caption');
+            caption.style.cursor = 'pointer';
+            caption.setAttribute('contenteditable', 'false');
+            
+            const tooltip = document.createElement('span');
+            tooltip.className = 'edit-tooltip';
+            tooltip.innerHTML = '<i class="fas fa-edit"></i>';
+            caption.appendChild(tooltip);
+            
+            caption.addEventListener('click', function(e) {
+                if (e.target !== tooltip) {
+                    openEditModal(caption);
+                }
+            });
+            
+            tooltip.addEventListener('click', function(e) {
+                e.stopPropagation();
+                openEditModal(caption);
+            });
+            
+            // Save to localStorage
+            saveImage(src, data.alt);
+            saveContent(galleryId + '-title', data.title);
+            saveContent(galleryId + '-alt', data.alt);
+            saveContent(galleryId + '-category', data.category);
+            saveContent(galleryId + '-caption', data.title);
+            
+            // Add to gallery manager
+            addToGalleryManager(galleryId, src, data.title);
+            
+            addToChangeLog(`Added new gallery image: ${data.title}`);
+            showToast('Gallery image added successfully!', false);
+        }
+        
+        // Load gallery manager
+        function loadGalleryManager() {
+            const galleryManager = document.getElementById('galleryManager');
+            galleryManager.innerHTML = '';
+            
+            // Get all gallery items
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryItems.forEach(item => {
+                const id = item.getAttribute('data-id') || 'default';
+                const img = item.querySelector('img');
+                const title = item.querySelector('.gallery-caption').textContent;
+                
+                addToGalleryManager(id, img.src, title);
+            });
+        }
+        
+        // Add to gallery manager
+        function addToGalleryManager(id, src, title) {
+            const galleryManager = document.getElementById('galleryManager');
+            
+            const galleryItemAdmin = document.createElement('div');
+            galleryItemAdmin.className = 'gallery-item-admin';
+            galleryItemAdmin.setAttribute('data-id', id);
+            galleryItemAdmin.innerHTML = `
+                <img src="${src}" alt="${title}">
+                <div class="gallery-item-admin-actions">
+                    <button class="gallery-item-admin-btn" onclick="editGalleryItem('${id}')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="gallery-item-admin-btn" onclick="deleteGalleryItem('${id}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            
+            galleryManager.appendChild(galleryItemAdmin);
+        }
+        
+        // Load content manager
+        function loadContentManager() {
+            const contentManager = document.getElementById('contentManager');
+            contentManager.innerHTML = '';
+            
+            // Get all custom content items
+            const contentItems = document.querySelectorAll('.editable.mission-card');
+            
+            contentItems.forEach(item => {
+                const id = item.getAttribute('data-id');
+                if (id && id.startsWith('custom-content-')) {
+                    const title = item.querySelector('h3').textContent;
+                    addToContentManager(id, title, 'text');
+                }
+            });
+        }
+        
+        // Add to content manager
+        function addToContentManager(id, title, type) {
+            const contentManager = document.getElementById('contentManager');
+            
+            const contentItem = document.createElement('div');
+            contentItem.className = 'content-item';
+            contentItem.setAttribute('data-id', id);
+            contentItem.innerHTML = `
+                <span>${title}</span>
+                <div class="content-item-actions">
+                    <button class="content-item-btn" onclick="editContentItem('${id}')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="content-item-btn" onclick="deleteContentItem('${id}', '${type}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            
+            contentManager.appendChild(contentItem);
+        }
+        
+        // Load program manager
+        function loadProgramManager() {
+            const programManager = document.getElementById('programManager');
+            programManager.innerHTML = '';
+            
+            // Get all custom program items
+            const programItems = document.querySelectorAll('.editable.program-card');
+            
+            programItems.forEach(item => {
+                const id = item.getAttribute('data-id');
+                if (id && id.startsWith('custom-program-')) {
+                    const title = item.querySelector('h3').textContent;
+                    addToProgramManager(id, title);
+                }
+            });
+        }
+        
+        // Add to program manager
+        function addToProgramManager(id, title) {
+            const programManager = document.getElementById('programManager');
+            
+            const programItem = document.createElement('div');
+            programItem.className = 'content-item';
+            programItem.setAttribute('data-id', id);
+            programItem.innerHTML = `
+                <span>${title}</span>
+                <div class="content-item-actions">
+                    <button class="content-item-btn" onclick="editProgramItem('${id}')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="content-item-btn" onclick="deleteProgramItem('${id}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            
+            programManager.appendChild(programItem);
+        }
+        
+        // Setup editable element (for newly created elements)
+        function setupEditableElement(element) {
+            element.style.cursor = 'pointer';
+            element.setAttribute('contenteditable', 'false');
+            
+            // Add edit tooltip
+            const tooltip = document.createElement('span');
+            tooltip.className = 'edit-tooltip';
+            tooltip.innerHTML = '<i class="fas fa-edit"></i>';
+            element.appendChild(tooltip);
+            
+            // Add click event for editing
+            element.addEventListener('click', function(e) {
+                if (e.target !== tooltip) {
+                    openEditModal(element);
+                }
+            });
+            
+            // Tooltip click for quick edit
+            tooltip.addEventListener('click', function(e) {
+                e.stopPropagation();
+                openEditModal(element);
+            });
+        }
+        
+        // Delete content item
+        function deleteContentItem(id, type) {
+            if (!isAuthenticated() || !confirm('Are you sure you want to delete this content?')) return;
+            
+            const element = document.querySelector(`[data-id="${id}"]`);
+            if (element) {
+                element.remove();
+                
+                // Remove from localStorage
+                const savedContent = JSON.parse(localStorage.getItem(CONTENT_KEY) || '{}');
+                delete savedContent[id + '-title'];
+                delete savedContent[id + '-content'];
+                localStorage.setItem(CONTENT_KEY, JSON.stringify(savedContent));
+                
+                // Remove from content manager
+                document.querySelector(`#contentManager .content-item[data-id="${id}"]`).remove();
+                
+                addToChangeLog(`Deleted content: ${id}`);
+                showToast('Content deleted successfully!', false);
+            }
+        }
+        
+        // Delete program item
+        function deleteProgramItem(id) {
+            if (!isAuthenticated() || !confirm('Are you sure you want to delete this program?')) return;
+            
+            // Remove program card
+            const programElement = document.querySelector(`.program-card[data-id="${id}"]`);
+            if (programElement) programElement.remove();
+            
+            // Remove fee card
+            const feeElement = document.querySelector(`.fee-card[data-id="${id}-fee"]`);
+            if (feeElement) feeElement.remove();
+            
+            // Remove from localStorage
+            const savedContent = JSON.parse(localStorage.getItem(CONTENT_KEY) || '{}');
+            delete savedContent[id + '-title'];
+            delete savedContent[id + '-desc'];
+            delete savedContent[id + '-fee-amount'];
+            delete savedContent[id + '-fee-duration'];
+            localStorage.setItem(CONTENT_KEY, JSON.stringify(savedContent));
+            
+            // Remove from program manager
+            document.querySelector(`#programManager .content-item[data-id="${id}"]`).remove();
+            
+            addToChangeLog(`Deleted program: ${id}`);
+            showToast('Program deleted successfully!', false);
+        }
+        
+        // Delete gallery item
+        function deleteGalleryItem(id) {
+            if (!isAuthenticated() || !confirm('Are you sure you want to delete this gallery image?')) return;
+            
+            const element = document.querySelector(`.gallery-item[data-id="${id}"]`);
+            if (element) {
+                const alt = element.querySelector('img').alt;
+                
+                element.remove();
+                
+                // Remove from localStorage
+                const savedImages = JSON.parse(localStorage.getItem('ssamc_images') || '{}');
+                delete savedImages[alt];
+                localStorage.setItem('ssamc_images', JSON.stringify(savedImages));
+                
+                const savedContent = JSON.parse(localStorage.getItem(CONTENT_KEY) || '{}');
+                delete savedContent[id + '-title'];
+                delete savedContent[id + '-alt'];
+                delete savedContent[id + '-category'];
+                delete savedContent[id + '-caption'];
+                localStorage.setItem(CONTENT_KEY, JSON.stringify(savedContent));
+                
+                // Remove from gallery manager
+                document.querySelector(`#galleryManager .gallery-item-admin[data-id="${id}"]`).remove();
+                
+                addToChangeLog(`Deleted gallery image: ${id}`);
+                showToast('Gallery image deleted successfully!', false);
+            }
+        }
+        
+        // Edit content item (opens the edit modal)
+        function editContentItem(id) {
+            const element = document.querySelector(`[data-id="${id}"]`);
+            if (element) {
+                openEditModal(element);
+            }
+        }
+        
+        // Edit program item
+        function editProgramItem(id) {
+            const element = document.querySelector(`.program-card[data-id="${id}"]`);
+            if (element) {
+                openEditModal(element);
+            }
+        }
+        
+        // Edit gallery item
+        function editGalleryItem(id) {
+            const element = document.querySelector(`.gallery-item[data-id="${id}"]`);
+            if (element) {
+                const img = element.querySelector('img');
+                openImageUploadModal(img);
+            }
+        }
     </script>
 </body>
 </html>
