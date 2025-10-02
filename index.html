@@ -8,42 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Firebase SDK v9 (Modular) -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-        import { getStorage } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDxbu4aKsLmxLXNiSYErenOom8uBWesn4o",
-            authDomain: "sakhokuhle-8a6a4.firebaseapp.com",
-            projectId: "sakhokuhle-8a6a4",
-            storageBucket: "sakhokuhle-8a6a4.firebasestorage.app",
-            messagingSenderId: "686457877947",
-            appId: "1:686457877947:web:60d56b00006e28e03f409e",
-            measurementId: "G-SFLDPXTJYV"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-        const storage = getStorage(app);
-
-        // Make Firebase instances available globally
-        window.firebaseApp = app;
-        window.firebaseAnalytics = analytics;
-        window.firebaseDb = db;
-        window.firebaseAuth = auth;
-        window.firebaseStorage = storage;
-        window.firebaseSignIn = signInWithEmailAndPassword;
-        window.firebaseSignOut = signOut;
-    </script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
     
     <style>
         :root {
@@ -385,7 +354,7 @@
         }
 
         .fee-card h3 {
-            font-size: 1.5rem;
+            fontSize: 1.5rem;
             margin-bottom: 1rem;
         }
 
@@ -617,13 +586,11 @@
 
         .contact-details h3 {
             margin-bottom: 0.5rem;
-            color: var(--primary);
         }
 
         .contact-details p {
             font-size: 1.1rem;
             margin-bottom: 2rem;
-            color: var(--text);
         }
 
         /* Footer */
@@ -637,18 +604,15 @@
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
-            position: relative;
         }
 
         .social-icons {
             margin: 2rem 0;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
         }
 
         .social-icons a {
             color: white;
+            margin: 0 1rem;
             font-size: 1.5rem;
             transition: var(--transition);
         }
@@ -663,526 +627,7 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        /* Admin Dashboard Styles */
-        .admin-container {
-            display: none;
-            min-height: calc(100vh - 80px);
-            margin-top: 80px;
-            background: var(--light);
-        }
-
-        .admin-sidebar {
-            width: 250px;
-            background: var(--primary);
-            color: white;
-            padding: 1.5rem 0;
-            position: fixed;
-            height: calc(100vh - 80px);
-            transition: var(--transition);
-        }
-
-        .admin-sidebar-header {
-            padding: 0 1.5rem 1.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .admin-sidebar-header .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            display: flex;
-            align-items: center;
-        }
-
-        .admin-sidebar-header .logo span {
-            color: var(--secondary);
-        }
-
-        .admin-nav {
-            list-style: none;
-            margin-top: 1.5rem;
-        }
-
-        .admin-nav li {
-            margin-bottom: 0.5rem;
-        }
-
-        .admin-nav a {
-            display: flex;
-            align-items: center;
-            padding: 0.8rem 1.5rem;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .admin-nav a:hover, .admin-nav a.active {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border-left: 4px solid var(--secondary);
-        }
-
-        .admin-nav a i {
-            margin-right: 0.8rem;
-            width: 20px;
-            text-align: center;
-        }
-
-        .admin-main {
-            flex: 1;
-            padding: 1.5rem;
-            margin-left: 250px;
-            overflow-y: auto;
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .admin-header h1 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary);
-        }
-
-        .admin-user {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .admin-user img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .admin-user-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            box-shadow: var(--shadow);
-            border-radius: 8px;
-            padding: 0.5rem 0;
-            width: 150px;
-            display: none;
-            z-index: 100;
-        }
-
-        .admin-user-menu.show {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .admin-user-menu a {
-            display: block;
-            padding: 0.7rem 1rem;
-            color: var(--text);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .admin-user-menu a:hover {
-            background: var(--gray-light);
-        }
-
-        .admin-card {
-            background: var(--white);
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .admin-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .admin-card-header h2 {
-            font-size: 1.3rem;
-            color: var(--primary);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: var(--white);
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            padding: 1.5rem;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        }
-
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 1.5rem;
-        }
-
-        .stat-icon.blue {
-            background: rgba(52, 152, 219, 0.2);
-            color: #3498db;
-        }
-
-        .stat-icon.green {
-            background: rgba(46, 204, 113, 0.2);
-            color: #2ecc71;
-        }
-
-        .stat-icon.orange {
-            background: rgba(241, 196, 15, 0.2);
-            color: #f1c40f;
-        }
-
-        .stat-icon.purple {
-            background: rgba(155, 89, 182, 0.2);
-            color: #9b59b6;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-title {
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .content-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        .content-table th,
-        .content-table td {
-            padding: 0.8rem;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-
-        .content-table th {
-            background: var(--gray-light);
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .content-table tr:hover {
-            background: #f9f9f9;
-        }
-
-        .btn {
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-sm {
-            padding: 0.3rem 0.7rem;
-            font-size: 0.8rem;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-light);
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: var(--secondary-light);
-        }
-
-        .btn-danger {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #c0392b;
-        }
-
-        .btn-success {
-            background: #2ecc71;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #27ae60;
-        }
-
-        .btn-warning {
-            background: #f39c12;
-            color: white;
-        }
-
-        .btn-warning:hover {
-            background: #e67e22;
-        }
-
-        .badge {
-            padding: 0.3rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .badge-warning {
-            background: #f39c12;
-            color: white;
-        }
-
-        .badge-success {
-            background: #2ecc71;
-            color: white;
-        }
-
-        .badge-danger {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .badge-info {
-            background: #3498db;
-            color: white;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--primary);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(42, 92, 60, 0.2);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .image-preview {
-            width: 100%;
-            max-width: 300px;
-            margin: 1rem 0;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px dashed #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 150px;
-        }
-
-        .image-preview img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .gallery-manager {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .gallery-item-admin {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            aspect-ratio: 1 / 1;
-            box-shadow: var(--shadow);
-        }
-
-        .gallery-item-admin img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .gallery-item-admin-actions {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: rgba(0,0,0,0.7);
-            padding: 0.3rem;
-            display: flex;
-            gap: 0.3rem;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .gallery-item-admin:hover .gallery-item-admin-actions {
-            opacity: 1;
-        }
-
-        .gallery-item-admin-btn {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 0.8rem;
-            padding: 0.3rem;
-        }
-
-        .gallery-item-admin-btn:hover {
-            color: var(--secondary);
-        }
-
-        .tab-container {
-            margin-top: 1.5rem;
-        }
-
-        .tab-buttons {
-            display: flex;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 0.8rem 1.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            color: var(--text-light);
-            position: relative;
-            white-space: nowrap;
-        }
-
-        .tab-btn.active {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .tab-btn.active:after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--primary);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .search-box {
-            display: flex;
-            margin-bottom: 1.5rem;
-            gap: 0.5rem;
-        }
-
-        .search-box input {
-            flex: 1;
-            padding: 0.8rem;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-        }
-
-        .search-box button {
-            padding: 0.8rem 1.2rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .status-filter {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .status-filter button {
-            padding: 0.5rem 1rem;
-            background: var(--gray-light);
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .status-filter button.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Modal Styles */
+        /* Admin Login Modal */
         .modal {
             display: none;
             position: fixed;
@@ -1194,168 +639,368 @@
             z-index: 2000;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
         }
 
         .modal-content {
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
+            padding: 2.5rem;
+            border-radius: 15px;
             width: 90%;
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .modal h2 {
             margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
+            color: var(--primary);
+            text-align: center;
         }
 
-        .modal-header h2 {
-            margin: 0;
+        .modal input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.2rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .modal button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .modal button:hover {
+            background: var(--primary-light);
+        }
+
+        /* Admin Panel Styles */
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 80px;
+            right: 0;
+            width: 300px;
+            height: calc(100vh - 80px);
+            background: var(--white);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 999;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .admin-panel h3 {
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .admin-section {
+            margin-bottom: 2rem;
+        }
+
+        .admin-section h4 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .color-picker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #eee;
+        }
+
+        .color-option.active {
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        .admin-toggle {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: var(--shadow);
+        }
+
+        .edit-mode-indicator {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            z-index: 1001;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+
+        .editable {
+            position: relative;
+            min-height: 20px;
+        }
+
+        .editable:hover {
+            outline: 2px dashed rgba(212, 160, 23, 0.5);
+        }
+
+        .edit-tooltip {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--secondary);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .editable:hover .edit-tooltip {
+            opacity: 1;
+        }
+
+        .image-upload-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-upload-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .image-upload-container:hover .image-upload-btn {
+            opacity: 1;
+        }
+
+        /* User Authentication Styles */
+        .user-auth {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            min-width: 150px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .user-dropdown.active {
+            display: block;
+        }
+
+        .user-dropdown a {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .user-dropdown a:hover {
             color: var(--primary);
         }
 
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-light);
+        /* NEW STYLES FOR IMAGE MANAGEMENT */
+        .image-management {
+            position: relative;
         }
 
-        /* Toast Notification */
-        .toast {
+        .image-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .image-management:hover .image-controls {
+            opacity: 1;
+        }
+
+        .image-control-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+        }
+
+        .delete-image {
+            background: #dc3545;
+        }
+
+        .edit-image {
+            background: var(--primary);
+        }
+
+        .add-image-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            border: none;
+            margin-bottom: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-image-btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .image-upload-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-upload-modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .image-preview {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 1rem 0;
+            display: none;
+        }
+
+        .save-status {
             position: fixed;
             bottom: 20px;
             right: 20px;
             background: var(--primary);
             color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            z-index: 1001;
+            font-weight: 500;
             box-shadow: var(--shadow);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            max-width: 400px;
+            display: none;
         }
 
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
+        .save-status.success {
+            background: #28a745;
         }
 
-        .toast.success {
-            background: var(--primary);
+        .save-status.error {
+            background: #dc3545;
         }
 
-        .toast.error {
-            background: #e74c3c;
-        }
-
-        .toast.warning {
-            background: #f39c12;
-        }
-
-        /* Login Page Styles */
-        .login-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(rgba(42,92,60,0.85), rgba(42,92,60,0.8)), url('https://images.unsplash.com/photo-1604881991720-f91add269bed');
-            background-size: cover;
-            background-position: center;
-            padding: 1.5rem;
-        }
-
-        .login-box {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 15px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .login-header h1 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .login-header p {
-            color: var(--text-light);
-        }
-
-        .login-form .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 1rem;
-        }
-
-        .login-btn:hover {
-            background: var(--primary-light);
-        }
-
-        /* Responsive Styles */
+        /* Responsive Design */
         @media (max-width: 992px) {
-            .admin-sidebar {
-                width: 70px;
-                overflow: hidden;
+            .hero h1 {
+                font-size: 2.8rem;
             }
-
-            .admin-sidebar:hover {
-                width: 250px;
-            }
-
-            .admin-sidebar-header .logo span {
-                display: none;
-            }
-
-            .admin-sidebar:hover .admin-sidebar-header .logo span {
-                display: inline;
-            }
-
-            .admin-nav a span {
-                display: none;
-            }
-
-            .admin-sidebar:hover .admin-nav a span {
-                display: inline;
-            }
-
-            .admin-main {
-                margin-left: 70px;
-            }
-
-            .admin-sidebar:hover ~ .admin-main {
-                margin-left: 250px;
+            
+            .section-heading h2 {
+                font-size: 2.2rem;
             }
         }
 
@@ -1363,70 +1008,45 @@
             .navbar {
                 padding: 1rem;
             }
-
+            
             .nav-links {
                 display: none;
             }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
+            
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.3rem;
             }
-
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
             .section {
-                padding: 3rem 1rem;
+                padding: 4rem 1.5rem;
             }
-
+            
             .section-heading h2 {
                 font-size: 2rem;
             }
-
-            .admin-sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                display: none;
+            
+            .programs-grid, .fees-grid, .gallery-grid {
+                grid-template-columns: 1fr;
             }
-
-            .admin-main {
-                margin-left: 0;
+            
+            .application-form {
+                padding: 1.5rem;
             }
-
-            .admin-container {
-                flex-direction: column;
+            
+            .form-row {
+                grid-template-columns: 1fr;
             }
-
-            .admin-nav {
-                display: flex;
-                overflow-x: auto;
+            
+            .mission-section {
+                grid-template-columns: 1fr;
             }
-
-            .admin-nav li {
-                margin-bottom: 0;
-                flex-shrink: 0;
-            }
-
-            .admin-nav a {
-                padding: 1rem;
-                border-left: none;
-                border-bottom: 4px solid transparent;
-            }
-
-            .admin-nav a.active {
-                border-left: none;
-                border-bottom: 4px solid var(--secondary);
-            }
-
-            .mobile-menu-btn {
-                display: block;
-                background: none;
-                border: none;
-                font-size: 1.5rem;
-                color: var(--primary);
-                cursor: pointer;
+            
+            .admin-panel {
+                width: 250px;
             }
         }
 
@@ -1434,148 +1054,21 @@
             .hero h1 {
                 font-size: 2rem;
             }
-
-            .form-row {
-                grid-template-columns: 1fr;
+            
+            .cta-button {
+                padding: 0.8rem 2rem;
             }
-
-            .program-select {
-                grid-template-columns: 1fr;
+            
+            .section-heading h2 {
+                font-size: 1.8rem;
             }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
+            
+            .mission-card, .vision-box, .program-card, .fee-card {
+                padding: 1.5rem;
             }
-
-            .admin-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-
-            .admin-user {
-                align-self: flex-end;
-            }
-        }
-
-        /* Animation for elements */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease;
-        }
-
-        /* Utility Classes */
-        .text-center {
-            text-align: center;
-        }
-
-        .text-right {
-            text-align: right;
-        }
-
-        .mt-1 { margin-top: 1rem; }
-        .mt-2 { margin-top: 2rem; }
-        .mt-3 { margin-top: 3rem; }
-        .mb-1 { margin-bottom: 1rem; }
-        .mb-2 { margin-bottom: 2rem; }
-        .mb-3 { margin-bottom: 3rem; }
-        .p-1 { padding: 1rem; }
-        .p-2 { padding: 2rem; }
-        .p-3 { padding: 3rem; }
-
-        .d-none {
-            display: none;
-        }
-
-        .d-flex {
-            display: flex;
-        }
-
-        .justify-content-between {
-            justify-content: space-between;
-        }
-
-        .align-items-center {
-            align-items: center;
-        }
-
-        .w-100 {
-            width: 100%;
-        }
-
-        /* Mobile Menu Button */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--primary);
-            cursor: pointer;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu {
-            position: fixed;
-            top: 80px;
-            left: 0;
-            width: 100%;
-            background: var(--white);
-            box-shadow: var(--shadow);
-            z-index: 999;
-            display: none;
-            padding: 1rem;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .mobile-menu.show {
-            display: flex;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 2rem auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Print Styles */
-        @media print {
-            .navbar, .admin-sidebar, .admin-header, .btn, .gallery-categories, .mobile-menu-btn {
-                display: none !important;
-            }
-
-            body {
-                padding-top: 0;
-            }
-
-            .section {
-                padding: 1rem 0;
-                break-inside: avoid;
-            }
-
-            .program-card, .fee-card {
-                box-shadow: none;
-                border: 1px solid #ddd;
+            
+            .contact-details {
+                padding: 2rem 1.5rem;
             }
         }
     </style>
@@ -1584,333 +1077,335 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-content">
-            <a href="#" class="logo">
-                <i class="fas fa-leaf"></i> SSAMC
-            </a>
+            <div class="logo">SSA<span>MC</span></div>
             <div class="nav-links">
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
                 <a href="#programs">Programs</a>
-                <a href="#fees">Fees</a>
                 <a href="#gallery">Gallery</a>
-                <a href="#application">Apply</a>
+                <a href="#fees">Fees</a>
+                <a href="#apply">Apply</a>
                 <a href="#contact">Contact</a>
-                <a href="#" class="admin-login" id="adminLoginBtn">Admin Login</a>
+                <div class="user-auth" id="userAuth">
+                    <a href="#" class="admin-login" id="adminLoginBtn">Admin Login</a>
+                </div>
             </div>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#programs">Programs</a>
-        <a href="#fees">Fees</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#application">Apply</a>
-        <a href="#contact">Contact</a>
-        <a href="#" class="admin-login" id="adminLoginBtnMobile">Admin Login</a>
+    <!-- Admin Toggle Button -->
+    <div class="admin-toggle" id="adminToggle">
+        <i class="fas fa-cog"></i>
     </div>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <div class="hero-content">
-                <h1>Sakhokuhle Skills & African Medicine College</h1>
-                <p>Empowering communities through skills development and traditional healing practices</p>
-                <a href="#application" class="cta-button">Apply Now</a>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section class="section about" id="about">
-            <div class="section-heading">
-                <h2>About Our Institution</h2>
-                <p>SSAMC is dedicated to preserving African traditional medicine while providing modern vocational training to empower individuals and communities.</p>
-            </div>
-            <div class="about-content">
-                <div class="mission-section">
-                    <div class="mission-card">
-                        <div class="icon">
-                            <i class="fas fa-hand-holding-heart"></i>
-                        </div>
-                        <h3>Our Mission</h3>
-                        <p>To provide accessible education in African traditional medicine and vocational skills that empower individuals to become self-sufficient and contribute to community development.</p>
-                    </div>
-                    <div class="mission-card">
-                        <div class="icon">
-                            <i class="fas fa-eye"></i>
-                        </div>
-                        <h3>Our Vision</h3>
-                        <p>A future where traditional African healing practices are preserved and integrated with modern vocational skills to create sustainable livelihoods across communities.</p>
-                    </div>
-                    <div class="mission-card">
-                        <div class="icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <h3>Our Values</h3>
-                        <p>Respect for tradition, commitment to excellence, community empowerment, and sustainable development through education.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Programs Section -->
-        <section class="section programs" id="programs">
-            <div class="section-heading">
-                <h2>Our Programs</h2>
-                <p>All our programs are 6-month certification courses designed to provide practical skills for immediate employment or entrepreneurship.</p>
-            </div>
-            <div class="programs-grid">
-                <div class="program-card">
-                    <i class="fas fa-mortar-pestle"></i>
-                    <h3>African Medicine</h3>
-                    <p>6-month certification program in traditional healing practices and herbal medicine.</p>
-                </div>
-                <div class="program-card">
-                    <i class="fas fa-wrench"></i>
-                    <h3>Basic Plumbing</h3>
-                    <p>6-month vocational training in residential and commercial plumbing systems.</p>
-                </div>
-                <div class="program-card">
-                    <i class="fas fa-fire"></i>
-                    <h3>Welding</h3>
-                    <p>6-month metalwork certification focusing on various welding techniques.</p>
-                </div>
-                <div class="program-card">
-                    <i class="fas fa-soap"></i>
-                    <h3>Soap Making</h3>
-                    <p>6-month artisanal production course for natural and commercial soap products.</p>
-                </div>
-                <div class="program-card">
-                    <i class="fas fa-candy-cane"></i>
-                    <h3>Candle Making</h3>
-                    <p>6-month creative design course for decorative and aromatic candles.</p>
-                </div>
-                <div class="program-card">
-                    <i class="fas fa-tshirt"></i>
-                    <h3>Sewing</h3>
-                    <p>6-month garment construction program for fashion and textile skills.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Fees Section -->
-        <section class="section fees" id="fees">
-            <div class="section-heading">
-                <h2>Program Fees</h2>
-                <p>Affordable education with flexible payment options. All programs are priced at R2100 for the 6-month duration.</p>
-            </div>
-            <div class="fees-grid">
-                <div class="fee-card">
-                    <i class="fas fa-mortar-pestle"></i>
-                    <h3>African Medicine</h3>
-                    <p>R2100 (6 months)</p>
-                </div>
-                <div class="fee-card">
-                    <i class="fas fa-wrench"></i>
-                    <h3>Basic Plumbing</h3>
-                    <p>R2100 (6 months)</p>
-                </div>
-                <div class="fee-card">
-                    <i class="fas fa-fire"></i>
-                    <h3>Welding</h3>
-                    <p>R2100 (6 months)</p>
-                </div>
-                <div class="fee-card">
-                    <i class="fas fa-soap"></i>
-                    <h3>Soap Making</h3>
-                    <p>R2100 (6 months)</p>
-                </div>
-                <div class="fee-card">
-                    <i class="fas fa-candy-cane"></i>
-                    <h3>Candle Making</h3>
-                    <p>R2100 (6 months)</p>
-                </div>
-                <div class="fee-card">
-                    <i class="fas fa-tshirt"></i>
-                    <h3>Sewing</h3>
-                    <p>R2100 (6 months)</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gallery Section -->
-        <section class="section gallery" id="gallery">
-            <div class="section-heading">
-                <h2>Our Gallery</h2>
-                <p>Take a look at our campus, students, and activities</p>
-            </div>
-            <div class="gallery-categories">
-                <button class="active" data-category="all">All</button>
-                <button data-category="campus">Campus</button>
-                <button data-category="students">Students</button>
-                <button data-category="activities">Activities</button>
-                <button data-category="graduation">Graduation</button>
-            </div>
-            <div class="gallery-grid">
-                <!-- Gallery items will be loaded dynamically -->
-            </div>
-        </section>
-
-        <!-- Application Section -->
-        <section class="section application" id="application">
-            <div class="section-heading">
-                <h2>Application Form</h2>
-                <p>Start your journey with SSAMC by completing the application form below</p>
-            </div>
-            <div class="application-form">
-                <form id="applicationForm">
-                    <div class="form-section">
-                        <h3>Personal Information</h3>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="fullName">Full Name *</label>
-                                <input type="text" id="fullName" name="fullName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="idNumber">ID Number *</label>
-                                <input type="text" id="idNumber" name="idNumber" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email Address *</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number *</label>
-                                <input type="tel" id="phone" name="phone" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="address">Residential Address *</label>
-                                <textarea id="address" name="address" rows="3" required></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-section">
-                        <h3>Program Selection</h3>
-                        <p>Select the program you wish to apply for:</p>
-                        <div class="program-select">
-                            <div class="program-option" data-program="African Medicine">
-                                <h4>African Medicine</h4>
-                                <p>R2100 (6 months)</p>
-                            </div>
-                            <div class="program-option" data-program="Basic Plumbing">
-                                <h4>Basic Plumbing</h4>
-                                <p>R2100 (6 months)</p>
-                            </div>
-                            <div class="program-option" data-program="Welding">
-                                <h4>Welding</h4>
-                                <p>R2100 (6 months)</p>
-                            </div>
-                            <div class="program-option" data-program="Soap Making">
-                                <h4>Soap Making</h4>
-                                <p>R2100 (6 months)</p>
-                            </div>
-                            <div class="program-option" data-program="Candle Making">
-                                <h4>Candle Making</h4>
-                                <p>R2100 (6 months)</p>
-                            </div>
-                            <div class="program-option" data-program="Sewing">
-                                <h4>Sewing</h4>
-                                <p>R2100 (6 months)</p>
-                            </div>
-                        </div>
-                        <input type="hidden" id="selectedProgram" name="selectedProgram" required>
-                    </div>
-
-                    <div class="form-section">
-                        <h3>Educational Background</h3>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="educationLevel">Highest Education Level *</label>
-                                <select id="educationLevel" name="educationLevel" required>
-                                    <option value="">Select Education Level</option>
-                                    <option value="Grade 12">Grade 12</option>
-                                    <option value="Grade 11">Grade 11</option>
-                                    <option value="Grade 10">Grade 10</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="schoolName">School Name</label>
-                                <input type="text" id="schoolName" name="schoolName">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="previousExperience">Previous Experience (if any)</label>
-                            <textarea id="previousExperience" name="previousExperience" rows="3"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-section">
-                        <h3>Payment Information</h3>
-                        <div class="banking-info">
-                            <p><strong>Banking Details:</strong></p>
-                            <p>Bank: Standard Bank</p>
-                            <p>Account Name: Sakhokuhle Skills & African Medicine College</p>
-                            <p>Account Number: 0123456789</p>
-                            <p>Branch Code: 012345</p>
-                            <p>Reference: Your ID Number</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="paymentProof">Upload Proof of Payment</label>
-                            <input type="file" id="paymentProof" name="paymentProof" accept=".jpg,.jpeg,.png,.pdf">
-                        </div>
-                    </div>
-
-                    <div class="terms">
-                        <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
-                        <label for="agreeTerms">I agree to the terms and conditions and confirm that all information provided is accurate.</label>
-                    </div>
-
-                    <button type="submit" class="cta-button w-100">Submit Application</button>
-                </form>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="section contact" id="contact">
-            <div class="section-heading">
-                <h2>Contact Us</h2>
-                <p>Get in touch with us for more information</p>
-            </div>
-            <div class="contact-details">
-                <i class="fas fa-map-marker-alt"></i>
-                <h3>Our Location</h3>
-                <p>123 Education Street, Knowledge City, 1234</p>
-
-                <i class="fas fa-phone"></i>
-                <h3>Phone Number</h3>
-                <p>+27 12 345 6789</p>
-
-                <i class="fas fa-envelope"></i>
-                <h3>Email Address</h3>
-                <p>info@ssamc.co.za</p>
-
-                <i class="fas fa-clock"></i>
-                <h3>Operating Hours</h3>
-                <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
-                <p>Saturday: 9:00 AM - 1:00 PM</p>
-            </div>
-        </section>
+    <!-- Edit Mode Indicator -->
+    <div class="edit-mode-indicator" id="editModeIndicator">
+        <i class="fas fa-edit"></i> Edit Mode Active
     </div>
+
+    <!-- Save Status Indicator -->
+    <div class="save-status" id="saveStatus"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="editable" data-content="hero-title">Empowering Communities Through Education
+                <span class="edit-tooltip" data-target="hero-title">✎</span>
+            </h1>
+            <p class="editable" data-content="hero-subtitle">Traditional medicine and modern vocational training for a brighter African future
+                <span class="edit-tooltip" data-target="hero-subtitle">✎</span>
+            </p>
+            <a href="#apply" class="cta-button">Enroll Now</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="section-heading">
+            <h2 class="editable" data-content="about-title">About SSAMC
+                <span class="edit-tooltip" data-target="about-title">✎</span>
+            </h2>
+            <p class="editable" data-content="about-subtitle">Discover our mission, vision, and commitment to empowering African communities through education
+                <span class="edit-tooltip" data-target="about-subtitle">✎</span>
+            </p>
+        </div>
+        <div class="about-content">
+            <div class="mission-section">
+                <div class="mission-card">
+                    <i class="fas fa-bullseye icon"></i>
+                    <h3 class="editable" data-content="mission-title">Our Mission
+                        <span class="edit-tooltip" data-target="mission-title">✎</span>
+                    </h3>
+                    <p class="editable" data-content="mission-text-1">Sakhokuhle School of African Medicine and Crafting provides highly flexible programs geared towards equipping and empowering African Health Practitioners who will change the world.
+                        <span class="edit-tooltip" data-target="mission-text-1">✎</span>
+                    </p>
+                    <p class="editable" data-content="mission-text-2">All courses are rooted in ancestral knowledge and are available in various formats to everyone who meets our entrance requirements.
+                        <span class="edit-tooltip" data-target="mission-text-2">✎</span>
+                    </p>
+                </div>
+                <div class="vision-box">
+                    <i class="fas fa-eye icon"></i>
+                    <h3 class="editable" data-content="vision-title">Our Vision
+                        <span class="edit-tooltip" data-target="vision-title">✎</span>
+                    </h3>
+                    <p class="editable" data-content="vision-text-1">To be recognized as an international center for excellence that is both rooted in its environment and sensitive to the challenges of human progress.
+                        <span class="edit-tooltip" data-target="vision-text-1">✎</span>
+                    </p>
+                    <p class="editable" data-content="vision-text-2">To foster a culture of teaching, learning, and research excellence as a basic minimum requirement for being a site of knowledge generation.
+                        <span class="edit-tooltip" data-target="vision-text-2">✎</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="section programs" id="programs">
+        <div class="section-heading">
+            <h2 class="editable" data-content="programs-title">Our Programs
+                <span class="edit-tooltip" data-target="programs-title">✎</span>
+            </h2>
+            <p class="editable" data-content="programs-subtitle">Comprehensive training programs designed to empower you with practical skills and knowledge
+                <span class="edit-tooltip" data-target="programs-subtitle">✎</span>
+            </p>
+        </div>
+        <div class="programs-grid">
+            <div class="program-card">
+                <i class="fas fa-mortar-pestle"></i>
+                <h3 class="editable" data-content="program-1-title">Traditional Medicine
+                    <span class="edit-tooltip" data-target="program-1-title">✎</span>
+                </h3>
+                <p class="editable" data-content="program-1-desc">Comprehensive training in traditional African medicine, herbal remedies, and holistic healing practices.
+                    <span class="edit-tooltip" data-target="program-1-desc">✎</span>
+                </p>
+            </div>
+            <div class="program-card">
+                <i class="fas fa-seedling"></i>
+                <h3 class="editable" data-content="program-2-title">Herbalism
+                    <span class="edit-tooltip" data-target="program-2-title">✎</span>
+                </h3>
+                <p class="editable" data-content="program-2-desc">Learn to identify, cultivate, and prepare medicinal plants for health and wellness.
+                    <span class="edit-tooltip" data-target="program-2-desc">✎</span>
+                </p>
+            </div>
+            <div class="program-card">
+                <i class="fas fa-cut"></i>
+                <h3 class="editable" data-content="program-3-title">Tailoring & Design
+                    <span class="edit-tooltip" data-target="program-3-title">✎</span>
+                </h3>
+                <p class="editable" data-content="program-3-desc">Master the art of fashion design, pattern making, and garment construction.
+                    <span class="edit-tooltip" data-target="program-3-desc">✎</span>
+                </p>
+            </div>
+            <div class="program-card">
+                <i class="fas fa-utensils"></i>
+                <h3 class="editable" data-content="program-4-title">Culinary Arts
+                    <span class="edit-tooltip" data-target="program-4-title">✎</span>
+                </h3>
+                <p class="editable" data-content="program-4-desc">Develop professional cooking skills with a focus on African cuisine and nutrition.
+                    <span class="edit-tooltip" data-target="program-4-desc">✎</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section gallery" id="gallery">
+        <div class="section-heading">
+            <h2 class="editable" data-content="gallery-title">Our Gallery
+                <span class="edit-tooltip" data-target="gallery-title">✎</span>
+            </h2>
+            <p class="editable" data-content="gallery-subtitle">Explore our campus, students, and activities through our photo gallery
+                <span class="edit-tooltip" data-target="gallery-subtitle">✎</span>
+            </p>
+        </div>
+        <div class="gallery-categories">
+            <button class="active" data-category="all">All</button>
+            <button data-category="campus">Campus</button>
+            <button data-category="students">Students</button>
+            <button data-category="activities">Activities</button>
+            <button data-category="graduation">Graduation</button>
+        </div>
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Gallery images will be loaded dynamically from Firebase -->
+        </div>
+        <button class="add-image-btn" id="addImageBtn" style="display: none;">
+            <i class="fas fa-plus"></i> Add Image
+        </button>
+    </section>
+
+    <!-- Fees Section -->
+    <section class="section fees" id="fees">
+        <div class="section-heading">
+            <h2 class="editable" data-content="fees-title">Program Fees
+                <span class="edit-tooltip" data-target="fees-title">✎</span>
+            </h2>
+            <p class="editable" data-content="fees-subtitle">Affordable education with flexible payment options
+                <span class="edit-tooltip" data-target="fees-subtitle">✎</span>
+            </p>
+        </div>
+        <div class="fees-grid">
+            <div class="fee-card">
+                <i class="fas fa-mortar-pestle"></i>
+                <h3 class="editable" data-content="fee-1-title">Traditional Medicine
+                    <span class="edit-tooltip" data-target="fee-1-title">✎</span>
+                </h3>
+                <p class="editable" data-content="fee-1-price">R2,500/year
+                    <span class="edit-tooltip" data-target="fee-1-price">✎</span>
+                </p>
+            </div>
+            <div class="fee-card">
+                <i class="fas fa-seedling"></i>
+                <h3 class="editable" data-content="fee-2-title">Herbalism
+                    <span class="edit-tooltip" data-target="fee-2-title">✎</span>
+                </h3>
+                <p class="editable" data-content="fee-2-price">R2,000/year
+                    <span class="edit-tooltip" data-target="fee-2-price">✎</span>
+                </p>
+            </div>
+            <div class="fee-card">
+                <i class="fas fa-cut"></i>
+                <h3 class="editable" data-content="fee-3-title">Tailoring & Design
+                    <span class="edit-tooltip" data-target="fee-3-title">✎</span>
+                </h3>
+                <p class="editable" data-content="fee-3-price">R1,800/year
+                    <span class="edit-tooltip" data-target="fee-3-price">✎</span>
+                </p>
+            </div>
+            <div class="fee-card">
+                <i class="fas fa-utensils"></i>
+                <h3 class="editable" data-content="fee-4-title">Culinary Arts
+                    <span class="edit-tooltip" data-target="fee-4-title">✎</span>
+                </h3>
+                <p class="editable" data-content="fee-4-price">R2,200/year
+                    <span class="edit-tooltip" data-target="fee-4-price">✎</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form -->
+    <section class="section application" id="apply">
+        <div class="section-heading">
+            <h2 class="editable" data-content="apply-title">Apply Now
+                <span class="edit-tooltip" data-target="apply-title">✎</span>
+            </h2>
+            <p class="editable" data-content="apply-subtitle">Take the first step towards your future at SSAMC
+                <span class="edit-tooltip" data-target="apply-subtitle">✎</span>
+            </p>
+        </div>
+        <div class="application-form">
+            <form id="applicationForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label>Select Your Program</label>
+                    <div class="program-select">
+                        <div class="program-option" data-program="traditional-medicine">
+                            <h4>Traditional Medicine</h4>
+                            <p>R2,500/year</p>
+                        </div>
+                        <div class="program-option" data-program="herbalism">
+                            <h4>Herbalism</h4>
+                            <p>R2,000/year</p>
+                        </div>
+                        <div class="program-option" data-program="tailoring">
+                            <h4>Tailoring & Design</h4>
+                            <p>R1,800/year</p>
+                        </div>
+                        <div class="program-option" data-program="culinary">
+                            <h4>Culinary Arts</h4>
+                            <p>R2,200/year</p>
+                        </div>
+                    </div>
+                    <input type="hidden" id="selectedProgram" name="selectedProgram" required>
+                </div>
+                <div class="form-section">
+                    <h3>Payment Information</h3>
+                    <div class="banking-info">
+                        <p><strong>Bank:</strong> Standard Bank</p>
+                        <p><strong>Account Name:</strong> Sakhokuhle School of African Medicine</p>
+                        <p><strong>Account Number:</strong> 0123456789</p>
+                        <p><strong>Branch Code:</strong> 051001</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentProof">Upload Proof of Payment</label>
+                        <input type="file" id="paymentProof" name="paymentProof" accept="image/*,.pdf">
+                    </div>
+                </div>
+                <div class="terms">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the terms and conditions</label>
+                </div>
+                <button type="submit" class="cta-button">Submit Application</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="section-heading">
+            <h2 class="editable" data-content="contact-title">Contact Us
+                <span class="edit-tooltip" data-target="contact-title">✎</span>
+            </h2>
+            <p class="editable" data-content="contact-subtitle">Get in touch with us for more information
+                <span class="edit-tooltip" data-target="contact-subtitle">✎</span>
+            </p>
+        </div>
+        <div class="contact-details">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3 class="editable" data-content="address-title">Our Location
+                <span class="edit-tooltip" data-target="address-title">✎</span>
+            </h3>
+            <p class="editable" data-content="address-text">123 Education Street, Knowledge City, South Africa
+                <span class="edit-tooltip" data-target="address-text">✎</span>
+            </p>
+            <i class="fas fa-phone"></i>
+            <h3 class="editable" data-content="phone-title">Phone Number
+                <span class="edit-tooltip" data-target="phone-title">✎</span>
+            </h3>
+            <p class="editable" data-content="phone-text">+27 12 345 6789
+                <span class="edit-tooltip" data-target="phone-text">✎</span>
+            </p>
+            <i class="fas fa-envelope"></i>
+            <h3 class="editable" data-content="email-title">Email Address
+                <span class="edit-tooltip" data-target="email-title">✎</span>
+            </h3>
+            <p class="editable" data-content="email-text">info@ssamc.edu.za
+                <span class="edit-tooltip" data-target="email-text">✎</span>
+            </p>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="logo">
-                <i class="fas fa-leaf"></i> SSAMC
-            </div>
-            <p>Empowering communities through skills development and traditional healing practices</p>
+            <div class="logo">SSA<span>MC</span></div>
+            <p class="editable" data-content="footer-text">Empowering African communities through education and skills development
+                <span class="edit-tooltip" data-target="footer-text">✎</span>
+            </p>
             <div class="social-icons">
                 <a href="#"><i class="fab fa-facebook-f"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1918,758 +1413,789 @@
                 <a href="#"><i class="fab fa-linkedin-in"></i></a>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 Sakhokuhle Skills & African Medicine College. All rights reserved.</p>
+                <p>&copy; 2023 Sakhokuhle School of African Medicine and Crafting. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- Admin Login Modal -->
-    <div class="modal" id="loginModal">
+    <div class="modal" id="adminLoginModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Admin Login</h2>
-                <button class="close-modal">&times;</button>
+            <h2>Admin Login</h2>
+            <input type="email" id="adminEmail" placeholder="Email Address">
+            <input type="password" id="adminPassword" placeholder="Password">
+            <button id="loginBtn">Login</button>
+        </div>
+    </div>
+
+    <!-- Image Upload Modal -->
+    <div class="image-upload-modal" id="imageUploadModal">
+        <div class="image-upload-modal-content">
+            <h2>Add Image to Gallery</h2>
+            <div class="form-group">
+                <label for="imageTitle">Image Title</label>
+                <input type="text" id="imageTitle" placeholder="Enter image title">
             </div>
-            <div class="login-form">
-                <div class="form-group">
-                    <label for="loginEmail">Email Address</label>
-                    <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email">
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password">
-                </div>
-                <button id="loginSubmit" class="login-btn">Login</button>
+            <div class="form-group">
+                <label for="imageCategory">Category</label>
+                <select id="imageCategory">
+                    <option value="campus">Campus</option>
+                    <option value="students">Students</option>
+                    <option value="activities">Activities</option>
+                    <option value="graduation">Graduation</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="imageFile">Select Image</label>
+                <input type="file" id="imageFile" accept="image/*">
+                <img id="imagePreview" class="image-preview">
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <button id="saveImageBtn" style="flex: 1;">Save Image</button>
+                <button id="cancelImageBtn" style="flex: 1; background: var(--gray);">Cancel</button>
             </div>
         </div>
     </div>
 
-    <!-- Admin Dashboard -->
-    <div class="admin-container" id="adminDashboard">
-        <div class="admin-sidebar">
-            <div class="admin-sidebar-header">
-                <div class="logo">
-                    <i class="fas fa-leaf"></i> SSAMC <span>Admin</span>
-                </div>
-            </div>
-            <ul class="admin-nav">
-                <li><a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                <li><a href="#applications"><i class="fas fa-file-alt"></i> <span>Applications</span></a></li>
-                <li><a href="#programs-admin"><i class="fas fa-book"></i> <span>Programs</span></a></li>
-                <li><a href="#gallery-admin"><i class="fas fa-images"></i> <span>Gallery</span></a></li>
-                <li><a href="#content"><i class="fas fa-edit"></i> <span>Content</span></a></li>
-                <li><a href="#settings"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
-                <li><a href="#" id="adminLogoutBtn"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
-            </ul>
-        </div>
-        <div class="admin-main">
-            <div class="admin-header">
-                <h1>Admin Dashboard</h1>
-                <div class="admin-user">
-                    <img src="https://ui-avatars.com/api/?name=Admin&background=2A5C3C&color=ffffff" alt="Admin">
-                    <span>Admin</span>
-                    <div class="admin-user-menu">
-                        <a href="#profile">Profile</a>
-                        <a href="#" id="adminLogoutBtn2">Logout</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Dashboard Content -->
-            <div id="dashboard-content" class="tab-content active">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon blue">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
-                        <div class="stat-number" id="totalApplications">0</div>
-                        <div class="stat-title">Total Applications</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon green">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="stat-number" id="approvedApplications">0</div>
-                        <div class="stat-title">Approved</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon orange">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="stat-number" id="pendingApplications">0</div>
-                        <div class="stat-title">Pending</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon purple">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <div class="stat-number">6</div>
-                        <div class="stat-title">Active Programs</div>
-                    </div>
-                </div>
-
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <h2>Recent Applications</h2>
-                        <a href="#applications" class="btn btn-primary">View All</a>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="content-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Program</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recentApplicationsTable">
-                                <!-- Recent applications will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Applications Content -->
-            <div id="applications-content" class="tab-content">
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <h2>Applications Management</h2>
-                    </div>
-                    <div class="search-box">
-                        <input type="text" id="applicationSearch" placeholder="Search applications...">
-                        <button id="searchApplicationBtn">Search</button>
-                    </div>
-                    <div class="status-filter">
-                        <button class="active" data-status="all">All</button>
-                        <button data-status="pending">Pending</button>
-                        <button data-status="approved">Approved</button>
-                        <button data-status="rejected">Rejected</button>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="content-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Program</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="applicationsTable">
-                                <!-- Applications will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Programs Content -->
-            <div id="programs-content" class="tab-content">
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <h2>Programs Management</h2>
-                        <button class="btn btn-primary" id="addProgramBtn">Add Program</button>
-                    </div>
-                    <div class="programs-grid-admin">
-                        <!-- Programs will be loaded here -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Gallery Content -->
-            <div id="gallery-content" class="tab-content">
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <h2>Gallery Management</h2>
-                        <button class="btn btn-primary" id="addImageBtn">Add Image</button>
-                    </div>
-                    <div class="gallery-manager">
-                        <!-- Gallery images will be loaded here -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Content Management -->
-            <div id="content-content" class="tab-content">
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <h2>Content Management</h2>
-                    </div>
-                    <div class="tab-buttons">
-                        <button class="tab-btn active" data-tab="home-content">Home</button>
-                        <button class="tab-btn" data-tab="about-content">About</button>
-                        <button class="tab-btn" data-tab="contact-content">Contact</button>
-                    </div>
-                    
-                    <div id="home-content" class="tab-content active">
-                        <form id="homeContentForm">
-                            <div class="form-group">
-                                <label for="heroTitle">Hero Title</label>
-                                <input type="text" id="heroTitle" class="form-control" value="Sakhokuhle Skills & African Medicine College">
-                            </div>
-                            <div class="form-group">
-                                <label for="heroSubtitle">Hero Subtitle</label>
-                                <textarea id="heroSubtitle" class="form-control" rows="3">Empowering communities through skills development and traditional healing practices</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </form>
-                    </div>
-                    
-                    <div id="about-content" class="tab-content">
-                        <form id="aboutContentForm">
-                            <div class="form-group">
-                                <label for="aboutTitle">About Title</label>
-                                <input type="text" id="aboutTitle" class="form-control" value="About Our Institution">
-                            </div>
-                            <div class="form-group">
-                                <label for="aboutDescription">About Description</label>
-                                <textarea id="aboutDescription" class="form-control" rows="3">SSAMC is dedicated to preserving African traditional medicine while providing modern vocational training to empower individuals and communities.</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="missionText">Mission Text</label>
-                                <textarea id="missionText" class="form-control" rows="3">To provide accessible education in African traditional medicine and vocational skills that empower individuals to become self-sufficient and contribute to community development.</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="visionText">Vision Text</label>
-                                <textarea id="visionText" class="form-control" rows="3">A future where traditional African healing practices are preserved and integrated with modern vocational skills to create sustainable livelihoods across communities.</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="valuesText">Values Text</label>
-                                <textarea id="valuesText" class="form-control" rows="3">Respect for tradition, commitment to excellence, community empowerment, and sustainable development through education.</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </form>
-                    </div>
-                    
-                    <div id="contact-content" class="tab-content">
-                        <form id="contactContentForm">
-                            <div class="form-group">
-                                <label for="contactAddress">Address</label>
-                                <input type="text" id="contactAddress" class="form-control" value="123 Education Street, Knowledge City, 1234">
-                            </div>
-                            <div class="form-group">
-                                <label for="contactPhone">Phone</label>
-                                <input type="text" id="contactPhone" class="form-control" value="+27 12 345 6789">
-                            </div>
-                            <div class="form-group">
-                                <label for="contactEmail">Email</label>
-                                <input type="email" id="contactEmail" class="form-control" value="info@ssamc.co.za">
-                            </div>
-                            <div class="form-group">
-                                <label for="contactHours">Operating Hours</label>
-                                <textarea id="contactHours" class="form-control" rows="3">Monday - Friday: 8:00 AM - 5:00 PM&#10;Saturday: 9:00 AM - 1:00 PM</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Settings Content -->
-            <div id="settings-content" class="tab-content">
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <h2>Admin Settings</h2>
-                    </div>
-                    <form id="adminSettingsForm">
-                        <div class="form-group">
-                            <label for="adminEmail">Admin Email</label>
-                            <input type="email" id="adminEmail" class="form-control" value="admin@ssamc.co.za">
-                        </div>
-                        <div class="form-group">
-                            <label for="adminPassword">New Password</label>
-                            <input type="password" id="adminPassword" class="form-control" placeholder="Enter new password">
-                        </div>
-                        <div class="form-group">
-                            <label for="adminPasswordConfirm">Confirm New Password</label>
-                            <input type="password" id="adminPasswordConfirm" class="form-control" placeholder="Confirm new password">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </form>
-                </div>
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <h3>Admin Panel</h3>
+        <div class="admin-section">
+            <h4>Color Scheme</h4>
+            <div class="color-picker">
+                <div class="color-option active" style="background-color: #2A5C3C;" data-color="#2A5C3C"></div>
+                <div class="color-option" style="background-color: #8E44AD;" data-color="#8E44AD"></div>
+                <div class="color-option" style="background-color: #2980B9;" data-color="#2980B9"></div>
+                <div class="color-option" style="background-color: #C0392B;" data-color="#C0392B"></div>
+                <div class="color-option" style="background-color: #16A085;" data-color="#16A085"></div>
+                <div class="color-option" style="background-color: #2C3E50;" data-color="#2C3E50"></div>
             </div>
         </div>
+        <div class="admin-section">
+            <h4>Content Management</h4>
+            <p>Click on any text with the pencil icon to edit</p>
+        </div>
+        <div class="admin-section">
+            <h4>Image Management</h4>
+            <p>Add, edit, or delete images in the gallery section</p>
+        </div>
+        <div class="admin-section">
+            <h4>Application Management</h4>
+            <p>View and manage student applications</p>
+        </div>
+        <button id="logoutBtn" class="cta-button" style="width: 100%; margin-top: 2rem;">Logout</button>
     </div>
-
-    <!-- Toast Notification -->
-    <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toastMessage">Operation completed successfully</span>
-    </div>
-
-    <!-- Loading Spinner -->
-    <div class="spinner d-none" id="loadingSpinner"></div>
 
     <script>
-        // Firebase configuration and initialization is already in the head section
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDxbu4aKsLmxLXNiSYErenOom8uBWesn4o",
+            authDomain: "sakhokuhle-8a6a4.firebaseapp.com",
+            projectId: "sakhokuhle-8a6a4",
+            storageBucket: "sakhokuhle-8a6a4.firebasestorage.app",
+            messagingSenderId: "686457877947",
+            appId: "1:686457877947:web:60d56b00006e28e03f409e",
+            measurementId: "G-SFLDPXTJYV"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const storage = firebase.storage();
 
         // DOM Elements
         const adminLoginBtn = document.getElementById('adminLoginBtn');
-        const adminLoginBtnMobile = document.getElementById('adminLoginBtnMobile');
-        const loginModal = document.getElementById('loginModal');
-        const closeModal = document.querySelector('.close-modal');
-        const loginSubmit = document.getElementById('loginSubmit');
-        const adminDashboard = document.getElementById('adminDashboard');
-        const adminLogoutBtn = document.getElementById('adminLogoutBtn');
-        const adminLogoutBtn2 = document.getElementById('adminLogoutBtn2');
-        const mainContent = document.querySelector('.main-content');
-        const footer = document.querySelector('footer');
-        const toast = document.getElementById('toast');
-        const toastMessage = document.getElementById('toastMessage');
-        const loadingSpinner = document.getElementById('loadingSpinner');
+        const adminLoginModal = document.getElementById('adminLoginModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const adminToggle = document.getElementById('adminToggle');
+        const adminPanel = document.getElementById('adminPanel');
+        const editModeIndicator = document.getElementById('editModeIndicator');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const userAuth = document.getElementById('userAuth');
+        const addImageBtn = document.getElementById('addImageBtn');
+        const imageUploadModal = document.getElementById('imageUploadModal');
+        const saveImageBtn = document.getElementById('saveImageBtn');
+        const cancelImageBtn = document.getElementById('cancelImageBtn');
+        const imageFile = document.getElementById('imageFile');
+        const imagePreview = document.getElementById('imagePreview');
+        const galleryGrid = document.getElementById('galleryGrid');
+        const saveStatus = document.getElementById('saveStatus');
 
-        // Mobile menu functionality
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const mobileMenu = document.querySelector('.mobile-menu');
+        // State Variables
+        let currentUser = null;
+        let isEditMode = false;
+        let currentEditingElement = null;
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('show');
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('show');
+        // Initialize the application
+        function init() {
+            // Check if user is already logged in
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    currentUser = user;
+                    showAdminUI();
+                } else {
+                    hideAdminUI();
+                }
             });
-        });
 
-        // Show login modal
-        adminLoginBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginModal.style.display = 'flex';
-        });
+            // Load gallery images
+            loadGalleryImages();
 
-        adminLoginBtnMobile.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginModal.style.display = 'flex';
-        });
-
-        // Close modal
-        closeModal.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === loginModal) {
-                loginModal.style.display = 'none';
-            }
-        });
-
-        // Login functionality
-        loginSubmit.addEventListener('click', async () => {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            if (!email || !password) {
-                showToast('Please enter both email and password', 'error');
-                return;
-            }
-
-            showLoading(true);
-
-            try {
-                // Using Firebase Auth v9 modular syntax
-                await window.firebaseSignIn(window.firebaseAuth, email, password);
-                
-                showToast('Login successful!', 'success');
-                loginModal.style.display = 'none';
-                
-                // Show admin dashboard and hide main content
-                mainContent.style.display = 'none';
-                footer.style.display = 'none';
-                adminDashboard.style.display = 'block';
-                
-                // Initialize admin dashboard
-                initializeAdminDashboard();
-            } catch (error) {
-                console.error('Login error:', error);
-                showToast('Login failed: ' + error.message, 'error');
-            } finally {
-                showLoading(false);
-            }
-        });
-
-        // Logout functionality
-        const logout = async () => {
-            try {
-                await window.firebaseSignOut(window.firebaseAuth);
-                showToast('Logged out successfully', 'success');
-                
-                // Hide admin dashboard and show main content
-                adminDashboard.style.display = 'none';
-                mainContent.style.display = 'block';
-                footer.style.display = 'block';
-            } catch (error) {
-                console.error('Logout error:', error);
-                showToast('Logout failed: ' + error.message, 'error');
-            }
-        };
-
-        adminLogoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            logout();
-        });
-
-        adminLogoutBtn2.addEventListener('click', (e) => {
-            e.preventDefault();
-            logout();
-        });
-
-        // Admin user menu toggle
-        const adminUser = document.querySelector('.admin-user');
-        const adminUserMenu = document.querySelector('.admin-user-menu');
-
-        adminUser.addEventListener('click', () => {
-            adminUserMenu.classList.toggle('show');
-        });
-
-        // Close admin user menu when clicking elsewhere
-        document.addEventListener('click', (e) => {
-            if (!adminUser.contains(e.target)) {
-                adminUserMenu.classList.remove('show');
-            }
-        });
-
-        // Admin navigation
-        document.querySelectorAll('.admin-nav a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                // Remove active class from all links
-                document.querySelectorAll('.admin-nav a').forEach(item => {
-                    item.classList.remove('active');
-                });
-                
-                // Add active class to clicked link
-                link.classList.add('active');
-                
-                // Get target tab
-                const target = link.getAttribute('href').substring(1);
-                
-                // Hide all tab contents
-                document.querySelectorAll('.tab-content').forEach(tab => {
-                    tab.classList.remove('active');
-                });
-                
-                // Show target tab content
-                document.getElementById(`${target}-content`).classList.add('active');
-            });
-        });
-
-        // Tab buttons for content management
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                document.querySelectorAll('.tab-btn').forEach(item => {
-                    item.classList.remove('active');
-                });
-                
-                // Add active class to clicked button
-                btn.classList.add('active');
-                
-                // Get target tab
-                const target = btn.getAttribute('data-tab');
-                
-                // Hide all tab contents
-                document.querySelectorAll('.tab-content').forEach(tab => {
-                    tab.classList.remove('active');
-                });
-                
-                // Show target tab content
-                document.getElementById(target).classList.add('active');
-            });
-        });
-
-        // Program selection in application form
-        document.querySelectorAll('.program-option').forEach(option => {
-            option.addEventListener('click', () => {
-                // Remove selected class from all options
-                document.querySelectorAll('.program-option').forEach(item => {
-                    item.classList.remove('selected');
-                });
-                
-                // Add selected class to clicked option
-                option.classList.add('selected');
-                
-                // Set the selected program value
-                document.getElementById('selectedProgram').value = option.getAttribute('data-program');
-            });
-        });
-
-        // Application form submission
-        document.getElementById('applicationForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Basic form validation
-            const selectedProgram = document.getElementById('selectedProgram').value;
-            if (!selectedProgram) {
-                showToast('Please select a program', 'error');
-                return;
-            }
-            
-            if (!document.getElementById('agreeTerms').checked) {
-                showToast('Please agree to the terms and conditions', 'error');
-                return;
-            }
-            
-            showLoading(true);
-            
-            // Simulate form submission (in a real app, this would send data to a server)
-            setTimeout(() => {
-                showLoading(false);
-                showToast('Application submitted successfully! We will contact you soon.', 'success');
-                document.getElementById('applicationForm').reset();
-                document.querySelectorAll('.program-option').forEach(item => {
-                    item.classList.remove('selected');
-                });
-            }, 2000);
-        });
-
-        // Initialize admin dashboard
-        function initializeAdminDashboard() {
-            // Load applications data
-            loadApplicationsData();
-            
-            // Load programs data
-            loadProgramsData();
-            
-            // Load gallery data
-            loadGalleryData();
-            
-            // Set up content form submissions
-            setupContentForms();
+            // Set up event listeners
+            setupEventListeners();
         }
 
-        // Load applications data for admin
-        function loadApplicationsData() {
-            // In a real app, this would fetch data from Firebase
-            // For demo purposes, we'll use mock data
-            
-            const mockApplications = [
-                { id: 1, name: 'John Doe', program: 'African Medicine', email: 'john@example.com', phone: '0123456789', date: '2023-10-15', status: 'pending' },
-                { id: 2, name: 'Jane Smith', program: 'Basic Plumbing', email: 'jane@example.com', phone: '0123456789', date: '2023-10-14', status: 'approved' },
-                { id: 3, name: 'Mike Johnson', program: 'Welding', email: 'mike@example.com', phone: '0123456789', date: '2023-10-13', status: 'rejected' },
-                { id: 4, name: 'Sarah Williams', program: 'Soap Making', email: 'sarah@example.com', phone: '0123456789', date: '2023-10-12', status: 'pending' },
-                { id: 5, name: 'David Brown', program: 'Candle Making', email: 'david@example.com', phone: '0123456789', date: '2023-10-11', status: 'approved' }
-            ];
-            
-            // Update stats
-            document.getElementById('totalApplications').textContent = mockApplications.length;
-            document.getElementById('approvedApplications').textContent = mockApplications.filter(app => app.status === 'approved').length;
-            document.getElementById('pendingApplications').textContent = mockApplications.filter(app => app.status === 'pending').length;
-            
-            // Populate recent applications table
-            const recentApplicationsTable = document.getElementById('recentApplicationsTable');
-            recentApplicationsTable.innerHTML = '';
-            
-            mockApplications.slice(0, 5).forEach(app => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${app.name}</td>
-                    <td>${app.program}</td>
-                    <td>${app.date}</td>
-                    <td><span class="badge ${getStatusBadgeClass(app.status)}">${app.status}</span></td>
-                    <td>
-                        <button class="btn btn-sm btn-primary">View</button>
-                        <button class="btn btn-sm btn-${app.status === 'pending' ? 'success' : 'secondary'}">${app.status === 'pending' ? 'Approve' : 'Edit'}</button>
-                    </td>
-                `;
-                recentApplicationsTable.appendChild(row);
+        // Set up event listeners
+        function setupEventListeners() {
+            // Admin login
+            adminLoginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                adminLoginModal.style.display = 'flex';
             });
+
+            // Login button
+            loginBtn.addEventListener('click', handleLogin);
+
+            // Admin toggle
+            adminToggle.addEventListener('click', toggleAdminPanel);
+
+            // Logout button
+            logoutBtn.addEventListener('click', handleLogout);
+
+            // Color picker
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', changeColorScheme);
+            });
+
+            // Edit mode
+            document.querySelectorAll('.edit-tooltip').forEach(tooltip => {
+                tooltip.addEventListener('click', (e) => {
+                    if (isEditMode) {
+                        e.stopPropagation();
+                        const target = e.target.getAttribute('data-target');
+                        enableEditing(target);
+                    }
+                });
+            });
+
+            // Save content when focus is lost
+            document.addEventListener('click', (e) => {
+                if (currentEditingElement && !currentEditingElement.contains(e.target)) {
+                    saveContent();
+                }
+            });
+
+            // Add image button
+            addImageBtn.addEventListener('click', () => {
+                imageUploadModal.style.display = 'flex';
+            });
+
+            // Cancel image upload
+            cancelImageBtn.addEventListener('click', () => {
+                imageUploadModal.style.display = 'none';
+                resetImageUploadForm();
+            });
+
+            // Save image
+            saveImageBtn.addEventListener('click', uploadImage);
+
+            // Image file preview
+            imageFile.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Gallery category filtering
+            document.querySelectorAll('.gallery-categories button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    // Update active button
+                    document.querySelectorAll('.gallery-categories button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    e.target.classList.add('active');
+
+                    // Filter images
+                    const category = e.target.getAttribute('data-category');
+                    filterGalleryImages(category);
+                });
+            });
+
+            // Program selection
+            document.querySelectorAll('.program-option').forEach(option => {
+                option.addEventListener('click', (e) => {
+                    document.querySelectorAll('.program-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    e.currentTarget.classList.add('selected');
+                    document.getElementById('selectedProgram').value = e.currentTarget.getAttribute('data-program');
+                });
+            });
+
+            // Application form submission
+            document.getElementById('applicationForm').addEventListener('submit', handleApplicationSubmit);
+        }
+
+        // Handle admin login
+        function handleLogin() {
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    currentUser = userCredential.user;
+                    adminLoginModal.style.display = 'none';
+                    showAdminUI();
+                    showSaveStatus('Login successful!', 'success');
+                })
+                .catch((error) => {
+                    console.error('Login error:', error);
+                    showSaveStatus('Login failed. Please check your credentials.', 'error');
+                });
+        }
+
+        // Handle logout
+        function handleLogout() {
+            auth.signOut()
+                .then(() => {
+                    currentUser = null;
+                    hideAdminUI();
+                    showSaveStatus('Logged out successfully', 'success');
+                })
+                .catch((error) => {
+                    console.error('Logout error:', error);
+                });
+        }
+
+        // Show admin UI elements
+        function showAdminUI() {
+            adminToggle.style.display = 'flex';
+            editModeIndicator.style.display = 'block';
+            addImageBtn.style.display = 'inline-flex';
+            isEditMode = true;
+
+            // Update user auth section
+            userAuth.innerHTML = `
+                <div class="user-profile" id="userProfile">
+                    <div class="user-avatar">${currentUser.email.charAt(0).toUpperCase()}</div>
+                    <span>Admin</span>
+                </div>
+            `;
+
+            // Add user dropdown event
+            document.getElementById('userProfile').addEventListener('click', toggleUserDropdown);
+        }
+
+        // Hide admin UI elements
+        function hideAdminUI() {
+            adminToggle.style.display = 'none';
+            adminPanel.style.display = 'none';
+            editModeIndicator.style.display = 'none';
+            addImageBtn.style.display = 'none';
+            isEditMode = false;
+
+            // Reset user auth section
+            userAuth.innerHTML = `
+                <a href="#" class="admin-login" id="adminLoginBtn">Admin Login</a>
+            `;
             
-            // Populate full applications table
-            const applicationsTable = document.getElementById('applicationsTable');
-            applicationsTable.innerHTML = '';
-            
-            mockApplications.forEach(app => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${app.name}</td>
-                    <td>${app.program}</td>
-                    <td>${app.email}</td>
-                    <td>${app.phone}</td>
-                    <td>${app.date}</td>
-                    <td><span class="badge ${getStatusBadgeClass(app.status)}">${app.status}</span></td>
-                    <td>
-                        <button class="btn btn-sm btn-primary">View</button>
-                        <button class="btn btn-sm btn-${app.status === 'pending' ? 'success' : 'secondary'}">${app.status === 'pending' ? 'Approve' : 'Edit'}</button>
-                        <button class="btn btn-sm btn-danger">Delete</button>
-                    </td>
-                `;
-                applicationsTable.appendChild(row);
+            // Reattach event listener
+            document.getElementById('adminLoginBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                adminLoginModal.style.display = 'flex';
             });
         }
 
-        // Load programs data for admin
-        function loadProgramsData() {
-            const programs = [
-                { name: 'African Medicine', description: '6-month certification program in traditional healing practices and herbal medicine.', fee: 'R2100', duration: '6 months' },
-                { name: 'Basic Plumbing', description: '6-month vocational training in residential and commercial plumbing systems.', fee: 'R2100', duration: '6 months' },
-                { name: 'Welding', description: '6-month metalwork certification focusing on various welding techniques.', fee: 'R2100', duration: '6 months' },
-                { name: 'Soap Making', description: '6-month artisanal production course for natural and commercial soap products.', fee: 'R2100', duration: '6 months' },
-                { name: 'Candle Making', description: '6-month creative design course for decorative and aromatic candles.', fee: 'R2100', duration: '6 months' },
-                { name: 'Sewing', description: '6-month garment construction program for fashion and textile skills.', fee: 'R2100', duration: '6 months' }
-            ];
-            
-            const programsGrid = document.querySelector('.programs-grid-admin');
-            programsGrid.innerHTML = '';
-            
-            programs.forEach(program => {
-                const programCard = document.createElement('div');
-                programCard.className = 'admin-card';
-                programCard.innerHTML = `
-                    <div class="admin-card-header">
-                        <h3>${program.name}</h3>
-                        <div>
-                            <button class="btn btn-sm btn-primary">Edit</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                        </div>
-                    </div>
-                    <p><strong>Description:</strong> ${program.description}</p>
-                    <p><strong>Fee:</strong> ${program.fee}</p>
-                    <p><strong>Duration:</strong> ${program.duration}</p>
-                `;
-                programsGrid.appendChild(programCard);
-            });
-        }
-
-        // Load gallery data for admin
-        function loadGalleryData() {
-            // In a real app, this would fetch images from Firebase Storage
-            // For demo purposes, we'll use placeholder images
-            
-            const galleryManager = document.querySelector('.gallery-manager');
-            galleryManager.innerHTML = '';
-            
-            // Add placeholder images
-            for (let i = 1; i <= 6; i++) {
-                const galleryItem = document.createElement('div');
-                galleryItem.className = 'gallery-item-admin';
-                galleryItem.innerHTML = `
-                    <img src="https://via.placeholder.com/150" alt="Gallery Image ${i}">
-                    <div class="gallery-item-admin-actions">
-                        <button class="gallery-item-admin-btn"><i class="fas fa-edit"></i></button>
-                        <button class="gallery-item-admin-btn"><i class="fas fa-trash"></i></button>
-                    </div>
-                `;
-                galleryManager.appendChild(galleryItem);
+        // Toggle admin panel
+        function toggleAdminPanel() {
+            if (adminPanel.style.display === 'block') {
+                adminPanel.style.display = 'none';
+            } else {
+                adminPanel.style.display = 'block';
             }
         }
 
-        // Set up content form submissions
-        function setupContentForms() {
-            // Home content form
-            document.getElementById('homeContentForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                showToast('Home content updated successfully', 'success');
-            });
-            
-            // About content form
-            document.getElementById('aboutContentForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                showToast('About content updated successfully', 'success');
-            });
-            
-            // Contact content form
-            document.getElementById('contactContentForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                showToast('Contact content updated successfully', 'success');
-            });
-            
-            // Admin settings form
-            document.getElementById('adminSettingsForm').addEventListener('submit', (e) => {
-                e.preventDefault();
+        // Toggle user dropdown
+        function toggleUserDropdown() {
+            const dropdown = document.querySelector('.user-dropdown');
+            if (!dropdown) {
+                const newDropdown = document.createElement('div');
+                newDropdown.className = 'user-dropdown active';
+                newDropdown.innerHTML = `
+                    <a href="#" id="profileLink">Profile</a>
+                    <a href="#" id="logoutLink">Logout</a>
+                `;
+                userAuth.appendChild(newDropdown);
                 
-                const password = document.getElementById('adminPassword').value;
-                const passwordConfirm = document.getElementById('adminPasswordConfirm').value;
+                // Add event listeners
+                document.getElementById('logoutLink').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    handleLogout();
+                    newDropdown.remove();
+                });
                 
-                if (password && password !== passwordConfirm) {
-                    showToast('Passwords do not match', 'error');
-                    return;
+                document.getElementById('profileLink').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    newDropdown.remove();
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!userAuth.contains(e.target)) {
+                        newDropdown.remove();
+                    }
+                });
+            } else {
+                dropdown.remove();
+            }
+        }
+
+        // Change color scheme
+        function changeColorScheme(e) {
+            const color = e.target.getAttribute('data-color');
+            
+            // Update active color
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            e.target.classList.add('active');
+            
+            // Update CSS variables
+            document.documentElement.style.setProperty('--primary', color);
+            
+            // Save to Firebase
+            if (currentUser) {
+                db.collection('siteSettings').doc('colorScheme').set({
+                    primaryColor: color,
+                    updatedBy: currentUser.uid,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                })
+                .then(() => {
+                    showSaveStatus('Color scheme updated!', 'success');
+                })
+                .catch((error) => {
+                    console.error('Error saving color scheme:', error);
+                    showSaveStatus('Error updating color scheme', 'error');
+                });
+            }
+        }
+
+        // Enable editing for a content element
+        function enableEditing(target) {
+            const element = document.querySelector(`[data-content="${target}"]`);
+            if (element) {
+                // Save current content
+                const currentContent = element.innerHTML.replace(/<span class="edit-tooltip[^>]*>✎<\/span>/, '');
+                
+                // Create editable element
+                element.contentEditable = true;
+                element.focus();
+                
+                // Highlight the element
+                element.style.backgroundColor = 'rgba(212, 160, 23, 0.1)';
+                element.style.outline = '2px dashed var(--secondary)';
+                
+                currentEditingElement = element;
+                
+                // Remove edit tooltip temporarily
+                const tooltip = element.querySelector('.edit-tooltip');
+                if (tooltip) {
+                    tooltip.style.display = 'none';
                 }
                 
-                showToast('Admin settings updated successfully', 'success');
-                document.getElementById('adminPassword').value = '';
-                document.getElementById('adminPasswordConfirm').value = '';
-            });
-        }
-
-        // Helper function to get status badge class
-        function getStatusBadgeClass(status) {
-            switch (status) {
-                case 'approved': return 'badge-success';
-                case 'pending': return 'badge-warning';
-                case 'rejected': return 'badge-danger';
-                default: return 'badge-info';
+                // Add event listener for Enter key to save
+                element.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        saveContent();
+                    }
+                });
             }
         }
 
-        // Show toast notification
-        function showToast(message, type = 'success') {
-            toastMessage.textContent = message;
-            toast.className = `toast ${type}`;
-            toast.classList.add('show');
+        // Save content changes
+        function saveContent() {
+            if (currentEditingElement) {
+                const target = currentEditingElement.getAttribute('data-content');
+                const newContent = currentEditingElement.innerHTML;
+                
+                // Restore edit tooltip
+                const tooltip = document.createElement('span');
+                tooltip.className = 'edit-tooltip';
+                tooltip.setAttribute('data-target', target);
+                tooltip.textContent = '✎';
+                tooltip.addEventListener('click', (e) => {
+                    if (isEditMode) {
+                        e.stopPropagation();
+                        enableEditing(target);
+                    }
+                });
+                
+                currentEditingElement.innerHTML = newContent + ' ';
+                currentEditingElement.appendChild(tooltip);
+                
+                // Remove editing styles
+                currentEditingElement.contentEditable = false;
+                currentEditingElement.style.backgroundColor = '';
+                currentEditingElement.style.outline = '';
+                
+                // Save to Firebase
+                if (currentUser) {
+                    db.collection('siteContent').doc(target).set({
+                        content: newContent.replace(/<span class="edit-tooltip[^>]*>✎<\/span>/, ''),
+                        updatedBy: currentUser.uid,
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    })
+                    .then(() => {
+                        showSaveStatus('Content saved!', 'success');
+                    })
+                    .catch((error) => {
+                        console.error('Error saving content:', error);
+                        showSaveStatus('Error saving content', 'error');
+                    });
+                }
+                
+                currentEditingElement = null;
+            }
+        }
+
+        // Load gallery images from Firebase
+        function loadGalleryImages() {
+            db.collection('galleryImages').orderBy('createdAt', 'desc').get()
+                .then((querySnapshot) => {
+                    galleryGrid.innerHTML = '';
+                    querySnapshot.forEach((doc) => {
+                        const image = doc.data();
+                        addImageToGallery(doc.id, image);
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error loading gallery images:', error);
+                });
+        }
+
+        // Add image to gallery
+        function addImageToGallery(id, image) {
+            const imageItem = document.createElement('div');
+            imageItem.className = `gallery-item image-management`;
+            imageItem.setAttribute('data-category', image.category);
+            
+            imageItem.innerHTML = `
+                <img src="${image.url}" alt="${image.title}">
+                <div class="gallery-caption">${image.title}</div>
+                ${currentUser ? `
+                <div class="image-controls">
+                    <div class="image-control-btn edit-image" data-id="${id}">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <div class="image-control-btn delete-image" data-id="${id}">
+                        <i class="fas fa-trash"></i>
+                    </div>
+                </div>
+                ` : ''}
+            `;
+            
+            galleryGrid.appendChild(imageItem);
+            
+            // Add event listeners for admin controls
+            if (currentUser) {
+                const deleteBtn = imageItem.querySelector('.delete-image');
+                const editBtn = imageItem.querySelector('.edit-image');
+                
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteImage(id, image.url);
+                });
+                
+                editBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    editImage(id, image);
+                });
+            }
+        }
+
+        // Filter gallery images by category
+        function filterGalleryImages(category) {
+            const images = document.querySelectorAll('.gallery-item');
+            
+            images.forEach(image => {
+                if (category === 'all' || image.getAttribute('data-category') === category) {
+                    image.style.display = 'block';
+                } else {
+                    image.style.display = 'none';
+                }
+            });
+        }
+
+        // Upload image to gallery
+        function uploadImage() {
+            const title = document.getElementById('imageTitle').value;
+            const category = document.getElementById('imageCategory').value;
+            const file = imageFile.files[0];
+            
+            if (!title || !file) {
+                showSaveStatus('Please provide both title and image', 'error');
+                return;
+            }
+            
+            // Create a reference to the file location
+            const storageRef = storage.ref();
+            const imageRef = storageRef.child(`gallery/${Date.now()}_${file.name}`);
+            
+            // Upload the file
+            const uploadTask = imageRef.put(file);
+            
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // Progress monitoring can be added here
+                },
+                (error) => {
+                    console.error('Upload error:', error);
+                    showSaveStatus('Error uploading image', 'error');
+                },
+                () => {
+                    // Get download URL
+                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        // Save to Firestore
+                        db.collection('galleryImages').add({
+                            title: title,
+                            category: category,
+                            url: downloadURL,
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            createdBy: currentUser.uid
+                        })
+                        .then((docRef) => {
+                            imageUploadModal.style.display = 'none';
+                            resetImageUploadForm();
+                            showSaveStatus('Image uploaded successfully!', 'success');
+                            
+                            // Add to gallery
+                            addImageToGallery(docRef.id, {
+                                title: title,
+                                category: category,
+                                url: downloadURL
+                            });
+                        })
+                        .catch((error) => {
+                            console.error('Error saving image data:', error);
+                            showSaveStatus('Error saving image data', 'error');
+                        });
+                    });
+                }
+            );
+        }
+
+        // Delete image from gallery
+        function deleteImage(id, imageUrl) {
+            if (confirm('Are you sure you want to delete this image?')) {
+                // Delete from Firestore
+                db.collection('galleryImages').doc(id).delete()
+                    .then(() => {
+                        // Delete from Storage
+                        const imageRef = storage.refFromURL(imageUrl);
+                        return imageRef.delete();
+                    })
+                    .then(() => {
+                        // Remove from DOM
+                        document.querySelector(`[data-id="${id}"]`).closest('.gallery-item').remove();
+                        showSaveStatus('Image deleted successfully!', 'success');
+                    })
+                    .catch((error) => {
+                        console.error('Error deleting image:', error);
+                        showSaveStatus('Error deleting image', 'error');
+                    });
+            }
+        }
+
+        // Edit image details
+        function editImage(id, image) {
+            // For simplicity, we'll just allow deleting and re-uploading
+            // In a real application, you would create a proper edit form
+            document.getElementById('imageTitle').value = image.title;
+            document.getElementById('imageCategory').value = image.category;
+            imageUploadModal.style.display = 'flex';
+            
+            // Change save button to update
+            saveImageBtn.textContent = 'Update Image';
+            saveImageBtn.onclick = () => updateImage(id, image.url);
+        }
+
+        // Update image details
+        function updateImage(id, oldImageUrl) {
+            const title = document.getElementById('imageTitle').value;
+            const category = document.getElementById('imageCategory').value;
+            const file = imageFile.files[0];
+            
+            if (!title) {
+                showSaveStatus('Please provide a title', 'error');
+                return;
+            }
+            
+            if (file) {
+                // If a new file is selected, upload it first
+                const storageRef = storage.ref();
+                const imageRef = storageRef.child(`gallery/${Date.now()}_${file.name}`);
+                
+                const uploadTask = imageRef.put(file);
+                
+                uploadTask.on('state_changed',
+                    null,
+                    (error) => {
+                        console.error('Upload error:', error);
+                        showSaveStatus('Error uploading image', 'error');
+                    },
+                    () => {
+                        // Get download URL
+                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                            // Update Firestore with new URL
+                            updateImageInFirestore(id, title, category, downloadURL, oldImageUrl);
+                        });
+                    }
+                );
+            } else {
+                // Just update the title and category
+                updateImageInFirestore(id, title, category, oldImageUrl);
+            }
+        }
+
+        // Update image in Firestore
+        function updateImageInFirestore(id, title, category, url, oldImageUrl = null) {
+            db.collection('galleryImages').doc(id).update({
+                title: title,
+                category: category,
+                url: url,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                updatedBy: currentUser.uid
+            })
+            .then(() => {
+                // Delete old image if a new one was uploaded
+                if (oldImageUrl && oldImageUrl !== url) {
+                    const oldImageRef = storage.refFromURL(oldImageUrl);
+                    oldImageRef.delete().catch(error => {
+                        console.error('Error deleting old image:', error);
+                    });
+                }
+                
+                imageUploadModal.style.display = 'none';
+                resetImageUploadForm();
+                showSaveStatus('Image updated successfully!', 'success');
+                
+                // Reload gallery to reflect changes
+                loadGalleryImages();
+            })
+            .catch((error) => {
+                console.error('Error updating image:', error);
+                showSaveStatus('Error updating image', 'error');
+            });
+        }
+
+        // Reset image upload form
+        function resetImageUploadForm() {
+            document.getElementById('imageTitle').value = '';
+            document.getElementById('imageCategory').value = 'campus';
+            document.getElementById('imageFile').value = '';
+            imagePreview.style.display = 'none';
+            saveImageBtn.textContent = 'Save Image';
+            saveImageBtn.onclick = uploadImage;
+        }
+
+        // Handle application form submission
+        function handleApplicationSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const application = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                address: formData.get('address'),
+                program: formData.get('selectedProgram'),
+                submittedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            
+            // Save application to Firebase
+            db.collection('applications').add(application)
+                .then(() => {
+                    showSaveStatus('Application submitted successfully!', 'success');
+                    e.target.reset();
+                    document.querySelectorAll('.program-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error submitting application:', error);
+                    showSaveStatus('Error submitting application', 'error');
+                });
+        }
+
+        // Show save status message
+        function showSaveStatus(message, type) {
+            saveStatus.textContent = message;
+            saveStatus.className = 'save-status ' + type;
+            saveStatus.style.display = 'block';
             
             setTimeout(() => {
-                toast.classList.remove('show');
+                saveStatus.style.display = 'none';
             }, 3000);
         }
 
-        // Show/hide loading spinner
-        function showLoading(show) {
-            if (show) {
-                loadingSpinner.classList.remove('d-none');
-            } else {
-                loadingSpinner.classList.add('d-none');
-            }
+        // Load saved content and settings
+        function loadSavedData() {
+            // Load color scheme
+            db.collection('siteSettings').doc('colorScheme').get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const color = doc.data().primaryColor;
+                        document.documentElement.style.setProperty('--primary', color);
+                        
+                        // Update active color option
+                        document.querySelectorAll('.color-option').forEach(option => {
+                            if (option.getAttribute('data-color') === color) {
+                                option.classList.add('active');
+                            } else {
+                                option.classList.remove('active');
+                            }
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error loading color scheme:', error);
+                });
+            
+            // Load content
+            db.collection('siteContent').get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        const element = document.querySelector(`[data-content="${doc.id}"]`);
+                        if (element) {
+                            // Preserve the edit tooltip
+                            const tooltip = element.querySelector('.edit-tooltip');
+                            if (tooltip) {
+                                element.innerHTML = doc.data().content + ' ';
+                                element.appendChild(tooltip);
+                            } else {
+                                element.innerHTML = doc.data().content;
+                            }
+                        }
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error loading content:', error);
+                });
         }
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Gallery filtering
-        document.querySelectorAll('.gallery-categories button').forEach(button => {
-            button.addEventListener('click', function() {
-                // Remove active class from all buttons
-                document.querySelectorAll('.gallery-categories button').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                
-                // Add active class to clicked button
-                this.classList.add('active');
-                
-                // In a real app, this would filter the gallery items
-                // For demo purposes, we'll just show a message
-                showToast(`Showing ${this.textContent} gallery items`, 'success');
-            });
-        });
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Any initialization code that needs to run when the page loads
-            console.log('SSAMC website loaded successfully');
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+            loadSavedData();
         });
     </script>
 </body>
